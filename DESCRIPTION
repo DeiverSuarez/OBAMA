@@ -1,0 +1,34 @@
+Package: OBAMA
+Title: Optimization Based Analysis of Micro Arrays
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Deiver",
+           family = "Suarez Gomez",
+           role = c("aut", "cre"),
+           email = "deiver.suarez@upr.com")
+Description: It allows the user to interactively analyze individual conditions and meta-analyze up to five databases.
+License: MIT + file LICENSE
+Imports: 
+    config (>= 0.3),
+    golem (>= 0.3.0),
+    shiny (>= 1.5.0),
+    processx,
+    attempt,
+    DT,
+    glue,
+    htmltools,
+    plotly,
+    ggplot2,
+    vroom,
+    shinycssloaders,
+    magrittr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+Depends: 
+    R (>= 2.10)
+VignetteBuilder: knitr

@@ -1,0 +1,45 @@
+
+# OBAMA
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+Optimization Based Analysis of Micro Arrays. It allows the user to interactively analyze individual conditions and meta-analyze up to five databases.
+
+## Installation
+
+You can install the released version of OBAMA from with:
+
+``` r
+#Step 1: Install golem from GitHub
+devtools::install_github("Thinkr-open/golem")
+
+#Step 2: Install OBAMA
+devtools::install_bitbucket("DeiverSuarez/obama-package", 
+                            auth_user = "DeiverSuarez", 
+                            password = rstudioapi::askForPassword())      
+```
+
+or 
+
+
+``` r
+#Step 1: Install golem from GitHub
+remotes::install_github("Thinkr-open/golem")
+
+#Step 2: Install OBAMA
+remotes::install_bitbucket("DeiverSuarez/obama-package", 
+                            auth_user = "DeiverSuarez", 
+                            password = rstudioapi::askForPassword())
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(OBAMA)
+run_app
+```
+
