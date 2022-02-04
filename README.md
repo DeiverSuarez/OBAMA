@@ -12,13 +12,9 @@ Optimization Based Analysis of Micro Arrays. It allows the user to interactively
 You can install the released version of OBAMA from with:
 
 ``` r
-#Step 1: Install golem from GitHub
-devtools::install_github("Thinkr-open/golem")
 
-#Step 2: Install OBAMA
-devtools::install_bitbucket("DeiverSuarez/obama-package", 
-                            auth_user = "DeiverSuarez", 
-                            password = rstudioapi::askForPassword())      
+# Install OBAMA
+devtools::install_github("DeiverSuarez/OBAMA")      
 ```
 
 or 
