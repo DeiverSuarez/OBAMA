@@ -17,19 +17,6 @@ You can install the released version of OBAMA from with:
 devtools::install_github("DeiverSuarez/OBAMA")      
 ```
 
-or 
-
-
-``` r
-#Step 1: Install golem from GitHub
-remotes::install_github("Thinkr-open/golem")
-
-#Step 2: Install OBAMA
-remotes::install_bitbucket("DeiverSuarez/obama-package", 
-                            auth_user = "DeiverSuarez", 
-                            password = rstudioapi::askForPassword())
-```
-
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
