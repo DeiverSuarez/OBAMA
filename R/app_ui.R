@@ -13,7 +13,10 @@ app_ui <- function(request) {
     fluidPage(
       #h1("OBAMA"),
       navbarPage("OBAMA",
-        tabPanel("Home",icon = icon("home", lib = "glyphicon")),
+                 tabPanel("Home",icon = icon("home", lib = "glyphicon"),
+                          htmltools::includeHTML(
+                            system.file("app/www/home.html", package = "OBAMA")
+                          )),
         navbarMenu("MCO",
           tabPanel("Individual analysis",
                    mod_Individuals_ui("Individuals_ui_1")
