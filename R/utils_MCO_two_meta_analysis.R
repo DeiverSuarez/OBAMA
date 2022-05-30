@@ -10,11 +10,11 @@ MCO_two_meta_analysis <- function(data1, data2 , NF, M1, M2){
   wnv_e11=wnv_e1[,interAllPD]
   wnv_e22=wnv_e2[,interAllPD]
   #
-  wnv1=wnv_e11[order(wnv_e11$disease.state),]
+  wnv1=wnv_e11[order(wnv_e11[,2]),]
   wnv11=data.frame(t(wnv1[,-c(1,2)]))
   names(wnv11)=wnv1[,1]
   #
-  wnv12=wnv_e22[order(wnv_e22$disease.state),]
+  wnv12=wnv_e22[order(wnv_e22[,2]),]
   wnv112=data.frame(t(wnv12[,-c(1,2)]))
   names(wnv112)=wnv12[,1]
   

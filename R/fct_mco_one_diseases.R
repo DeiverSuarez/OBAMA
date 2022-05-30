@@ -1,27 +1,30 @@
-#' mco_one_diseases Function
+#' MCO one diseases 
 #' 
-#' @description It generates a augmented randomized complete block design (ARCBD).
-#'
-#' @param data treatments, number of new lines for test.
-#' @param NF number of checks per augmented block.
-#' @param measurePM1 number of blocks (Augmented blocks).
-#' @param measurePM2 serpentine or cartesian. serpentine by default.
-#' @param q1 esto
-#' @param q2 esto...
-#' @return List of parameters with information about of number of blocks, treatments, vector of treatments,
-#' number of sites, plot numbers, locations names and the seed number.
 #' 
-#' @return RCBD layout
+#' @description This function models a macroarray or RNA-seq gene expression dataset, 
+#' generating a list of genes with maximal changes in expression. 
+#' @param data Gene expression data set.
+#' @param NF Number of frontiers Pareto-efficient.
+#' @param measurePM1 One performance measures (1 = mean, 2 = median, 3 = quantail)
+#' @param measurePM2 Two performance measures (1 = mean, 2 = median, 3 = quantail)
+#' @param q1 if measurePM1 = 3, q1 take the value of the quantile, for examnple q1 = 75.
+#' @param q2 if measurePM2 = 3, q2 take the value of the quantile, for examnple q1 = 95.
+#' @return  list of genes with maximum expression changes belonging to each Pareto efficient frontier,
+#'a plot of the Pareto efficient frontiers with the maximum expression genes.
+#' 
+#' 
 #' 
 #' @author 
-#' Deiver Suarez Gomez
+#' 
 #' 
 #' @references Citar articulo
 #' 
 #' 
 #' @examples 
 #' # Example1: El siguiente ejemplo...
-#' m1 <- mco_one_diseases(data = dataExample, 
+#' library(OBAMA)
+#' X <- dataExample
+#' m1 <- mco_one_diseases(data = X, 
 #'                        NF = 5, 
 #'                        measurePM1 = 1, 
 #'                        measurePM2 = 2, 
