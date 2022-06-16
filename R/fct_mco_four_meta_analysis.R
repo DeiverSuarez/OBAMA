@@ -1,21 +1,41 @@
-#' @param data treatments, number of new lines for test.
-#' @param NF number of checks per augmented block.
-#' @param p number of blocks (Augmented blocks).
-#' @param q1 esto.
-#' @return List of parameters with information about of number of blocks, treatments, vector of treatments,
-#' number of sites, plot numbers, locations names and the seed number.
-#' 
-#' @return RCBD layout
-#' 
-#' @author 
-#' Deiver Suarez Gomez
-#' 
-#' @references Citar articulo
-#' 
-#' 
-#' @examples 
-#' # Example1: El siguiente ejemplo...
-#' 
+#' mco_two_meta_diseases Function
+#'
+#' @description This function models two macroarray or RNA-seq gene expression datasets,
+#' generating a list of genes with maximal changes in expression.
+
+#' @param data1 Gene expression data set.Gene expression data set.
+#' @param data2 Gene expression data set.Gene expression data set.
+#' @param data3 Gene expression data set.Gene expression data set.
+#' @param NF Number of frontiers Pareto-efficient.
+#' @param measurePM_m Three performance measures (1 = mean, 2 = median, 3 = quantail).
+#' @param q if measurePM_m = 3, q take the value of the quantile, for examnple q1 = 75.
+#'
+#' @author Deiver Suárez-Gómez [aut],
+#'         Isis Narváez-Bandera [aut],
+#'         Clara E. Isaza1 [aut],
+#'         Mauricio Cabrera-Ríos1 [aut]  
+#'        
+#' @return A list with 2 elements.
+#' \itemize{
+#' \item \code{GeneFrontier} is a genes list with maximum expression changes belonging to each Pareto efficient frontier.
+#' \item \code{PlotFrontier} is a 3D plot of the Pareto efficient frontiers with the maximum expression genes.
+#'
+#' }        
+#'
+#' @references [1] Camacho-Cáceres, K. I. et al. Multiple criteria optimization joint analyses of microarray experiments in lung cancer: from existing microarray data to new knowledge. Cancer Med. 4, 1884–1900 (2015).
+#'             [2] Narváez-Bandera, I., Suárez-Gómez, D., Isaza, C. E. & Cabrera-Ríos, M. Multiple Criteria Optimization (MCO): A gene selection deterministic tool in RStudio. PLoS One 17, e0262890 (2022).
+#'
+#'
+#' @examples
+#' # Example5: El siguiente ejemplo...
+#' #' m1 <- mco_four_meta_analysis(data1 = dataExample1,
+#'                        data2 = dataExample2,
+#'                        data3 = dataExample2,
+#'                        NF = 3,
+#'                        measurePM_m = 1,
+#'                        q = NULL)
+#'
+#'
 #' @export
 mco_four_meta_analysis <- function(data1 = NULL, data2 = NULL, data3 = NULL, data4 = NULL, NF, measurePM_m = NULL, q = NULL) {
  

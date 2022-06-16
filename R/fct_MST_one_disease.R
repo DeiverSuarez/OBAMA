@@ -1,23 +1,29 @@
-#' @param data_expresio treatments, number of new lines for test.
-#' @param data_gene number of checks per augmented block.
-#' @param p number of blocks (Augmented blocks).
-#' @param q1 esto.
-#' @return List of parameters with information about of number of blocks, treatments, vector of treatments,
-#' number of sites, plot numbers, locations names and the seed number.
-#' 
-#' @return RCBD layout
-#' 
-#' @author 
-#' 
-#' 
-#' @references Citar articulo
-#' 
-#' 
-#' @examples 
-#' # Example1: El siguiente ejemplo...
-#' 
+#' MST_one_disease Function
+#'
+#' @description This function find the most correlated acyclic path between gene
+#' changes based on the pairwise Pearson correlation coefficient using one omics datasets.
+#'
+#' @param data_expresion Gene expression data set.Gene expression data set.
+#' @param data_gene list of genes with maximal changes in expression.
+#'
+#'
+#' @author Deiver Suárez-Gómez [aut],
+#'         Isis Narváez-Bandera [aut],
+#'         Clara E. Isaza1 [aut],
+#'         Mauricio Cabrera-Ríos1 [aut]  
+#'        
+#' @return is a maximum correlation between gene pairs.
+#'          
+#' @references Isaza, C. et al. Biological signaling pathways and potential mathematical network representations: biological discovery through optimization. Cancer Med. 7, 1875–1895 (2018).
+#
+#'  
+#' @examples
+#' # Example7: El siguiente ejemplo...
+#' #' m1 <- MST_one_disease(data_expresion = dataExample1,
+#'                        data_gene = geneList)
+#'
+#'
 #' @export
-
 MST_one_disease <- function(data_expresio = NULL, data_gene = NULL) {
   
   geo.final62333 <- data_expresio 
@@ -66,7 +72,7 @@ MST_one_disease <- function(data_expresio = NULL, data_gene = NULL) {
     data.frame(
       row = rownames(cormat)[row(cormat)[ut]],
       column = rownames(cormat)[col(cormat)[ut]],
-      cor  =(cormat)[ut]
+      cor  = (cormat)[ut]
     )
   }
   arcosFem = flattenCorrMatrix(transforFem)
