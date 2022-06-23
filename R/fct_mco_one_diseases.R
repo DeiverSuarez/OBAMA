@@ -14,10 +14,13 @@
 #' 
 #' 
 #' 
-#' @author 
+#' @author Deiver Suárez-Gómez [aut],
+#'         Isis Narváez-Bandera [aut],
+#'         Clara E. Isaza [aut],
+#'         Mauricio Cabrera-Ríos [aut]  
 #' 
-#' 
-#' @references Citar articulo
+#' @references [1] Camacho-Cáceres, K. I. et al. Multiple criteria optimization joint analyses of microarray experiments in lung cancer: from existing microarray data to new knowledge. Cancer Med. 4, 1884–1900 (2015).
+#'             [2] Narváez-Bandera, I., Suárez-Gómez, D., Isaza, C. E. & Cabrera-Ríos, M. Multiple Criteria Optimization (MCO): A gene selection deterministic tool in RStudio. PLoS One 17, e0262890 (2022).
 #' 
 #' 
 #' @examples 
