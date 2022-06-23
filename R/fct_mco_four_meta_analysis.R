@@ -1,4 +1,4 @@
-#' mco_two_meta_diseases Function
+#' mco_four_meta_analysis
 #'
 #' @description This function models two macroarray or RNA-seq gene expression datasets,
 #' generating a list of genes with maximal changes in expression.
@@ -6,14 +6,15 @@
 #' @param data1 Gene expression data set.Gene expression data set.
 #' @param data2 Gene expression data set.Gene expression data set.
 #' @param data3 Gene expression data set.Gene expression data set.
+#' @param data4 Gene expression data set.Gene expression data set.
 #' @param NF Number of frontiers Pareto-efficient.
 #' @param measurePM_m Three performance measures (1 = mean, 2 = median, 3 = quantail).
 #' @param q if measurePM_m = 3, q take the value of the quantile, for examnple q1 = 75.
 #'
 #' @author Deiver Suárez-Gómez [aut],
 #'         Isis Narváez-Bandera [aut],
-#'         Clara E. Isaza1 [aut],
-#'         Mauricio Cabrera-Ríos1 [aut]  
+#'         Clara E. Isaza [aut],
+#'         Mauricio Cabrera-Ríos [aut]  
 #'        
 #' @return A list with 2 elements.
 #' \itemize{
@@ -30,7 +31,8 @@
 #' # Example5: El siguiente ejemplo...
 #' #' m1 <- mco_four_meta_analysis(data1 = dataExample1,
 #'                        data2 = dataExample2,
-#'                        data3 = dataExample2,
+#'                        data3 = dataExample3,
+#'                        data4 = dataExample4,
 #'                        NF = 3,
 #'                        measurePM_m = 1,
 #'                        q = NULL)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fct_mco_four_meta_analysis.R
 \name{mco_four_meta_analysis}
 \alias{mco_four_meta_analysis}
-\title{mco_two_meta_diseases Function}
+\title{mco_four_meta_analysis}
 \usage{
 mco_four_meta_analysis(
   data1 = NULL,
@@ -20,6 +20,8 @@ mco_four_meta_analysis(
 \item{data2}{Gene expression data set.Gene expression data set.}
 
 \item{data3}{Gene expression data set.Gene expression data set.}
+
+\item{data4}{Gene expression data set.Gene expression data set.}
 
 \item{NF}{Number of frontiers Pareto-efficient.}
 
@@ -43,7 +45,8 @@ generating a list of genes with maximal changes in expression.
 # Example5: El siguiente ejemplo...
 #' m1 <- mco_four_meta_analysis(data1 = dataExample1,
                        data2 = dataExample2,
-                       data3 = dataExample2,
+                       data3 = dataExample3,
+                       data4 = dataExample4,
                        NF = 3,
                        measurePM_m = 1,
                        q = NULL)
@@ -57,6 +60,6 @@ generating a list of genes with maximal changes in expression.
 \author{
 Deiver Suárez-Gómez [aut],
         Isis Narváez-Bandera [aut],
-        Clara E. Isaza1 [aut],
-        Mauricio Cabrera-Ríos1 [aut]
+        Clara E. Isaza [aut],
+        Mauricio Cabrera-Ríos [aut]
 }

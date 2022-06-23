@@ -64,6 +64,6 @@ m1$final2
 \author{
 Deiver Suárez-Gómez [aut],
         Isis Narváez-Bandera [aut],
-        Clara E. Isaza1 [aut],
-        Mauricio Cabrera-Ríos1 [aut]
+        Clara E. Isaza [aut],
+        Mauricio Cabrera-Ríos [aut]
 }

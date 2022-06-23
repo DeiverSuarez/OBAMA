@@ -1,35 +1,45 @@
-#' MCO one diseases 
-#' 
-#' 
-#' @description This function models a macroarray or RNA-seq gene expression dataset, 
-#' generating a list of genes with maximal changes in expression. 
-#' @param data Gene expression data set.
+#' mco_five_meta_analysis
+#'
+#' @description This function models two macroarray or RNA-seq gene expression datasets,
+#' generating a list of genes with maximal changes in expression.
+
+#' @param data1 Gene expression data set.Gene expression data set.
+#' @param data2 Gene expression data set.Gene expression data set.
+#' @param data3 Gene expression data set.Gene expression data set.
+#' @param data4 Gene expression data set.Gene expression data set.
+#' @param data5 Gene expression data set.Gene expression data set.
 #' @param NF Number of frontiers Pareto-efficient.
-#' @param measurePM1 One performance measures (1 = mean, 2 = median, 3 = quantail)
-#' @param measurePM2 Two performance measures (1 = mean, 2 = median, 3 = quantail)
-#' @param q1 if measurePM1 = 3, q1 take the value of the quantile, for examnple q1 = 75.
-#' @param q2 if measurePM2 = 3, q2 take the value of the quantile, for examnple q1 = 95.
-#' @return  list of genes with maximum expression changes belonging to each Pareto efficient frontier,
-#'a plot of the Pareto efficient frontiers with the maximum expression genes.
-#' 
-#' 
-#' 
-#' @author 
-#' 
-#' 
-#' @references Citar articulo
-#' 
-#' 
-#' @examples 
-#' # Example1: El siguiente ejemplo...
-#' m1 <- mco_one_diseases(data = dataExample, 
-#'                        NF = 5, 
-#'                        measurePM1 = 1, 
-#'                        measurePM2 = 2, 
-#'                        q1 = NULL, 
-#'                        q2 = NULL)
-#' m1$final2
-#' 
+#' @param measurePM_m Three performance measures (1 = mean, 2 = median, 3 = quantail).
+#' @param q if measurePM_m = 3, q take the value of the quantile, for examnple q1 = 75.
+#'
+#' @author Deiver Suárez-Gómez [aut],
+#'         Isis Narváez-Bandera [aut],
+#'         Clara E. Isaza [aut],
+#'         Mauricio Cabrera-Ríos [aut]  
+#'        
+#' @return A list with 2 elements.
+#' \itemize{
+#' \item \code{GeneFrontier} is a genes list with maximum expression changes belonging to each Pareto efficient frontier.
+#' \item \code{PlotFrontier} is a 3D plot of the Pareto efficient frontiers with the maximum expression genes.
+#'
+#' }        
+#'
+#' @references [1] Camacho-Cáceres, K. I. et al. Multiple criteria optimization joint analyses of microarray experiments in lung cancer: from existing microarray data to new knowledge. Cancer Med. 4, 1884–1900 (2015).
+#'             [2] Narváez-Bandera, I., Suárez-Gómez, D., Isaza, C. E. & Cabrera-Ríos, M. Multiple Criteria Optimization (MCO): A gene selection deterministic tool in RStudio. PLoS One 17, e0262890 (2022).
+#'
+#'
+#' @examples
+#' # Example5: El siguiente ejemplo...
+#' #' m1 <- mco_five_meta_analysis(data1 = dataExample1,
+#'                        data2 = dataExample2,
+#'                        data3 = dataExample3,
+#'                        data4 = dataExample4,
+#'                        data5 = dataExample5,
+#'                        NF = 3,
+#'                        measurePM_m = 1,
+#'                        q = NULL)
+#'
+#'
 #' @export
 mco_five_meta_analysis <- function(data1 = NULL, data2 = NULL, data3 = NULL, data4 = NULL, data5 = NULL, NF, measurePM_m = NULL, q = NULL) {
 wnv_e1=data.frame(data1)

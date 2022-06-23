@@ -2,7 +2,7 @@
 % Please edit documentation in R/fct_mco_five_meta_analysis.R
 \name{mco_five_meta_analysis}
 \alias{mco_five_meta_analysis}
-\title{MCO one diseases}
+\title{mco_five_meta_analysis}
 \usage{
 mco_five_meta_analysis(
   data1 = NULL,
@@ -16,40 +16,54 @@ mco_five_meta_analysis(
 )
 }
 \arguments{
+\item{data1}{Gene expression data set.Gene expression data set.}
+
+\item{data2}{Gene expression data set.Gene expression data set.}
+
+\item{data3}{Gene expression data set.Gene expression data set.}
+
+\item{data4}{Gene expression data set.Gene expression data set.}
+
+\item{data5}{Gene expression data set.Gene expression data set.}
+
 \item{NF}{Number of frontiers Pareto-efficient.}
 
-\item{data}{Gene expression data set.}
+\item{measurePM_m}{Three performance measures (1 = mean, 2 = median, 3 = quantail).}
 
-\item{measurePM1}{One performance measures (1 = mean, 2 = median, 3 = quantail)}
-
-\item{measurePM2}{Two performance measures (1 = mean, 2 = median, 3 = quantail)}
-
-\item{q1}{if measurePM1 = 3, q1 take the value of the quantile, for examnple q1 = 75.}
-
-\item{q2}{if measurePM2 = 3, q2 take the value of the quantile, for examnple q1 = 95.}
+\item{q}{if measurePM_m = 3, q take the value of the quantile, for examnple q1 = 75.}
 }
 \value{
-list of genes with maximum expression changes belonging to each Pareto efficient frontier,
-a plot of the Pareto efficient frontiers with the maximum expression genes.
+A list with 2 elements.
+\itemize{
+\item \code{GeneFrontier} is a genes list with maximum expression changes belonging to each Pareto efficient frontier.
+\item \code{PlotFrontier} is a 3D plot of the Pareto efficient frontiers with the maximum expression genes.
+
+}
 }
 \description{
-This function models a macroarray or RNA-seq gene expression dataset, 
+This function models two macroarray or RNA-seq gene expression datasets,
 generating a list of genes with maximal changes in expression.
 }
 \examples{
-# Example1: El siguiente ejemplo...
-m1 <- mco_one_diseases(data = dataExample, 
-                       NF = 5, 
-                       measurePM1 = 1, 
-                       measurePM2 = 2, 
-                       q1 = NULL, 
-                       q2 = NULL)
-m1$final2
+# Example5: El siguiente ejemplo...
+#' m1 <- mco_five_meta_analysis(data1 = dataExample1,
+                       data2 = dataExample2,
+                       data3 = dataExample3,
+                       data4 = dataExample4,
+                       data5 = dataExample5,
+                       NF = 3,
+                       measurePM_m = 1,
+                       q = NULL)
+
 
 }
 \references{
-Citar articulo
+[1] Camacho-Cáceres, K. I. et al. Multiple criteria optimization joint analyses of microarray experiments in lung cancer: from existing microarray data to new knowledge. Cancer Med. 4, 1884–1900 (2015).
+            [2] Narváez-Bandera, I., Suárez-Gómez, D., Isaza, C. E. & Cabrera-Ríos, M. Multiple Criteria Optimization (MCO): A gene selection deterministic tool in RStudio. PLoS One 17, e0262890 (2022).
 }
 \author{
-
+Deiver Suárez-Gómez [aut],
+        Isis Narváez-Bandera [aut],
+        Clara E. Isaza [aut],
+        Mauricio Cabrera-Ríos [aut]
 }
