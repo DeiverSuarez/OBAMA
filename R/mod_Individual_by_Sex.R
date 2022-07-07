@@ -233,7 +233,7 @@ mod_Individual_by_Sex_server <- function(id){
       
       
       SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, performance_metrics2, frontiers, female, male)))
-      rownames(SummaryData) <- c("Samples", "Genes","Controls", "Disease", "Performance metrics 1", "Performance_metrics 2", "Frontiers", "Female", "Male" )
+      rownames(SummaryData) <- c("Samples", "Genes","Controls", "Diseases", "Performance metrics 1", "Performance metrics 2", "Frontiers", "Female", "Male" )
       list(SummaryData = SummaryData)
     })
     

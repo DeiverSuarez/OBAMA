@@ -24,6 +24,9 @@ mod_MST_one_condition_ui <- function(id){
       
       mainPanel(
         tabsetPanel(type = "tabs",
+                    tabPanel("SummaryData",
+                             DT::DTOutput(ns("infoMST_one"))  
+                    ),
                     tabPanel("MST table",
                              DT::DTOutput(ns("MST_one_desease"))  
                             ),
@@ -59,11 +62,29 @@ mod_MST_one_condition_server <- function(id){
       return(list(fileInput = fileInput))
     })
     
+    data_info_MST_one <- reactive({
+      req(filedata_MST_genes()$fileInput)
+      req(filedata_MST_expression()$fileInput)
+      Nrows <- nrow(filedata_MST_expression()$fileInput)
+      Ncols <- ncol(filedata_MST_expression()$fileInput)-2
+      Controls <- table(filedata_MST_expression()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
+    })
+    
     MST <- eventReactive(input$button_MST,{
       wnv1 <- as.data.frame(filedata_MST_expression()$fileInput)
       wnv2 <- as.data.frame(filedata_MST_genes()$fileInput)
       outEval <- MST_one_disease(data_expresio = wnv1, data_gene = wnv2)
       return(list(outEval=outEval))
+    })
+    
+    output$infoMST_one <- DT::renderDataTable({
+      df <- data_info_MST_one()$SummaryData
+      DT::datatable(df)
     })
     
     output$MST_one_desease <- DT::renderDataTable({

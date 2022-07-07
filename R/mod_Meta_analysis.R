@@ -161,9 +161,15 @@ mod_Meta_analysis_server <- function(id){
     data_info_m1 <- reactive({
       req(filedata_m1()$fileInput)
       Nrows <- nrow(filedata_m1()$fileInput)
-      Ncols <- ncol(filedata_m1()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Ncols <- ncol(filedata_m1()$fileInput)-2
+      Controls <- table(filedata_m1()$fileInput[,2])[1]
+      disease <- table(filedata_m1()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -184,9 +190,15 @@ mod_Meta_analysis_server <- function(id){
     data_info_m11 <- reactive({
       req(filedata_m11()$fileInput)
       Nrows <- nrow(filedata_m11()$fileInput)
-      Ncols <- ncol(filedata_m11()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Ncols <- ncol(filedata_m11()$fileInput)-2
+      Controls <- table(filedata_m11()$fileInput[,2])[1]
+      disease <- table(filedata_m11()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -207,8 +219,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m3()$fileInput)
       Nrows <- nrow(filedata_m3()$fileInput)
       Ncols <- ncol(filedata_m3()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m3()$fileInput[,2])[1]
+      disease <- table(filedata_m3()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -229,8 +247,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m32()$fileInput)
       Nrows <- nrow(filedata_m32()$fileInput)
       Ncols <- ncol(filedata_m32()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m32()$fileInput[,2])[1]
+      disease <- table(filedata_m32()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -251,8 +275,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m33()$fileInput)
       Nrows <- nrow(filedata_m33()$fileInput)
       Ncols <- ncol(filedata_m33()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m33()$fileInput[,2])[1]
+      disease <- table(filedata_m33()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -274,8 +304,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m41()$fileInput)
       Nrows <- nrow(filedata_m41()$fileInput)
       Ncols <- ncol(filedata_m41()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m41()$fileInput[,2])[1]
+      disease <- table(filedata_m41()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -296,8 +332,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m42()$fileInput)
       Nrows <- nrow(filedata_m42()$fileInput)
       Ncols <- ncol(filedata_m42()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m42()$fileInput[,2])[1]
+      disease <- table(filedata_m42()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -318,8 +360,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m43()$fileInput)
       Nrows <- nrow(filedata_m43()$fileInput)
       Ncols <- ncol(filedata_m43()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m43()$fileInput[,2])[1]
+      disease <- table(filedata_m43()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -340,8 +388,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m44()$fileInput)
       Nrows <- nrow(filedata_m44()$fileInput)
       Ncols <- ncol(filedata_m44()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m44()$fileInput[,2])[1]
+      disease <- table(filedata_m44()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -364,8 +418,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m51()$fileInput)
       Nrows <- nrow(filedata_m51()$fileInput)
       Ncols <- ncol(filedata_m51()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m51()$fileInput[,2])[1]
+      disease <- table(filedata_m51()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -386,8 +446,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m52()$fileInput)
       Nrows <- nrow(filedata_m52()$fileInput)
       Ncols <- ncol(filedata_m52()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m52()$fileInput[,2])[1]
+      disease <- table(filedata_m52()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -408,8 +474,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m53()$fileInput)
       Nrows <- nrow(filedata_m53()$fileInput)
       Ncols <- ncol(filedata_m53()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m53()$fileInput[,2])[1]
+      disease <- table(filedata_m53()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -430,8 +502,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m54()$fileInput)
       Nrows <- nrow(filedata_m54()$fileInput)
       Ncols <- ncol(filedata_m54()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m54()$fileInput[,2])[1]
+      disease <- table(filedata_m54()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
@@ -452,8 +530,14 @@ mod_Meta_analysis_server <- function(id){
       req(filedata_m55()$fileInput)
       Nrows <- nrow(filedata_m55()$fileInput)
       Ncols <- ncol(filedata_m55()$fileInput)
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      Controls <- table(filedata_m55()$fileInput[,2])[1]
+      disease <- table(filedata_m55()$fileInput[,2])[2]
+      if (input$PMs111==1){performance_metrics1="Mean"}
+      if (input$PMs111==2){performance_metrics1="Median"}
+      if (input$PMs111==3){performance_metrics1="Quantile"}
+      frontiers <- input$NFro_11
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, frontiers)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Performance metrics 1", "Frontiers")
       list(SummaryData = SummaryData)
     })
     
