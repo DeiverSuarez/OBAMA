@@ -12,8 +12,16 @@ mod_MST_Meta_analysis_ui <- function(id){
   tagList(
     sidebarLayout(
       sidebarPanel(width = 4,
-                   fluidRow(column(6,style=list("padding-right: 28px;"),
-                                   radioButtons(ns("Cases_MST"), "Number of datasets:", choices = list("Two"=2,"Three"=3,"Four"=4,"Five"=5)))),
+                   fluidRow(
+                     column(
+                       6,
+                       style=list("padding-right: 28px;"),
+                       radioButtons(
+                         ns("Cases_MST"), 
+                         "Number of datasets:",
+                         choices = list("Two"=2,"Three"=3,"Four"=4,"Five"=5))
+                       )
+                     ),
                    
                    conditionalPanel(condition = "input.Cases_MST==2", ns=ns,
                    fileInput(ns("MST_expresion21"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
@@ -247,7 +255,7 @@ mod_MST_Meta_analysis_server <- function(id){
       Nrows <- nrow(filedata_MST_expression31()$fileInput)
       Ncols <- ncol(filedata_MST_expression31()$fileInput)-2
       Controls <- table(filedata_MST_expression31()$fileInput[,2])[1]
-      disease <- table(ffiledata_MST_expression31()$fileInput[,2])[2]
+      disease <- table(filedata_MST_expression31()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes3()$fileInput[,1])
       SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
       rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
@@ -314,6 +322,58 @@ mod_MST_Meta_analysis_server <- function(id){
       fileInput <- load_file(input$MST_Genes4$name, input$MST_Genes4$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
+    })
+    
+    data_info_MST_two_META_4 <- reactive({
+      req(filedata_MST_expression41()$fileInput)
+      req(filedata_MST_genes4()$fileInput)
+      Nrows <- nrow(filedata_MST_expression41()$fileInput)
+      Ncols <- ncol(filedata_MST_expression41()$fileInput)-2
+      Controls <- table(filedata_MST_expression41()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression41()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes4()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
+    })
+    
+    data_info_MST_two_META_41 <- reactive({
+      req(filedata_MST_expression42()$fileInput)
+      req(filedata_MST_genes4()$fileInput)
+      Nrows <- nrow(filedata_MST_expression42()$fileInput)
+      Ncols <- ncol(filedata_MST_expression42()$fileInput)-2
+      Controls <- table(filedata_MST_expression42()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression42()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes4()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
+    })
+    
+    data_info_MST_two_META_42 <- reactive({
+      req(filedata_MST_expression43()$fileInput)
+      req(filedata_MST_genes4()$fileInput)
+      Nrows <- nrow(filedata_MST_expression43()$fileInput)
+      Ncols <- ncol(filedata_MST_expression43()$fileInput)-2
+      Controls <- table(filedata_MST_expression43()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression43()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes4()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
+    })
+    
+    data_info_MST_two_META_43 <- reactive({
+      req(filedata_MST_expression44()$fileInput)
+      req(filedata_MST_genes4()$fileInput)
+      Nrows <- nrow(filedata_MST_expression44()$fileInput)
+      Ncols <- ncol(filedata_MST_expression44()$fileInput)-2
+      Controls <- table(filedata_MST_expression44()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression44()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes4()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
     })
     
     ###### 
@@ -450,17 +510,17 @@ mod_MST_Meta_analysis_server <- function(id){
     })
     
     output$SummaryMST_meta3 <- DT::renderDataTable({
-      df <- data_info_MST_two_META_31()$SummaryData
+      df <- data_info_MST_two_META_3()$SummaryData
       DT::datatable(df)
     })
     
     output$SummaryMST_meta31 <- DT::renderDataTable({
-      df <- data_info_MST_two_META_32()$SummaryData
+      df <- data_info_MST_two_META_31()$SummaryData
       DT::datatable(df)
     })
     
     output$SummaryMST_meta32 <- DT::renderDataTable({
-      df <- data_info_MST_two_META_33()$SummaryData
+      df <- data_info_MST_two_META_32()$SummaryData
       DT::datatable(df)
     })
     ##########
@@ -504,6 +564,26 @@ mod_MST_Meta_analysis_server <- function(id){
     
     output$MST_diagram_Meta_analysis4 <- networkD3::renderForceNetwork({
       MST_digram4()
+    })
+    
+    output$SummaryMST_meta4 <- DT::renderDataTable({
+      df <- data_info_MST_two_META_4()$SummaryData
+      DT::datatable(df)
+    })
+    
+    output$SummaryMST_meta41 <- DT::renderDataTable({
+      df <- data_info_MST_two_META_41()$SummaryData
+      DT::datatable(df)
+    })
+    
+    output$SummaryMST_meta42 <- DT::renderDataTable({
+      df <- data_info_MST_two_META_42()$SummaryData
+      DT::datatable(df)
+    })
+    
+    output$SummaryMST_meta43 <- DT::renderDataTable({
+      df <- data_info_MST_two_META_43()$SummaryData
+      DT::datatable(df)
     })
     
     ##########
