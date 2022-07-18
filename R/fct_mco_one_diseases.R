@@ -36,11 +36,25 @@
 #' m1$final2
 #' 
 #' @export
-mco_one_diseases <- function(data = NULL, NF, measurePM1 = NULL, measurePM2 = NULL, q1 = NULL, q2 = NULL) {
-  dfPM <- PMs(data=data, measurePM1=measurePM1, measurePM2 = measurePM2, q1=q1, q2 = q2)
+mco_one_diseases <- function(data = NULL, 
+                             NF, measurePM1 = NULL, 
+                             measurePM2 = NULL, 
+                             q1 = NULL, 
+                             q2 = NULL
+                             ) 
+  {
+  dfPM <- PMs(data=data, 
+              measurePM1=measurePM1, 
+              measurePM2 = measurePM2, 
+              q1=q1, 
+              q2 = q2)
   dfPM <- as.data.frame(dfPM)
-  exit <- MCO_one_disease(Data=data,NF=NF,M1 = dfPM$M1 ,M2=dfPM$M2)
+  exit <- MCO_one_disease(Data=data,
+                          NF=NF,
+                          M1 = dfPM$M1,
+                          M2=dfPM$M2
+                          )
   return(exit)  
 }
 
-# Isis prueba
+
