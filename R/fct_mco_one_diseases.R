@@ -42,3 +42,5 @@ mco_one_diseases <- function(data = NULL, NF, measurePM1 = NULL, measurePM2 = NU
   exit <- MCO_one_disease(Data=data,NF=NF,M1 = dfPM$M1 ,M2=dfPM$M2)
   return(exit)  
 }
+
+# Isis prueba
