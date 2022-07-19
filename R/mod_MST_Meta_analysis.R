@@ -421,6 +421,70 @@ mod_MST_Meta_analysis_server <- function(id){
       return(list(fileInput = fileInput))
     })
     
+    data_info_MST_two_META_5 <- reactive({
+      req(filedata_MST_expression51()$fileInput)
+      req(filedata_MST_genes5()$fileInput)
+      Nrows <- nrow(filedata_MST_expression51()$fileInput)
+      Ncols <- ncol(filedata_MST_expression51()$fileInput)-2
+      Controls <- table(filedata_MST_expression51()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression51()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes5()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
+    })
+    
+    data_info_MST_two_META_51 <- reactive({
+      req(filedata_MST_expression52()$fileInput)
+      req(filedata_MST_genes5()$fileInput)
+      Nrows <- nrow(filedata_MST_expression52()$fileInput)
+      Ncols <- ncol(filedata_MST_expression52()$fileInput)-2
+      Controls <- table(filedata_MST_expression52()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression52()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes5()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
+    })
+    
+    data_info_MST_two_META_52 <- reactive({
+      req(filedata_MST_expression53()$fileInput)
+      req(filedata_MST_genes5()$fileInput)
+      Nrows <- nrow(filedata_MST_expression53()$fileInput)
+      Ncols <- ncol(filedata_MST_expression53()$fileInput)-2
+      Controls <- table(filedata_MST_expression53()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression53()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes5()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
+    })
+    
+    data_info_MST_two_META_53 <- reactive({
+      req(filedata_MST_expression54()$fileInput)
+      req(filedata_MST_genes5()$fileInput)
+      Nrows <- nrow(filedata_MST_expression54()$fileInput)
+      Ncols <- ncol(filedata_MST_expression54()$fileInput)-2
+      Controls <- table(filedata_MST_expression54()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression54()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes5()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
+    })
+    
+    data_info_MST_two_META_54 <- reactive({
+      req(filedata_MST_expression55()$fileInput)
+      req(filedata_MST_genes5()$fileInput)
+      Nrows <- nrow(filedata_MST_expression55()$fileInput)
+      Ncols <- ncol(filedata_MST_expression55()$fileInput)-2
+      Controls <- table(filedata_MST_expression55()$fileInput[,2])[1]
+      disease <- table(filedata_MST_expression55()$fileInput[,2])[2]
+      genes <- length(filedata_MST_genes5()$fileInput[,1])
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
+      list(SummaryData = SummaryData)
+    })
     ###### 
     
     MST2 <- eventReactive(input$button_MST2,{
@@ -628,6 +692,31 @@ mod_MST_Meta_analysis_server <- function(id){
     
     output$MST_diagram_Meta_analysis5 <- networkD3::renderForceNetwork({
       MST_digram5()
+    })
+    
+    output$SummaryMST_meta5 <- DT::renderDataTable({
+      df <- data_info_MST_two_META_5()$SummaryData
+      DT::datatable(df)
+    })
+    
+    output$SummaryMST_meta51 <- DT::renderDataTable({
+      df <- data_info_MST_two_META_51()$SummaryData
+      DT::datatable(df)
+    })
+    
+    output$SummaryMST_meta52 <- DT::renderDataTable({
+      df <- data_info_MST_two_META_52()$SummaryData
+      DT::datatable(df)
+    })
+    
+    output$SummaryMST_meta53 <- DT::renderDataTable({
+      df <- data_info_MST_two_META_53()$SummaryData
+      DT::datatable(df)
+    })
+    
+    output$SummaryMST_meta54 <- DT::renderDataTable({
+      df <- data_info_MST_two_META_54()$SummaryData
+      DT::datatable(df)
     })
     
     
