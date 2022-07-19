@@ -28,8 +28,12 @@
 #'
 #'
 #' @export
-MST_three_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL, 
-                              data_expresion3 = NULL, data_gene = NULL) {
+MST_three_disease <- function(data_expresion1 = NULL, 
+                              data_expresion2 = NULL, 
+                              data_expresion3 = NULL, 
+                              data_gene = NULL
+                              ) 
+  {
   
   Data_femaleGSE43190 <- data_expresion1
   geo.final43190 <- Data_femaleGSE43190
@@ -37,51 +41,62 @@ MST_three_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL,
   
   GSE46681_PBMCs_Severe_female <- data_expresion2
   geo.final_46681_sev <- GSE46681_PBMCs_Severe_female
-  geo.final_46681_sev = geo.final_46681_sev[order(geo.final_46681_sev$disease.state),]
+  geo.final_46681_sev = geo.final_46681_sev[
+                         order(geo.final_46681_sev$disease.state),]
   
   GSE46681_PBMCs_Asymp_female <- data_expresion3
   geo.final_46681_Asymp <- GSE46681_PBMCs_Asymp_female
-  geo.final_46681_Asymp = geo.final_46681_Asymp[order(geo.final_46681_Asymp$disease.state),]
+  geo.final_46681_Asymp = geo.final_46681_Asymp[
+                          order(geo.final_46681_Asymp$disease.state),]
   
   ResultsMeta3D_WNV_Fem <- data_gene
   ResultsMeta3D <- ResultsMeta3D_WNV_Fem
   ResultsMeta3D$Gene <- as.character(ResultsMeta3D$Gene)
   
-  MST_Front10_GSE43190 <- geo.final43190[,c("disease.state",ResultsMeta3D$Gene)]
-  MST_Front10_46681_sev <- geo.final_46681_sev[,c("disease.state",ResultsMeta3D$Gene)]
-  MST_Front10_46681_Asymp <- geo.final_46681_Asymp[,c("disease.state",ResultsMeta3D$Gene)]
+  MST_Front10_GSE43190 <- geo.final43190[,c("disease.state",
+                                            ResultsMeta3D$Gene)]
+  MST_Front10_46681_sev <- geo.final_46681_sev[,c("disease.state",
+                                                  ResultsMeta3D$Gene)]
+  MST_Front10_46681_Asymp <- geo.final_46681_Asymp[,c("disease.state",
+                                                      ResultsMeta3D$Gene)]
   
-  ContImpGenes <- MST_Front10_GSE43190[MST_Front10_GSE43190$disease.state == "control",]
+  ContImpGenes <- MST_Front10_GSE43190[
+                  MST_Front10_GSE43190$disease.state == "control",]
   ContImpGenes = ContImpGenes[,-1]
   row.names(ContImpGenes)= c(1:nrow(ContImpGenes))
   ContImpGenes <- dplyr::as_tibble(ContImpGenes)              
   class(ContImpGenes)
   
-  DiseaseImpGenes <-  MST_Front10_GSE43190[MST_Front10_GSE43190$disease.state == "disease",]
+  DiseaseImpGenes <-  MST_Front10_GSE43190[
+                       MST_Front10_GSE43190$disease.state == "disease",]
   DiseaseImpGenes = DiseaseImpGenes[,-1]
   row.names(DiseaseImpGenes)= c(1:nrow(DiseaseImpGenes))
   DiseaseImpGenes <- dplyr::as_tibble(DiseaseImpGenes)
   class(DiseaseImpGenes)
   
-  ContImpGenes_SCZ <- MST_Front10_46681_sev[MST_Front10_46681_sev$disease.state == "control",]
+  ContImpGenes_SCZ <- MST_Front10_46681_sev[
+                      MST_Front10_46681_sev$disease.state == "control",]
   ContImpGenes_SCZ = ContImpGenes_SCZ[,-1]
   row.names(ContImpGenes_SCZ)= c(1:nrow(ContImpGenes_SCZ))
   ContImpGenes_SCZ <- dplyr::as_tibble(ContImpGenes_SCZ)              
   class(ContImpGenes_SCZ)
 
-  DiseaseImpGenes_SCZ <-  MST_Front10_46681_sev[MST_Front10_46681_sev$disease.state == "disease",]
+  DiseaseImpGenes_SCZ <-  MST_Front10_46681_sev[
+                        MST_Front10_46681_sev$disease.state == "disease",]
   DiseaseImpGenes_SCZ = DiseaseImpGenes_SCZ[,-1]
   row.names(DiseaseImpGenes_SCZ)= c(1:nrow(DiseaseImpGenes_SCZ))
   DiseaseImpGenes_SCZ <- dplyr::as_tibble(DiseaseImpGenes_SCZ)
   class(DiseaseImpGenes_SCZ)
   
-  ContImpGenes_Asymp <- MST_Front10_46681_Asymp[MST_Front10_46681_Asymp$disease.state == "control",]
+  ContImpGenes_Asymp <- MST_Front10_46681_Asymp[
+                        MST_Front10_46681_Asymp$disease.state == "control",]
   ContImpGenes_Asymp = ContImpGenes_Asymp[,-1]
   row.names(ContImpGenes_Asymp)= c(1:nrow(ContImpGenes_Asymp))
   ContImpGenes_Asymp <- dplyr::as_tibble(ContImpGenes_Asymp)              
   class(ContImpGenes_Asymp)
 
-  DiseaseImpGenes_Asymp <-  MST_Front10_46681_Asymp[MST_Front10_46681_Asymp$disease.state == "disease",]
+  DiseaseImpGenes_Asymp <-  MST_Front10_46681_Asymp[
+                           MST_Front10_46681_Asymp$disease.state == "disease",]
   DiseaseImpGenes_Asymp = DiseaseImpGenes_Asymp[,-1]
   row.names(DiseaseImpGenes_Asymp)= c(1:nrow(DiseaseImpGenes_Asymp))
   DiseaseImpGenes_Asymp <- dplyr::as_tibble(DiseaseImpGenes_Asymp)
@@ -109,7 +124,12 @@ MST_three_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL,
     }
     w[[k]]=c(as.vector(t(y)))
   }
-  dfFem <- data.frame(t(matrix(unlist(w), nrow=length(w), byrow=T)))
+  dfFem <- data.frame(t(matrix(unlist(w), 
+                               nrow=length(w), 
+                               byrow=T
+                               )
+                        )
+                      )
   colnames(dfFem)<-colnames(DiseFem)
   dfFem[1:10,1:10]
   
@@ -126,7 +146,11 @@ MST_three_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL,
     }
     W[[k]]=c(as.vector(t(y)))
   }
-  dfFem_SCZ <- data.frame(t(matrix(unlist(W), nrow=length(W), byrow=T)))
+  dfFem_SCZ <- data.frame(t(matrix(unlist(W),
+                                   nrow=length(W),
+                                   byrow=T)
+                            )
+                          )
   colnames(dfFem_SCZ)<-colnames(DiseFem_SCZ)
   dfFem_SCZ[1:10,1:10]
   
@@ -143,7 +167,11 @@ MST_three_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL,
     }
     P[[k]]=c(as.vector(t(y)))
   }
-  dfFem_Asymp <- data.frame(t(matrix(unlist(P), nrow=length(P), byrow=T)))
+  dfFem_Asymp <- data.frame(t(matrix(unlist(P), 
+                                     nrow=length(P), 
+                                     byrow=T)
+                              )
+                            )
   colnames(dfFem_Asymp)<-colnames(DiseFem_Asymp)
   dfFem_Asymp[1:10,1:10]
   
@@ -172,15 +200,31 @@ MST_three_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL,
   
 
   nodesFem <- 1:ncol(transforFem)
-  X = optrees::getMinimumSpanningTree(nodesFem, arcosFem, algorithm = "Prim",  show.graph = FALSE)
+  X = optrees::getMinimumSpanningTree(nodesFem, 
+                                      arcosFem, 
+                                      algorithm = "Prim", 
+                                      show.graph = FALSE)
   library(DataCombine)
   data <- data.frame(X$tree.arcs) 
-  Replaces <- data.frame(from = as.factor(seq(1:ncol(transforFem))), to =colnames(MST_Front10_GSE43190[-1]))
+  Replaces <- data.frame(from = as.factor(seq(1:ncol(transforFem))), 
+                         to =colnames(MST_Front10_GSE43190[-1]
+                                      )
+                         )
   data$ept1 <-as.factor(data$ept1)
   data$ept2 <-as.factor(data$ept2)
   data$weight <-as.factor(data$weight)
-  data1 <- FindReplace(data = data, Var = "ept1", replaceData = Replaces, from = "from", to = "to", exact = TRUE)
-  data2 <- FindReplace(data = data1, Var = "ept2", replaceData = Replaces, from = "from", to = "to", exact = TRUE)
+  data1 <- FindReplace(data = data, Var = "ept1", 
+                       replaceData = Replaces, 
+                       from = "from", 
+                       to = "to", 
+                       exact = TRUE
+                       )
+  data2 <- FindReplace(data = data1, Var = "ept2", 
+                       replaceData = Replaces, 
+                       from = "from", 
+                       to = "to", 
+                       exact = TRUE
+                       )
   return(data2) 
 }
   

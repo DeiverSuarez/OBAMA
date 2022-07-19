@@ -24,19 +24,25 @@
 #'
 #'
 #' @export
-MST_one_disease <- function(data_expresio = NULL, data_gene = NULL) {
+MST_one_disease <- function(data_expresio = NULL,
+                            data_gene = NULL
+                            ) 
+  {
   
   geo.final62333 <- data_expresio 
   geo.final62333 = geo.final62333[order(geo.final62333$disease.state),]
   Front10_GSE62333 <- data_gene 
-  MST_Front10_GSE62333 <- geo.final62333[,c("disease.state",Front10_GSE62333$Gene)]
+  MST_Front10_GSE62333 <- geo.final62333[,c("disease.state",
+                                            Front10_GSE62333$Gene)]
   #
-  ContImpGenes <- MST_Front10_GSE62333[MST_Front10_GSE62333$disease.state == "control",]
+  ContImpGenes <- MST_Front10_GSE62333[
+                  MST_Front10_GSE62333$disease.state == "control",]
   ContImpGenes <- ContImpGenes[,-1]
   row.names(ContImpGenes)= c(1:nrow(ContImpGenes))
   ContImpGenes <- dplyr::as_tibble(ContImpGenes)             
   #
-  DiseaseImpGenes <-  MST_Front10_GSE62333[MST_Front10_GSE62333$disease.state == "disease",]
+  DiseaseImpGenes <-  MST_Front10_GSE62333[
+                      MST_Front10_GSE62333$disease.state == "disease",]
   DiseaseImpGenes <- DiseaseImpGenes[,-1]
   row.names(DiseaseImpGenes)= c(1:nrow(DiseaseImpGenes))
   DiseaseImpGenes <- dplyr::as_tibble(DiseaseImpGenes)
@@ -57,7 +63,11 @@ MST_one_disease <- function(data_expresio = NULL, data_gene = NULL) {
     }
     w[[k]]=c(as.vector(t(y)))
   }
-  dfFem <- data.frame(t(matrix(unlist(w), nrow=length(w), byrow=T)))
+  dfFem <- data.frame(t(matrix(unlist(w),
+                               nrow=length(w),
+                               byrow=T)
+                        )
+                      )
   colnames(dfFem)<-colnames(DiseFem)
   #
   corrFem = cor(dfFem)
@@ -84,14 +94,32 @@ MST_one_disease <- function(data_expresio = NULL, data_gene = NULL) {
   storage.mode(arcosFem) <- "numeric"
   #
   nodesFem <- 1:ncol(transforFem)
-  X <- optrees::getMinimumSpanningTree(nodesFem, arcosFem, algorithm = "Prim",  show.graph = FALSE)
+  X <- optrees::getMinimumSpanningTree(nodesFem, 
+                                       arcosFem, 
+                                       algorithm = "Prim",  
+                                       show.graph = FALSE
+                                       )
   #
   data <- data.frame(X$tree.arcs) 
-  Replaces <- data.frame(from = as.factor(seq(1:ncol(transforFem))), to =colnames(MST_Front10_GSE62333[-1]))
+  Replaces <- data.frame(from = as.factor(seq(1:ncol(transforFem))), 
+                         to =colnames(MST_Front10_GSE62333[-1])
+                         )
   data$ept1 <-as.factor(data$ept1)
   data$ept2 <-as.factor(data$ept2)
   data$weight <-as.factor(data$weight)
-  data1 <- DataCombine::FindReplace(data = data, Var = "ept1", replaceData = Replaces, from = "from", to = "to", exact = TRUE)
-  data2 <- DataCombine::FindReplace(data = data1, Var = "ept2", replaceData = Replaces, from = "from", to = "to", exact = TRUE)
+  data1 <- DataCombine::FindReplace(data = data, 
+                                    Var = "ept1", 
+                                    replaceData = Replaces,
+                                    from = "from", 
+                                    to = "to", 
+                                    exact = TRUE
+                                    )
+  
+  data2 <- DataCombine::FindReplace(data = data1, 
+                                    Var = "ept2",
+                                    replaceData = Replaces, 
+                                    from = "from", 
+                                    to = "to", 
+                                    exact = TRUE)
   return(data2) 
 }

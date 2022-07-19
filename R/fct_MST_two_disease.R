@@ -26,7 +26,11 @@
 #'
 #'
 #' @export
-MST_tow_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL, data_gene = NULL) {
+MST_tow_disease <- function(data_expresion1 = NULL, 
+                            data_expresion2 = NULL, 
+                            data_gene = NULL
+                            ) 
+  {
   
   geo.final17612 <- data_expresion1
   geo.final17612 = geo.final17612[order(geo.final17612$disease.state),]
@@ -36,28 +40,34 @@ MST_tow_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL, data
   
   Front10_GSE17612 <- data_gene
   Front10_GSE17612$Gene <- as.character(Front10_GSE17612$Gene)
-  MST_Front10_GSE17612 <- geo.final17612[,c("disease.state",Front10_GSE17612$Gene)]
-  MST_Front10_SCZ <- geo.final_SCZ[,c("disease.state",Front10_GSE17612$Gene)]
+  MST_Front10_GSE17612 <- geo.final17612[,c("disease.state",
+                                            Front10_GSE17612$Gene)]
+  MST_Front10_SCZ <- geo.final_SCZ[,c("disease.state",
+                                      Front10_GSE17612$Gene)]
 #
-  ContImpGenes <- MST_Front10_GSE17612[MST_Front10_GSE17612$disease.state == "control",]
+  ContImpGenes <- MST_Front10_GSE17612[
+                  MST_Front10_GSE17612$disease.state == "control",]
   ContImpGenes = ContImpGenes[,-1]
   row.names(ContImpGenes)= c(1:nrow(ContImpGenes))
   ContImpGenes <- dplyr::as_tibble(ContImpGenes)               
   class(ContImpGenes)
 #
-  DiseaseImpGenes <-  MST_Front10_GSE17612[MST_Front10_GSE17612$disease.state == "disease",]
+  DiseaseImpGenes <-  MST_Front10_GSE17612[
+                       MST_Front10_GSE17612$disease.state == "disease",]
   DiseaseImpGenes = DiseaseImpGenes[,-1]
   row.names(DiseaseImpGenes)= c(1:nrow(DiseaseImpGenes))
   DiseaseImpGenes <- dplyr::as_tibble(DiseaseImpGenes)
   class(DiseaseImpGenes)
   
-  ContImpGenes_SCZ <- MST_Front10_SCZ[MST_Front10_SCZ$disease.state == "control",]
+  ContImpGenes_SCZ <- MST_Front10_SCZ[
+                      MST_Front10_SCZ$disease.state == "control",]
   ContImpGenes_SCZ = ContImpGenes_SCZ[,-1]
   row.names(ContImpGenes_SCZ)= c(1:nrow(ContImpGenes_SCZ))
   ContImpGenes_SCZ <- dplyr::as_tibble(ContImpGenes_SCZ)               
   class(ContImpGenes_SCZ)
   
-  DiseaseImpGenes_SCZ <-  MST_Front10_SCZ[MST_Front10_SCZ$disease.state == "disease",]
+  DiseaseImpGenes_SCZ <-  MST_Front10_SCZ[
+                           MST_Front10_SCZ$disease.state == "disease",]
   DiseaseImpGenes_SCZ = DiseaseImpGenes_SCZ[,-1]
   row.names(DiseaseImpGenes_SCZ)= c(1:nrow(DiseaseImpGenes_SCZ))
   DiseaseImpGenes_SCZ <- dplyr::as_tibble(DiseaseImpGenes_SCZ)
@@ -99,7 +109,11 @@ MST_tow_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL, data
     }
     W[[k]]=c(as.vector(t(y)))
   }
-  dfFem_SCZ <- data.frame(t(matrix(unlist(W), nrow=length(W), byrow=T)))
+  dfFem_SCZ <- data.frame(t(matrix(unlist(W), 
+                                   nrow=length(W),
+                                   byrow=T)
+                            )
+                          )
   colnames(dfFem_SCZ)<-colnames(DiseFem_SCZ)
   dfFem_SCZ[1:10,1:10]
   
@@ -127,17 +141,31 @@ MST_tow_disease <- function(data_expresion1 = NULL, data_expresion2 = NULL, data
   storage.mode(arcosFem) <- "numeric"
   
   nodesFem <- 1:ncol(transforFem)
-  X = optrees::getMinimumSpanningTree(nodesFem, arcosFem, algorithm = "Prim",  show.graph = FALSE)
+  X = optrees::getMinimumSpanningTree(nodesFem,
+                                      arcosFem, 
+                                      algorithm = "Prim",  
+                                      show.graph = FALSE)
   
   data <- data.frame(X$tree.arcs) 
   library(DataCombine)
   # Create replacements data frame
-  Replaces <- data.frame(from = as.factor(seq(1:ncol(transforFem))), to =colnames(MST_Front10_GSE17612[-1]))
+  Replaces <- data.frame(from = as.factor(seq(1:ncol(transforFem))), 
+                         to =colnames(MST_Front10_GSE17612[-1])
+                         )
   data$ept1 <-as.factor(data$ept1)
   data$ept2 <-as.factor(data$ept2)
   data$weight <-as.factor(data$weight)
-  data1 <- FindReplace(data = data, Var = "ept1", replaceData = Replaces, from = "from", to = "to", exact = TRUE)
-  data2 <- FindReplace(data = data1, Var = "ept2", replaceData = Replaces, from = "from", to = "to", exact = TRUE)
+  data1 <- FindReplace(data = data, 
+                       Var = "ept1",
+                       replaceData = Replaces, 
+                       from = "from", to = "to",
+                       exact = TRUE)
+  data2 <- FindReplace(data = data1, 
+                       Var = "ept2", 
+                       replaceData = Replaces, 
+                       from = "from", 
+                       to = "to", 
+                       exact = TRUE)
   
   return(data2) 
 }
