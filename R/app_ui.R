@@ -38,7 +38,15 @@ app_ui <- function(request) {
                             
                    )
                    
-        )
+        ),
+        navbarMenu("OGF",
+                   tabPanel("OGF Optimal Group Formation",
+                            mod_OGF_Optimal_Group_Formation_ui("OGF_Optimal_Group_Formation_1")
+                   )
+                   )
+        
+        
+        
         
       )
     )

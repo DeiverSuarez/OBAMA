@@ -45,6 +45,10 @@ golem::add_module( name = "Meta_analysis" ) # Name of the module
 ############# MST ####################
 golem::add_module(name = "MST_one_condition")
 golem::add_module(name = "MST_Meta_analysis")
+############# OGF ####################
+golem::add_module(name = "OGF_Optimal_Group_Formation")
+
+
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*

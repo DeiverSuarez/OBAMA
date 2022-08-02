@@ -12,4 +12,6 @@ app_server <- function( input, output, session ) {
   ################## MST ###########################################
   mod_MST_one_condition_server("MST_one_condition_ui_1")
   mod_MST_Meta_analysis_server("MST_Meta_analysis_ui_1")
+  ################## OGF ###########################################
+  mod_OGF_Optimal_Group_Formation_server("OGF_Optimal_Group_Formation_1")
 }
