@@ -15,375 +15,781 @@ mod_Individuals_ui <- function(id){
   tagList(
     sidebarLayout(
       
-      sidebarPanel(width = 4,
+      sidebarPanel(
+        width = 4,
+        radioButtons(
+          ns("performance_metrics"), 
+          "Number of performance metrics:",  
+          choices = list("Two metrics"=1,
+                         "Three metrics"=2
+                         )
+                     ),
                    
-                   radioButtons(ns("performance_metrics"), "Number of performance metrics:",  
-                                choices = list("Two metrics"=1,"Three metrics"=2)),
                    
+         ################################Two metricsL##########################     
                    
-                   ################################Two metricsL##################################################################################     
-                   
-                   conditionalPanel(condition = "input.performance_metrics==1", ns=ns,
-                                    
-                                    fluidRow(column(6,style=list("padding-right: 5px;"),
-                                                    selectInput(ns("PMs1"), label = "PM1",
-                                                                choices = list("Median"=2,"Mean"=1,"Quantile"=3))),
-                                             column(6,style=list("padding-left: 28px;"),
-                                                    selectInput(ns("PMs2"), label = "PM2",
-                                                                choices = list("Mean"=1,"Median"=2,"Quantile"=3)))),
-                                    
-                                    fluidRow(column(6,style=list("padding-right: 5px;"),
-                                                    conditionalPanel(condition ="input.PMs1==3", ns=ns,
-                                                                     column(6.1, style=list("padding-right: 5px;"),
-                                                                            textInput(ns("ValueqPM1"),label = h5("Quantile value (q)"),
-                                                                                      value = 75)) )),
-                                             column(6,style=list("padding-left: 28px;"),
-                                                    conditionalPanel(condition ="input.PMs2==3", ns=ns,
-                                                                     column(6.1, style=list("padding-right: 5px;"),
-                                                                            textInput(ns("ValueqPM2"),label = h5("Quantile value (q)"),
-                                                                                      value = 75)) ))),
-                                    
-                                    
-                                    fluidRow(column(4,
-                                                    radioButtons(ns("Nudata1"), label = "Number of datasets",
-                                                                choices = list("One"= 1,"Two" = 2,"Three" = 3,"Four" = 4,"Five" = 5)))
-                                             ),
-                                             fluidRow(column(4,textInput(ns("NFro1"),label = h5("Number of frontiers"),value = "10")),
-                                             )               
-                                    
+        conditionalPanel(
+          condition = "input.performance_metrics==1",
+          ns=ns,
+          
+          fluidRow(
+            column(
+              6,
+              style=list("padding-right: 5px;"),
+              selectInput(
+                ns("PMs1"),
+                label = "PM1",
+                choices = list("Median"=2,
+                               "Mean"=1,
+                               "Quantile"=3
+                               )
+                          )
                    ),
+            
+            column(
+              6,
+              style=list("padding-left: 28px;"),
+              selectInput(
+                ns("PMs2"),
+                label = "PM2",
+                choices = list("Mean"=1,
+                               "Median"=2,
+                               "Quantile"=3
+                               )
+                          )
+                   )
+                   ),
+          
+          fluidRow(
+            column(
+              6,
+              style=list("padding-right: 5px;"),
+              conditionalPanel(condition ="input.PMs1==3", 
+                               ns=ns,
+                               column(
+                                 6.1,
+                                 style=list("padding-right: 5px;"),
+                                 textInput(
+                                   ns("ValueqPM1"),
+                                   label = h5("Quantile value (q)"),
+                                   value = 75)
+                                 ) 
+                               )
+                   ),
+            
+            column(
+              6,
+              style=list("padding-left: 28px;"),
+              conditionalPanel(condition ="input.PMs2==3", 
+                               ns=ns,
+                               column(
+                                 6.1, 
+                                 style=list("padding-right: 5px;"),
+                                 textInput(
+                                   ns("ValueqPM2"),
+                                   label = h5("Quantile value (q)"),
+                                   value = 75))
+                               )
+                  )
+            ),
+          
+          fluidRow(
+            column(
+              4,
+              radioButtons(ns("Nudata1"), 
+                           label = "Number of datasets",
+                           choices = list("One"= 1,
+                                          "Two" = 2,
+                                          "Three" = 3,
+                                          "Four" = 4,
+                                          "Five" = 5)
+                           )
+              )
+            ),
+          
+          fluidRow(
+            column(
+              4,
+              textInput(
+                ns("NFro1"),
+                label = h5("Number of frontiers"),
+                value = "10")
+              ),
+            )  
+          ),
                    
-                   ################################Three metrics##################################################################################
+                   ################################Three metrics###############
                    
-                   conditionalPanel(condition = "input.performance_metrics==2", ns=ns,
-
-                                    fluidRow(column(4,style=list("padding-right: 5px;"),
-                                                    selectInput(ns("PMs31"), label = "PM1",
-                                                                choices = list("Mean"=1,"Median"=2,"Quantile"=3))),
-                                             column(4,style=list("padding-right: 5px;"),
-                                                    selectInput(ns("PMs32"), label = "PM2",
-                                                                choices = list("Mean"=1,"Median"=2,"Quantile"=3))),
-                                             column(4,style=list("padding-right: 5px;"),
-                                                     selectInput(ns("PMs33"), label = "PM3",
-                                                                 choices = list("Mean"=1,"Median"=2,"Quantile"=3)))
-                                             ),
-
-                                    fluidRow(column(4,
-                                                    conditionalPanel(condition ="input.PMs31==3", ns=ns,
-                                                                       column(6, style=list("padding-right: 5px;"),
-                                                                              textInput(ns("ValueqPM31"),label = h5("Quantile value (q)"),
-                                                                                        value = 75)) )),
-                                             column(4,
-                                                    conditionalPanel(condition ="input.PMs32==3",ns=ns,
-                                                                       column(6, style=list("padding-right: 5px;"),
-                                                                              textInput(ns("ValueqPM32"),label = h5("Quantile value (q)"),
-                                                                                        value = 75)) )),
-                                             column(4,
-                                                    conditionalPanel(condition ="input.PMs33==3", ns=ns,
-                                                                       column(6, style=list("padding-right: 5px;"),
-                                                                              textInput(ns("ValueqPM33"),label = h5("Quantile value (q)"),
-                                                                                      value = 75)) ))),
-                                    fluidRow(column(4,textInput(ns("NFro21"),label = h5("Number of frontiers"),value = "5")))
-                                ),
-                   
-                   
-                   hr(),
-                   
-                   
-                   ################################Data para una enfermedad1 Two metrics#####################################################################################
-                   
-                                    ######enfermedad1
-                                    conditionalPanel(condition = "input.performance_metrics== 1", ns=ns,
-                   
-                                    conditionalPanel(condition = "input.Nudata1== 1 ", ns=ns,
-                                                    fileInput(ns("fileBcsv"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                             label = h5("Gene Expression Data 1")),
-                                                    actionButton(ns("button1"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                                    downloadButton(ns("downloadData.one"), "Save My Results")
-                                    ),
-                                    
-                                    ####enfermedad2
-                                    conditionalPanel(condition = "input.Nudata1== 2", ns=ns,
-                                                    fileInput(ns("fileBcsv2_1"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                             label = h5("Gene Expression Data 1")),
-                                                    downloadButton(ns("downloadData21.two"), "Save My Results"),
-                                                    hr(),
-                                                    fileInput(ns("fileBcsv22"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                             label = h5("Gene Expression Data 2")),
-                                                     downloadButton(ns("downloadData22.two"), "Save My Results"),
-                                                    hr(),
-                                                    actionButton(ns("button2"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                                     ),
-                                    
-                                    ####enfermedad3
-                                    conditionalPanel(condition = "input.Nudata1== 3", ns=ns,
-                                                     fileInput(ns("fileBcsv31"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 1")),
-                                                     downloadButton(ns("downloadData31.three"), "Save My Results"),
-                                                     hr(),
-                                                     fileInput(ns("fileBcsv32"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 2")),
-                                                     downloadButton(ns("downloadData32.three"), "Save My Results"),
-                                                     hr(),
-                                                     fileInput(ns("fileBcsv33"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 3")),
-                                                     downloadButton(ns("downloadData33.three"), "Save My Results"),
-                                                     hr(),
-                                                     actionButton(ns("button3"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                                                     
-                                                     
-                                    ),
-                                    
-                                    ####enfermedad4
-                                    conditionalPanel(condition = "input.Nudata1== 4", ns=ns,
-                                                     fileInput(ns("fileBcsv41"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 1")),
-                                                     downloadButton(ns("downloadData41.four"), "Save My Results"),
-                                                     hr(),
-                                                     fileInput(ns("fileBcsv42"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 2")),
-                                                     downloadButton(ns("downloadData42.four"), "Save My Results"),
-                                                     hr(),
-                                                     fileInput(ns("fileBcsv43"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 3")),
-                                                     downloadButton(ns("downloadData43.four"), "Save My Results"),
-                                                     hr(),
-                                                     fileInput(ns("fileBcsv44"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 4")),
-                                                     downloadButton(ns("downloadData44.four"), "Save My Results"),
-                                                     hr(),
-                                                     actionButton(ns("button4"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                                                     
-                                                     
-                                    ),
-                                    
-                                    ####enfermedad5
-                                    conditionalPanel(condition = "input.Nudata1== 5", ns=ns,
-                                                     fileInput(ns("fileBcsv51"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 1")),
-                                                     downloadButton(ns("downloadData51.five"), "Save My Results"),
-                                                     hr(),
-                                                     fileInput(ns("fileBcsv52"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 2")),
-                                                     downloadButton(ns("downloadData52.five"), "Save My Results"),
-                                                     hr(),
-                                                     fileInput(ns("fileBcsv53"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 3")),
-                                                     downloadButton(ns("downloadData53.five"), "Save My Results"),
-                                                     hr(),
-                                                     fileInput(ns("fileBcsv54"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 4")),
-                                                     downloadButton(ns("downloadData54.five"), "Save My Results"),
-                                                     hr(),
-                                                     fileInput(ns("fileBcsv55"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                                               label = h5("Gene Expression Data 5")),
-                                                     downloadButton(ns("downloadData55.five"), "Save My Results"),
-                                                     hr(),
-                                                     actionButton(ns("button5"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                                                     
-                                                     
-                                    ),
-                    ),
-                   
-                   ########################################
-                  
-                   
-              
-                   
-                   ########################################
-                   
-                   ################################Data para una enfermedad1 Three metrics#####################################################################################
-                   
-                    conditionalPanel(condition = "input.performance_metrics==2",ns=ns,
-
-                                    ######enfermedad2
-                                    fileInput(ns("fileBcsv21"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                              label = h5("Gene Expression Data 1")),
-                                    actionButton(ns("button21"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-
-                                    downloadButton(ns("downloadData.2one"), "Save My Results"),
-                   #
-                   #                  ######enfermedad2
-                   #                  fileInput(ns("fileBcsv22"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                   #                            label = h5("Study 2")),
-                   #                  actionButton(ns("button22"),"Ok",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                   #
-                   #                  downloadButton(ns("downloadData.2two"), "Save My Data"),
-                   #
-                   #                  ######enfermedad3
-                   #                  fileInput(ns("fileBcsv23"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                   #                            label = h5("Study 3")),
-                   #                  actionButton(ns("button23"),"Ok",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                   #
-                   #                  downloadButton(ns("downloadData.2three"), "Save My Data"),
-                   #
-                   #
-                   #                  ######enfermedad4
-                   #                  fileInput(ns("fileBcsv24"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                   #                            label = h5("Study 4")),
-                   #                  actionButton(ns("button24"),"Ok",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                   #
-                   #                  downloadButton(ns("downloadData.2four"), "Save My Data"),
-                   #
-                   #                  ######enfermedad5
-                   #                  fileInput(ns("fileBcsv25"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                   #                            label = h5("Study 5")),
-                   #                  actionButton(ns("button25"),"Ok",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                   #
-                   #                  downloadButton(ns("downloadData.2five"), "Save My Data"),
-                   #
+        conditionalPanel(
+          condition = "input.performance_metrics==2", 
+          ns=ns,
+          fluidRow(
+            column(
+              4,
+              style=list("padding-right: 5px;"),
+              selectInput(
+                ns("PMs31"),
+                label = "PM1",
+                choices = list("Mean"=1,
+                               "Median"=2,
+                               "Quantile"=3
+                               )
+                          )
                   ),
+            
+            column(
+              4,
+              style=list("padding-right: 5px;"),
+              selectInput(
+                ns("PMs32"),
+                label = "PM2",
+                choices = list("Mean"=1,
+                               "Median"=2,
+                               "Quantile"=3)
+                               )
+                   ),
+            
+            column(
+              4,
+              style=list("padding-right: 5px;"),
+              selectInput(
+                ns("PMs33"),
+                label = "PM3",
+                choices = list("Mean"=1,
+                               "Median"=2,
+                               "Quantile"=3
+                               )
+                )
+              )
+            ),
+          fluidRow(
+            column(
+              4,
+              conditionalPanel(
+                condition ="input.PMs31==3", 
+                ns=ns,
+                column(
+                  6, 
+                  style=list("padding-right: 5px;"),
+                  textInput(ns("ValueqPM31"),
+                            label = h5("Quantile value (q)"),
+                            value = 75)
+                  )
+                )
+              ),
+            
+            column(
+              4,
+              conditionalPanel(
+                condition ="input.PMs32==3",
+                ns=ns,
+                column(
+                  6, 
+                  style=list("padding-right: 5px;"),
+                  textInput(ns("ValueqPM32"),
+                            label = h5("Quantile value (q)"),
+                            value = 75)
+                  )
+                )
+              ),
+                                             
+            column(
+              4,  
+              conditionalPanel(
+                condition ="input.PMs33==3", 
+                ns=ns,
+                column(
+                  6,
+                  style=list("padding-right: 5px;"),
+                  textInput(
+                    ns("ValueqPM33"),
+                    label = h5("Quantile value (q)"),
+                    value = 75)
+                  )
+                )
+              )
+            ),
+         
+           fluidRow(
+            column(
+              4,
+              textInput(
+                ns("NFro21"),
+                label = h5("Number of frontiers"),
+                value = "5"
+                )
+              )
+            )
+          ),
+        hr(),
+        
+        ##################Data para una enfermedad1 Two metrics################
+        
+        ######enfermedad1
+        conditionalPanel(
+          condition = "input.performance_metrics== 1",
+          ns=ns,
+          conditionalPanel(
+            condition = "input.Nudata1== 1 ", 
+            ns=ns,
+            fileInput(
+              ns("fileBcsv"),
+              accept = c('text/csv',
+              'text/comma-separated-values,
+              text/plain',
+              '.csv'
+              ),
+              label = h5("Gene Expression Data 1")),
+            actionButton(
+              ns("button1"),
+              "Run",
+              style="color: #fff; background-color: #337ab7;
+              border-color: #2e6da4"),
+            downloadButton(
+              ns("downloadData.one"),
+              "Save My Results")
+            ),
+          
+          ####enfermedad2
+          conditionalPanel(
+            condition = "input.Nudata1== 2",
+            ns=ns,
+            fileInput(
+              ns("fileBcsv2_1"),
+              accept = c('text/csv','
+                         text/comma-separated-values,
+                         text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 1")),
+            downloadButton(
+              ns("downloadData21.two"),
+              "Save My Results"
+              ),
+            hr(),
+            
+            fileInput(
+              ns("fileBcsv22"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,text/plain',
+                         '.csv'),
+              label = h5("Gene Expression Data 2")
+              ),
+            downloadButton(
+              ns("downloadData22.two"), 
+              "Save My Results"),
+            hr(),
+            
+            actionButton(
+              ns("button2"),
+              "Run",
+              style="color: #fff; background-color: #337ab7;
+              border-color: #2e6da4"),
+            ),
+          
+          ####enfermedad3
+          conditionalPanel(
+            condition = "input.Nudata1== 3",
+            ns=ns,
+            fileInput(
+              ns("fileBcsv31"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 1")
+              ),
+            
+            downloadButton(
+              ns("downloadData31.three"), 
+              "Save My Results"),
+            hr(),
+            
+            fileInput(
+              ns("fileBcsv32"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 2")
+              ),
+                                                   
+              downloadButton(
+                ns("downloadData32.three"),
+                "Save My Results"),      
+               hr(),
+            
+            fileInput(
+              ns("fileBcsv33"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 3")
+              ),
+                                                    
+             downloadButton(
+               ns("downloadData33.three"),
+               "Save My Results"),
+            hr(),
+                                                     
+            actionButton(
+              ns("button3"),
+              "Run",
+              style="color: #fff; background-color: #337ab7;
+              border-color: #2e6da4"),
+            ),
+          
+          
+          ####enfermedad4
+          conditionalPanel(
+            condition = "input.Nudata1== 4", 
+            ns=ns,
+            fileInput(
+              ns("fileBcsv41"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv')
+              ,
+              label = h5("Gene Expression Data 1")),
+            
+            downloadButton(
+              ns("downloadData41.four"), 
+              "Save My Results"),
+            hr(),
+                                                     
+            fileInput(
+              ns("fileBcsv42"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv'),
+              label = h5("Gene Expression Data 2")),
+            
+            downloadButton(
+              ns("downloadData42.four"), "Save My Results"),
+            hr(),
+                                                    
+            fileInput(
+              ns("fileBcsv43"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv'),
+              label = h5("Gene Expression Data 3")),
+            
+            downloadButton(
+              ns("downloadData43.four"),
+              "Save My Results"),
+            hr(),
+            
+            fileInput(
+              ns("fileBcsv44"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 4")
+              ),
+                                                     
+            downloadButton(
+              ns("downloadData44.four"), 
+              "Save My Results"),
+            hr(),
+                                                     
+            actionButton(
+              ns("button4"),
+              "Run",
+              style="color: #fff; background-color: #337ab7; 
+              border-color: #2e6da4"),
+            ),
+                                    
+          ####enfermedad5
+          conditionalPanel(
+            condition = "input.Nudata1== 5", 
+            ns=ns,
+                                                     
+            fileInput(
+              ns("fileBcsv51"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 1")
+              ),
+                                                    
+             downloadButton(
+               ns("downloadData51.five"), 
+               "Save My Results"),
+            hr(),
+                                                     
+            fileInput(
+              ns("fileBcsv52"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 2")),
+                                                     
+            downloadButton(
+              ns("downloadData52.five"), 
+              "Save My Results"),
+            hr(),
+            
+            fileInput(
+              ns("fileBcsv53"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 3")
+              ),
+                                                     
+            downloadButton(
+              ns("downloadData53.five"), 
+              "Save My Results"),
+            hr(),
+            
+            fileInput(
+              ns("fileBcsv54"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 4")),
+                                                     
+            downloadButton(
+              ns("downloadData54.five"),
+              "Save My Results"),
+            hr(),
+                                                  
+            fileInput(
+              ns("fileBcsv55"),
+              accept = c('text/csv',
+                         'text/comma-separated-values,
+                         text/plain',
+                         '.csv'
+                         ),
+              label = h5("Gene Expression Data 5")
+              ),
+                                                     
+            downloadButton(ns("downloadData55.five"), 
+                           "Save My Results"),
+            hr(),
+            
+            actionButton(
+              ns("button5"),
+              "Run",
+              style="color: #fff; background-color: #337ab7;
+              border-color: #2e6da4"
+              ),
+            ),
+          ),
+        ########################################
+        
+        
+        ###############Data para una enfermedad1 Three metrics###############
+      
+                
+        conditionalPanel(
+          condition = "input.performance_metrics==2",
+          ns=ns,
+          
+          ######enfermedad2
+          fileInput(
+            ns("fileBcsv21"),
+            accept = c('text/csv',
+                       'text/comma-separated-values,text/plain',
+                       '.csv'
+                       ),
+            label = h5("Gene Expression Data 1")),
+          actionButton(
+            ns("button21"),
+            "Run",style="color: #fff; background-color: #337ab7; 
+            border-color: #2e6da4"),
+          
+          downloadButton(ns("downloadData.2one"), "Save My Results"),
+                   #
+                   #                  
+          ######enfermedad2
+          #                        
+          # fileInput(
+          #   ns("fileBcsv22"),
+          #   accept = c('text/csv',
+          #   'text/comma-separated-values,
+          #   text/plain',
+          #   '.csv'
+          #   ),
+        #   label = h5("Study 2")),
+        #  
+        # actionButton(
+        #   ns("button22"),
+        #   "Ok",
+        #   style="color: #fff; 
+        #   background-color: #337ab7; border-color: #2e6da4"),
+                 
+        # downloadButton(
+        #   ns("downloadData.2two"), 
+        #   "Save My Data"),
+        # 
+        # 
+        # ######enfermedad3
+        #   fileInput(
+        #   ns("fileBcsv23"),
+        #   accept = c('text/csv',
+        #              'text/comma-separated-values,
+        #              text/plain',
+        #              '.csv'
+        #              ),
+        #   label = h5("Study 3")),
+        # actionButton(
+        #   ns("button23"),
+        #   "Ok",
+        #   style="color: #fff; background-color: #337ab7; 
+        # #   border-color: #2e6da4"),
+        # downloadButton(ns("downloadData.2three"), 
+        #                "Save My Data"),
+        # ######enfermedad4
+        # fileInput(ns("fileBcsv24"),
+        #           accept = c('text/csv',
+        #                      'text/comma-separated-values,
+        #                      text/plain',
+        #                      '.csv'
+        #                      ),
+        #            #                          
+        #           label = h5("Study 4")
+        #           ),
+        # actionButton(ns("button24"),
+        #              "Ok",
+        #              style="color: #fff; background-color: #337ab7; 
+        #              border-color: #2e6da4"),
+        # downloadButton(ns("downloadData.2four"), "Save My Data"),
+        # ######enfermedad5
+        # fileInput(ns("fileBcsv25"),
+        #           accept = c('text/csv',
+        #                      'text/comma-separated-values,
+        #                      text/plain',
+        #                      '.csv'
+        #                      ),
+        #           label = h5("Study 5")),
+        # actionButton(ns("button25"),
+        #              "Ok",style="color: #fff; background-color: #337ab7; 
+        #              border-color: #2e6da4"),
+        # downloadButton(ns("downloadData.2five"), 
+        #                "Save My Data"
+        #                ),
+        #            #
+                   ),
                    
                    ########################################
                    ########################################
       ),
       ################### mainPanel    
-      conditionalPanel(condition = "input.performance_metrics==1 || input.performance_metrics==2", ns=ns,
+      
+      conditionalPanel(
+        condition = "input.performance_metrics==1 ||
+        input.performance_metrics==2", ns=ns,
       mainPanel(
-        tabsetPanel(type = "tabs",
-                    tabPanel("SummaryData",
-                             conditionalPanel(condition = "input.performance_metrics==1",ns=ns,
-                                              conditionalPanel(condition = "input.Nudata1== 1 ", ns=ns,
-                                                               DT::DTOutput(ns("infotable"))
-                                                           ),
-                                              conditionalPanel(condition = "input.Nudata1== 2 ", ns=ns,
-                                                               DT::DTOutput(ns("infotable2_1")),
-                                                               DT::DTOutput(ns("infotable2_2"))
-                                              ),
-                                              conditionalPanel(condition = "input.Nudata1== 3 ", ns=ns,
-                                                               DT::DTOutput(ns("infotable31")),
-                                                               DT::DTOutput(ns("infotable32")),
-                                                               DT::DTOutput(ns("infotable33"))
-                                              ),
-                                              conditionalPanel(condition = "input.Nudata1== 4 ", ns=ns,
-                                                               DT::DTOutput(ns("infotable41")),
-                                                               DT::DTOutput(ns("infotable42")),
-                                                               DT::DTOutput(ns("infotable43")),
-                                                               DT::DTOutput(ns("infotable44"))
-                                              ),
-                                              conditionalPanel(condition = "input.Nudata1== 5 ", ns=ns,
-                                                               DT::DTOutput(ns("infotable51")),
-                                                               DT::DTOutput(ns("infotable52")),
-                                                               DT::DTOutput(ns("infotable53")),
-                                                               DT::DTOutput(ns("infotable54")),
-                                                               DT::DTOutput(ns("infotable55"))
-                                              ),
-                                              
-                                              ),
-                             conditionalPanel(condition = "input.performance_metrics==2",ns=ns,
-                                              DT::DTOutput(ns("infotable21"))
-                                              )
-                             ),
-
-                    tabPanel("Frontiers",
-                             conditionalPanel(condition = "input.performance_metrics==1",ns=ns,
-                             conditionalPanel(condition = "input.Nudata1==1 ", ns=ns,
-                                              DT::DTOutput(ns("table1"))
-                                              ),
-                             conditionalPanel(condition = "input.Nudata1==2 ", ns=ns,
-                                              DT::DTOutput(ns("table2_1")),
-                                              DT::DTOutput(ns("table2_2"))
-                                              ),
-                             conditionalPanel(condition = "input.Nudata1==3 ", ns=ns,
-                                              DT::DTOutput(ns("table31")),
-                                              DT::DTOutput(ns("table32")),
-                                              DT::DTOutput(ns("table33")),
-                                              ),
-                             conditionalPanel(condition = "input.Nudata1==4 ", ns=ns,
-                                              DT::DTOutput(ns("table41")),
-                                              DT::DTOutput(ns("table42")),
-                                              DT::DTOutput(ns("table43")),
-                                              DT::DTOutput(ns("table44")),
-                             ),
-                             conditionalPanel(condition = "input.Nudata1==5 ", ns=ns,
-                                              DT::DTOutput(ns("table51")),
-                                              DT::DTOutput(ns("table52")),
-                                              DT::DTOutput(ns("table53")),
-                                              DT::DTOutput(ns("table54")),
-                                              DT::DTOutput(ns("table55")),
-                             )
-                             
-                             
-                                              # DT::dataTableOutput("table2"),
-                                              # DT::dataTableOutput("table3"),
-                                              # DT::dataTableOutput("table4"),
-                                              # DT::dataTableOutput("table5")
-                             ),
-                              conditionalPanel(condition = "input.performance_metrics==2",ns=ns,
-                                                DT::dataTableOutput(ns("table21")),
+        tabsetPanel(
+          type = "tabs",
+          tabPanel("SummaryData",
+                   conditionalPanel(
+                     condition = "input.performance_metrics==1",ns=ns,
+                     conditionalPanel(condition = "input.Nudata1== 1 ", 
+                                      ns=ns,
+                                      DT::DTOutput(ns("infotable")
+                                                   )
+                                      ),
+                     conditionalPanel(
+                       condition = "input.Nudata1== 2 ", 
+                       ns=ns,
+                       DT::DTOutput(ns("infotable2_1")),
+                       DT::DTOutput(ns("infotable2_2"))
+                                       ),
+                     conditionalPanel(
+                       condition = "input.Nudata1== 3 ",
+                       ns=ns,
+                       DT::DTOutput(ns("infotable31")),
+                       DT::DTOutput(ns("infotable32")),
+                       DT::DTOutput(ns("infotable33"))
+                       ),
+                     conditionalPanel(
+                       condition = "input.Nudata1== 4 ", 
+                       ns=ns,
+                       DT::DTOutput(ns("infotable41")),
+                       DT::DTOutput(ns("infotable42")),
+                       DT::DTOutput(ns("infotable43")),
+                       DT::DTOutput(ns("infotable44"))
+                       ),
+                     conditionalPanel(
+                       condition = "input.Nudata1== 5 ", 
+                       ns=ns,
+                       DT::DTOutput(ns("infotable51")),
+                       DT::DTOutput(ns("infotable52")),
+                       DT::DTOutput(ns("infotable53")),
+                       DT::DTOutput(ns("infotable54")),
+                       DT::DTOutput(ns("infotable55"))
+                       ),
+                     ),
+                   conditionalPanel(
+                     condition = "input.performance_metrics==2",
+                     ns=ns,
+                     DT::DTOutput(ns("infotable21"))
+                     )
+                   ),
+          tabPanel(
+            "Frontiers",
+            conditionalPanel(
+              condition = "input.performance_metrics==1"
+              ,ns=ns,
+              conditionalPanel(
+                condition = "input.Nudata1==1 ",
+                ns=ns,
+                DT::DTOutput(ns("table1"))
+                ),
+              conditionalPanel(
+                condition = "input.Nudata1==2 ", 
+                ns=ns,
+                DT::DTOutput(ns("table2_1")),
+                DT::DTOutput(ns("table2_2"))
+                ),
+              conditionalPanel(
+                condition = "input.Nudata1==3 ",
+                ns=ns,
+                DT::DTOutput(ns("table31")),
+                DT::DTOutput(ns("table32")),
+                DT::DTOutput(ns("table33")),
+                ),
+              conditionalPanel
+              (condition = "input.Nudata1==4 ", 
+                ns=ns,
+                DT::DTOutput(ns("table41")),
+                DT::DTOutput(ns("table42")),
+                DT::DTOutput(ns("table43")),
+                DT::DTOutput(ns("table44")),
+                ),
+              conditionalPanel(
+                condition = "input.Nudata1==5 ", 
+                ns=ns,
+                DT::DTOutput(ns("table51")),
+                DT::DTOutput(ns("table52")),
+                DT::DTOutput(ns("table53")),
+                DT::DTOutput(ns("table54")),
+                DT::DTOutput(ns("table55")),
+                )
+              # DT::dataTableOutput("table2"),
+              # DT::dataTableOutput("table3"),
+              # DT::dataTableOutput("table4"),
+              # DT::dataTableOutput("table5")
+              ),
+            conditionalPanel(
+              condition = "input.performance_metrics==2",
+              ns=ns,
+              DT::dataTableOutput(ns("table21")),
                              #                  DT::dataTableOutput("table22"),
                              #                  DT::dataTableOutput("table23"),
                              #                  DT::dataTableOutput("table24"),
                              #                  DT::dataTableOutput("table25")
-                                               )
-                    ),
-                    tabPanel("Plot", conditionalPanel(condition = "input.performance_metrics==1", ns=ns,
-                                     conditionalPanel(condition = "input.Nudata1 == 1 ", ns=ns,                
-                                                     plotOutput(ns("plot11"))
-                                                     ),
-                                    conditionalPanel(condition = "input.Nudata1 == 2 ", ns=ns,                
-                                                     column(width = 6,plotOutput(ns("plot_2_1")),
-                                                            plotOutput(ns("plot_2_2")))
-                                    ),
-                                    conditionalPanel(condition = "input.Nudata1 == 3 ", ns=ns,                
-                                                     plotOutput(ns("plot_3_1")),
-                                                     plotOutput(ns("plot_3_2")),
-                                                    plotOutput(ns("plot_3_3"))
-                                    ),
-                                    conditionalPanel(condition = "input.Nudata1 == 4 ", ns=ns,                
-                                                     plotOutput(ns("plot_4_1")),
-                                                     plotOutput(ns("plot_4_2")),
-                                                     plotOutput(ns("plot_4_3")),
-                                                     plotOutput(ns("plot_4_4"))
-                                    ),
-                                    conditionalPanel(condition = "input.Nudata1 == 5 ", ns=ns,                
-                                                     plotOutput(ns("plot_5_1")),
-                                                     plotOutput(ns("plot_5_2")),
-                                                     plotOutput(ns("plot_5_3")),
-                                                     plotOutput(ns("plot_5_4")),
-                                                     plotOutput(ns("plot_5_5"))
-                                    )
-                                    
-                                    
-                                                              # column(width = 6,plotOutput("plot2")),
-                                                              # column(width = 6,plotOutput("plot3")),
-                                                              # column(width = 6,plotOutput("plot4")),
-                                                              # column(width = 6,plotOutput("plot5"))
-                                                     
-                    ),
-                     conditionalPanel(condition = "input.performance_metrics==2", ns=ns,
-                                      fluidRow(column(width = 5,plotly::plotlyOutput(ns("plot21"))),
+              )
+            ),
+          tabPanel(
+            "Plot", 
+            conditionalPanel(
+              condition = "input.performance_metrics==1", 
+              ns=ns,
+              conditionalPanel(
+                condition = "input.Nudata1 == 1 ", 
+                ns=ns,                
+                plotOutput(ns("plot11"))
+                ),
+              conditionalPanel(
+                condition = "input.Nudata1 == 2 ", 
+                ns=ns,                
+                column(width = 6,plotOutput(ns("plot_2_1")),
+                       plotOutput(ns("plot_2_2")))
+                ),
+              conditionalPanel(
+                condition = "input.Nudata1 == 3 ", 
+                ns=ns,              
+                plotOutput(ns("plot_3_1")),
+                plotOutput(ns("plot_3_2")),
+                plotOutput(ns("plot_3_3"))
+                ),
+              conditionalPanel(
+                condition = "input.Nudata1 == 4 ", 
+                ns=ns,                
+                plotOutput(ns("plot_4_1")),
+                plotOutput(ns("plot_4_2")),
+                plotOutput(ns("plot_4_3")),
+                plotOutput(ns("plot_4_4"))
+                ),
+              conditionalPanel(
+                condition = "input.Nudata1 == 5 ",
+                ns=ns,                
+                plotOutput(ns("plot_5_1")),
+                plotOutput(ns("plot_5_2")),
+                plotOutput(ns("plot_5_3")),
+                plotOutput(ns("plot_5_4")),
+                plotOutput(ns("plot_5_5"))
+                )
+              # column(width = 6,plotOutput("plot2")),
+              # column(width = 6,plotOutput("plot3")),
+              # column(width = 6,plotOutput("plot4")),
+              # column(width = 6,plotOutput("plot5"))
+              ),
+            conditionalPanel(
+              condition = "input.performance_metrics==2",
+              ns=ns,
+              fluidRow(column(width = 5,
+                              plotly::plotlyOutput(ns("plot21"))
+                              ),
                     #                           column(width = 5,plotlyOutput("plot22")),
                     #                           column(width = 5,plotlyOutput("plot23")),
                     #                            column(width = 5,plotlyOutput("plot24")),
                     #                            column(width = 5,plotlyOutput("plot25"))
-                                              )
-                                     )
-                    ),
-                    tabPanel("VENN",
-                             conditionalPanel(condition = "input.Nudata1== 2 ", ns=ns,
-                             plotOutput(ns("plot_venn2")), DT::DTOutput(ns("info_venn2"))
-                             ),
-                             conditionalPanel(condition = "input.Nudata1== 3 ", ns=ns,
-                                              plotOutput(ns("plot_venn3")), DT::DTOutput(ns("info_venn3"))
-                             ),
-                             conditionalPanel(condition = "input.Nudata1== 4 ", ns=ns,
-                                              plotOutput(ns("plot_venn4")), DT::DTOutput(ns("info_venn4"))
-                             ),
-                             conditionalPanel(condition = "input.Nudata1== 5 ", ns=ns,
-                                              plotOutput(ns("plot_venn5")), DT::DTOutput(ns("info_venn5"))
-                             )
-                             )
-        
-                    
+                    )
+              )
+            ),
+          tabPanel(
+            "VENN",
+            conditionalPanel(
+              condition = "input.Nudata1== 2 ", 
+              ns=ns,
+              plotOutput(ns("plot_venn2")), 
+              DT::DTOutput(ns("info_venn2"))
+              ),
+            conditionalPanel(
+              condition = "input.Nudata1== 3 ",
+              ns=ns,
+              plotOutput(ns("plot_venn3")), 
+              DT::DTOutput(ns("info_venn3"))
+              ),
+            conditionalPanel(
+              condition = "input.Nudata1== 4 ",
+              ns=ns,
+              plotOutput(ns("plot_venn4")),
+              DT::DTOutput(ns("info_venn4"))
+              ),
+            conditionalPanel(
+              condition = "input.Nudata1== 5 ",
+              ns=ns,
+              plotOutput(ns("plot_venn5")), 
+              DT::DTOutput(ns("info_venn5"))
+              )
+            )
+          )
         )
       )
-      
       )
-    )
-    
   )
-}
+  }
 
 #' Individuals Server Function
 #'
@@ -812,7 +1218,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv, 
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -834,7 +1242,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv,
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -858,12 +1268,15 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv, 
+                                      NF = NF, measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
           finalEval <- outEval$final2
-          dataPlot <- data_build(f1 = outEval$f1, X = outEval$X, Y = outEval$Y)
+          dataPlot <- data_build(f1 = outEval$f1,
+                                 X = outEval$X, 
+                                 Y = outEval$Y)
           return(list(final = finalEval, dataPlot = dataPlot))
         }
       }
@@ -882,7 +1295,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv,
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -906,7 +1321,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv, 
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -928,7 +1345,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv, 
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -950,7 +1369,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv, 
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -972,7 +1393,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv, 
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -996,7 +1419,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv, 
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -1018,7 +1443,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv, 
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -1040,7 +1467,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv,
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -1062,7 +1491,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv,
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -1084,7 +1515,9 @@ mod_Individuals_server <- function(id){
           q1=input$ValueqPM1
           q2=input$ValueqPM2
           
-          outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+          outEval <- mco_one_diseases(data = wnv,
+                                      NF = NF, 
+                                      measurePM1 = measurePM1, 
                                       measurePM2 = measurePM2,
                                       q1 = q1, 
                                       q2 = q2)
@@ -1100,7 +1533,8 @@ mod_Individuals_server <- function(id){
     ######### Venn 2 datas
     
     grap_venn2 <- reactive({
-      genes = merge(Stady2_1df()$final,Stady2_2df()$final, by = "Gene", all = TRUE) 
+      genes = merge(Stady2_1df()$final,
+                    Stady2_2df()$final, by = "Gene", all = TRUE) 
       genes$Frontier.x[!is.na(genes$Frontier.x)] <- 1
       genes$Frontier.y[!is.na(genes$Frontier.y)] <- 1
       genes[is.na(genes)] <- 0
@@ -1125,7 +1559,8 @@ mod_Individuals_server <- function(id){
     grap_venn3 <- reactive({
       c = 2
       t = 4
-      genes = merge(Stady31df()$final, Stady32df()$final, by = "Gene", all = TRUE) 
+      genes = merge(Stady31df()$final, 
+                    Stady32df()$final, by = "Gene", all = TRUE) 
       genes2 = merge(genes,Stady33df()$final, by = "Gene", all = TRUE  )
       
       genes2$Frontier.x[!is.na(genes2$Frontier.x)] <- 1
@@ -1159,7 +1594,8 @@ mod_Individuals_server <- function(id){
     grap_venn4 <- reactive({
       c = 2
       t = 5
-      genes = merge(Stady41df()$final, Stady42df()$final, by = "Gene", all = TRUE) 
+      genes = merge(Stady41df()$final, 
+                    Stady42df()$final, by = "Gene", all = TRUE) 
       genes2 = merge(genes,Stady43df()$final, by = "Gene", all = TRUE  )
       genes3 = merge(genes2,Stady44df()$final, by = "Gene", all = TRUE  )
       
@@ -1193,7 +1629,8 @@ mod_Individuals_server <- function(id){
     grap_venn5 <- reactive({
       c = 2
       t = 6
-      genes = merge(Stady51df()$final, Stady52df()$final, by = "Gene", all = TRUE) 
+      genes = merge(Stady51df()$final, 
+                    Stady52df()$final, by = "Gene", all = TRUE) 
       genes2 = merge(genes,Stady53df()$final, by = "Gene", all = TRUE  )
       genes3 = merge(genes2,Stady54df()$final, by = "Gene", all = TRUE  )
       genes4 = merge(genes3,Stady55df()$final, by = "Gene", all = TRUE  )
@@ -1244,14 +1681,19 @@ mod_Individuals_server <- function(id){
         q2=input$ValueqPM32
         q3=input$ValueqPM33
         
-        outEval <- mco_one_diseases_3PM(data = wnv, NF=NF, measurePMs31 = measurePMs31,
+        outEval <- mco_one_diseases_3PM(data = wnv, 
+                                        NF=NF,
+                                        measurePMs31 = measurePMs31,
                                         measurePMs32 = measurePMs32, 
                                         measurePMs33 = measurePMs33, 
                                         q1 = q1,
                                         q2 = q2, 
                                         q3 = q3)
         finalEval <- outEval$final2
-        dataPlot <- data_build2(f1 = outEval$f1, X = outEval$X, Y = outEval$Y, Z = outEval$Z)
+        dataPlot <- data_build2(f1 = outEval$f1, 
+                                X = outEval$X,
+                                Y = outEval$Y,
+                                Z = outEval$Z)
         return(list(final = finalEval,dataPlot = dataPlot))
       }
       
@@ -1382,11 +1824,17 @@ mod_Individuals_server <- function(id){
     plot1_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady1df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, 
+                             ggplot2::aes(X,
+                                          Y, 
+                                          group = as.factor(etiq),
+                                          color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),
+                             show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1399,11 +1847,15 @@ mod_Individuals_server <- function(id){
     plot21_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady2_1df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X, 
+                                              Y, 
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
           ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1416,11 +1868,16 @@ mod_Individuals_server <- function(id){
     plot22_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady2_2df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X, 
+                                              Y,
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") +
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1433,11 +1890,16 @@ mod_Individuals_server <- function(id){
     plot31_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady31df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y, 
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") +
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1450,11 +1912,16 @@ mod_Individuals_server <- function(id){
     plot32_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady32df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X, 
+                                              Y, 
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1467,11 +1934,16 @@ mod_Individuals_server <- function(id){
     plot33_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady33df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y, 
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1485,11 +1957,16 @@ mod_Individuals_server <- function(id){
     plot41_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady41df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y, 
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1502,11 +1979,16 @@ mod_Individuals_server <- function(id){
     plot42_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady42df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y,
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") +
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1519,11 +2001,16 @@ mod_Individuals_server <- function(id){
     plot43_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady43df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y,
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1536,11 +2023,16 @@ mod_Individuals_server <- function(id){
     plot44_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady44df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y,
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1553,11 +2045,16 @@ mod_Individuals_server <- function(id){
     plot51_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady51df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y,
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1570,11 +2067,16 @@ mod_Individuals_server <- function(id){
     plot52_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady52df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y,
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1587,11 +2089,16 @@ mod_Individuals_server <- function(id){
     plot53_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady53df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y,
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1604,11 +2111,16 @@ mod_Individuals_server <- function(id){
     plot54_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady54df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y,
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") +
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1621,11 +2133,16 @@ mod_Individuals_server <- function(id){
     plot55_obj <- reactive({
       if(input$performance_metrics == 1){
         df <- Stady55df()$dataPlot
-        p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+        p <- ggplot2::ggplot(df, ggplot2::aes(X,
+                                              Y,
+                                              group = as.factor(etiq),
+                                              color=as.factor(etiq))) +
           ggplot2::geom_point() +
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-          ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+          ggplot2::geom_line(
+            ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
+          ggplot2::theme(legend.position = "none") + 
+          ggplot2::guides(fill=FALSE, color=FALSE) +
           ggplot2::theme_bw()
         return(p)
       }
@@ -1641,8 +2158,24 @@ mod_Individuals_server <- function(id){
       if(input$performance_metrics == 2){
         df <- Stady1df2()$dataPlot
         
-        p <- plotly::plot_ly(df,x = ~X, y = ~Y, z = ~Z, type="scatter3d", mode="markers", color =~etiq,
-                           colors = c("gray", "purple", "red", "green",  "cyan","blue", "coral","deepskyblue", "orange",  "yellow", "pink")
+        p <- plotly::plot_ly(df,
+                             x = ~X, 
+                             y = ~Y,
+                             z = ~Z, 
+                             type="scatter3d",
+                             mode="markers", 
+                             color =~etiq,
+                           colors = c("gray", 
+                                      "purple", 
+                                      "red", 
+                                      "green", 
+                                      "cyan",
+                                      "blue",
+                                      "coral",
+                                      "deepskyblue", 
+                                      "orange", 
+                                      "yellow", 
+                                      "pink")
         ) %>%
           plotly::layout(
            title = "MCO",
