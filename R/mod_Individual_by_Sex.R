@@ -13,178 +13,373 @@ mod_Individual_by_Sex_ui <- function(id){
   tagList(
     sidebarLayout(
       sidebarPanel(width = 4,
-                   radioButtons(ns("performance_metrics_sex"), "Number of performance metrics:",  
-                                choices = list("Two metrics"=1,"Three metrics"=2)
+                   radioButtons(
+                     ns("performance_metrics_sex"), 
+                     "Number of performance metrics:", 
+                     choices = list("Two metrics"=1,
+                                    "Three metrics"=2
+                                    )
                                 ),
                    
-        ################################Two metricsL##################################################################################
-                   
-                   conditionalPanel(condition = "input.performance_metrics_sex==1", ns=ns,
-                                    
-                                    fluidRow(column(6,style=list("padding-right: 5px;"),
-                                                    selectInput(ns("PMs_sex1"), label = "PM1",
-                                                                choices = list("Mean"=1,"Median"=2,"Quantile"=3))),
-                                             column(6,style=list("padding-left: 28px;"),
-                                                    selectInput(ns("PMs_sex2"), label = "PM2",
-                                                                choices = list("Median"=2,"Mean"=1,"Quantile"=3)))),
-                                    
-                                    fluidRow(column(6,style=list("padding-right: 5px;"),
-                                                    conditionalPanel(condition ="input.PMs_sex1==3", ns=ns,
-                                                                     column(6.1, style=list("padding-right: 5px;"),
-                                                                            textInput(ns("ValueqPM_sex1"),label = h5("Quantile value (q)"),
-                                                                                      value = 75)) )),
-                                             column(6,style=list("padding-left: 28px;"),
-                                                    conditionalPanel(condition ="input.PMs_sex2==3", ns=ns,
-                                                                     column(6.1, style=list("padding-right: 5px;"),
-                                                                            textInput(ns("ValueqPM_sex2"),label = h5("Quantile value (q)"),
-                                                                                      value = 75)) ))),
-                                    
-                                    
-                                    fluidRow(column(4,textInput(ns("NFro_sex1"),label = h5("Number of frontiers"),value = "10")))               
-                                    
-                              ),
+        ################################Two metricsL###########################
         
-        ################################Three metrics##################################################################################
+        conditionalPanel(
+          condition = "input.performance_metrics_sex==1", 
+          ns=ns,
+          fluidRow(
+            column(
+              6,
+              style=list("padding-right: 5px;"),
+              selectInput(ns("PMs_sex1"),
+                          label = "PM1",
+                          choices = list("Mean"=1,
+                                         "Median"=2,
+                                         "Quantile"=3
+                                         )
+                          )
+              ),
+            
+            column(
+              6,
+              style=list("padding-left: 28px;"),
+              selectInput(ns("PMs_sex2"),
+                          label = "PM2",
+                          choices = list("Median"=2,
+                                         "Mean"=1,
+                                         "Quantile"=3
+                                         )
+                          )
+              )
+            ),
+          
+          fluidRow(
+            column(
+              6,
+              style=list("padding-right: 5px;"),
+              conditionalPanel(
+                condition ="input.PMs_sex1==3", 
+                ns=ns,
+                column(
+                  6.1,
+                  style=list("padding-right: 5px;"),
+                  textInput(ns("ValueqPM_sex1"),
+                            label = h5("Quantile value (q)"),
+                            value = 75
+                            )
+                       ) 
+                )
+              ),
+            
+            column(
+              6,
+              style=list("padding-left: 28px;"),
+              conditionalPanel(
+                condition ="input.PMs_sex2==3", 
+                ns=ns,
+                column(
+                  6.1, 
+                  style=list("padding-right: 5px;"),
+                  textInput(ns("ValueqPM_sex2"),
+                            label = h5("Quantile value (q)"),
+                            value = 75
+                            )
+                  ) 
+                )
+              )
+            ),
+          
+          fluidRow(
+            column(
+              4,
+              textInput(ns("NFro_sex1"),
+                        label = h5("Number of frontiers"),
+                        value = "10"
+                        )
+              )
+            )       
+          ),
         
-        conditionalPanel(condition = "input.performance_metrics_sex==2", ns=ns,
-                         
-                         fluidRow(column(4,style=list("padding-right: 5px;"),
-                                         selectInput(ns("PMs_sex21"), label = "PM1",
-                                                     choices = list("Mean"=1,"Median"=2,"Quantile"=3))),
-                                  column(4,style=list("padding-right: 5px;"),
-                                         selectInput(ns("PMs_sex22"), label = "PM2",
-                                                     choices = list("Median"=2,"Mean"=1,"Quantile"=3))),
-                                  column(4,style=list("padding-right: 5px;"),
-                                         selectInput(ns("PMs_sex23"), label = "PM3",
-                                                     choices = list("Quantile"=3,"Mean"=1,"Median"=2)))
-                         ),
-                         
-                         fluidRow(column(4,
-                                         conditionalPanel(condition ="input.PMs_sex21==3", ns=ns,
-                                                          column(6.1, style=list("padding-right: 5px;"),
-                                                                 textInput(ns("ValueqPM_sex21"),label = h5("Quantile value (q)"),
-                                                                           value = 75)) )),
-                                  column(4,
-                                         conditionalPanel(condition ="input.PMs_sex22==3",ns=ns,
-                                                          column(6.1, style=list("padding-right: 5px;"),
-                                                                 textInput(ns("ValueqPM_sex22"),label = h5("Quantile value (q)"),
-                                                                           value = 75)) )),
-                                  column(4,
-                                         conditionalPanel(condition ="input.PMs_sex23==3", ns=ns,
-                                                          column(6.1, style=list("padding-right: 5px;"),
-                                                                 textInput(ns("ValueqPM_sex23"),label = h5("Quantile value (q)"),
-                                                                           value = 75)) ))),
-                         fluidRow(column(4,textInput(ns("NFro_sex2"),label = h5("Frontiers"),value = "5")))
-                       ),
+        ################################Three metrics###########################
+    
+        
+        conditionalPanel(
+          condition = "input.performance_metrics_sex==2", 
+          ns=ns,
+          fluidRow(
+            column(
+              4,
+              style=list("padding-right: 5px;"),
+              selectInput(ns("PMs_sex21"), 
+                          label = "PM1",
+                          choices = list("Mean"=1,
+                                         "Median"=2,
+                                         "Quantile"=3
+                                         )
+                          )
+              ),
+            
+            column(
+              4,
+              style=list("padding-right: 5px;"),
+              selectInput(ns("PMs_sex22"), 
+                          label = "PM2",
+                          choices = list("Median"=2,
+                                         "Mean"=1,
+                                         "Quantile"=3
+                                         )
+                          )
+              ),
+            
+            column(
+              4,
+              style=list("padding-right: 5px;"),
+              selectInput(ns("PMs_sex23"), 
+                          label = "PM3",
+                          choices = list("Quantile"=3,
+                                         "Mean"=1,
+                                         "Median"=2
+                                         )
+                          )
+              )
+            ),
+          
+          fluidRow(
+            column(
+              4,
+              conditionalPanel(
+                condition ="input.PMs_sex21==3", 
+                ns=ns,
+                column(
+                  6.1, 
+                  style=list("padding-right: 5px;"),
+                  textInput(ns("ValueqPM_sex21"),
+                            label = h5("Quantile value (q)"),
+                            value = 75
+                            )
+                  )
+                )
+              ),
+            
+            column(
+              4,
+              conditionalPanel(
+                condition ="input.PMs_sex22==3",
+                ns=ns,
+                column(
+                  6.1, 
+                  style=list("padding-right: 5px;"),
+                  textInput(ns("ValueqPM_sex22"),
+                            label = h5("Quantile value (q)"),
+                            value = 75
+                            )
+                  )
+                )
+              ),
+            
+            column(
+              4,
+              conditionalPanel(
+                condition ="input.PMs_sex23==3",
+                ns=ns,
+                column(
+                  6.1,
+                  style=list("padding-right: 5px;"),
+                  textInput(ns("ValueqPM_sex23"),
+                            label = h5("Quantile value (q)"),
+                            value = 75
+                            )
+                  ) 
+                )
+              )
+            ),
+          
+          fluidRow(
+            column(
+              4,
+              textInput(ns("NFro_sex2"),
+                        label = h5("Frontiers"),
+                        value = "5"
+                        )
+              )
+            )
+          ),
         
         
         hr(),
         
         
-        
-        
-        ################################Data para una enfermedad1 Two metrics#####################################################################################
-        conditionalPanel(condition = "input.performance_metrics_sex==1", ns=ns,
-                         
-                         ######enfermedad2
-                         fileInput(ns("fileBcsv_sex1"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                   label = h5("Gene Expression Data")),
-                         
-                         fileInput(ns("filesex1"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                   label = h5("Sex information")),
-                         
-                         actionButton(ns("button_sex1"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                         
-                         
-                         hr(),
-                         downloadButton(ns("downloadData.female"), "Save My Female Data"),
-                         downloadButton(ns("downloadData.male"), "Save My Male Data"),
-                         
-                         downloadButton(ns("downloadData.control"), "Save My Control Data"),
-                         downloadButton(ns("downloadData.desease"), "Save My Disease Data"),
-                         
-                         hr(),
-                         downloadButton(ns("downloadData.sex_female"), "Save My Female Results "),
-                         downloadButton(ns("downloadData.sex_male"), "Save My Male Results "),
-                         downloadButton(ns("downloadData.sex_control"), "Save My Control Results "),
-                         downloadButton(ns("downloadData.sex_disease"), "Save My Disease Results ")
+        ##################Data para una enfermedad1 Two metrics############
+        conditionalPanel(
+          condition = "input.performance_metrics_sex==1", 
+          ns=ns,
+          
+          ######enfermedad2
+          fileInput(
+            ns("fileBcsv_sex1"),
+            accept = c('text/csv',
+                       'text/comma-separated-values,text/plain',
+                       '.csv'),
+            label = h5("Gene Expression Data")),
+          
+          fileInput(
+            ns("filesex1"),
+            accept = c('text/csv',
+                       'text/comma-separated-values,
+                       text/plain',
+                       '.csv'),
+            label = h5("Sex information")),
+          
+          actionButton(
+            ns("button_sex1"),
+            "Run",
+            style="color: #fff; background-color: #337ab7;
+            border-color: #2e6da4"),
+          
+          hr(),
+          
+          downloadButton(
+            ns("downloadData.female"),
+            "Save My Female Data"),
+          downloadButton(
+            ns("downloadData.male"), 
+            "Save My Male Data"),
+          downloadButton(
+            ns("downloadData.control"), 
+            "Save My Control Data"),
+          downloadButton(
+            ns("downloadData.desease"), 
+            "Save My Disease Data"),
+          hr(),
+          
+          downloadButton(
+            ns("downloadData.sex_female"), 
+            "Save My Female Results "),
+          downloadButton(
+            ns("downloadData.sex_male"), 
+            "Save My Male Results "),
+          downloadButton(
+            ns("downloadData.sex_control"), 
+            "Save My Control Results "),
+          downloadButton(
+            ns("downloadData.sex_disease"),
+            "Save My Disease Results ")
                          ),
-        ################################Data para una enfermedad1 Three metrics#####################################################################################
+        ########################Data para una enfermedad1 Three metrics########
         
-        conditionalPanel(condition = "input.performance_metrics_sex==2",ns=ns,
-                         
-                         ######enfermedad2
-                         fileInput(ns("fileBcsv_sex2"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                   label = h5("Gene Expression Data")),
-                         
-                         fileInput(ns("filesex2"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
-                                   label = h5("Sex information")),
-                         
-                         actionButton(ns("button_sex_2"),"Ok",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-                         
-                         downloadButton(ns("downloadData.sex2"), "Save My Results")
-                        )
-                   
-           ),
-      conditionalPanel(condition = "input.performance_metrics_sex==1 || input.performance_metrics_sex==2", ns=ns,
-                       mainPanel(
-                         tabsetPanel(type = "tabs",
-                                     tabPanel("SummaryData",
-                                              conditionalPanel(condition = "input.performance_metrics_sex==1",ns=ns,
-                                                               DT::DTOutput(ns("infotable_sex1"))
-                                                               ),
-                                              conditionalPanel(condition = "input.performance_metrics_sex==2",ns=ns,
-                                                               DT::DTOutput(ns("infotable_sex2"))
-                                                               )
-                                     ),
-                                     tabPanel("Frontiers",
-                                              conditionalPanel(condition = "input.performance_metrics_sex==1",ns=ns,
-                                                               DT::DTOutput(ns("table_sex1")), 
-                                                               DT::DTOutput(ns("table_sex2")),
-                                                               DT::DTOutput(ns("table_sex3")),
-                                                               DT::DTOutput(ns("table_sex4"))
-                                                              
-                                              ),
-                                              conditionalPanel(condition = "input.performance_metrics_sex==2",ns=ns,
-                                                               #DT::dataTableOutput(ns("table_sex2")),
-                                                               #                  DT::dataTableOutput("table22"),
-                                                               #                  DT::dataTableOutput("table23"),
-                                                               #                  DT::dataTableOutput("table24"),
-                                                               #                  DT::dataTableOutput("table25")
-                                              )
-                                     ),
-                                     tabPanel("Plot",conditionalPanel(condition = "input.performance_metrics_sex==1", ns=ns,
-                                                                      fluidRow(column(width = 6,plotOutput(ns("plot_sex1"))),
-                                                                               column(width = 6,plotOutput(ns("plot_sex2"))),
-                                                                               column(width = 6,plotOutput(ns("plot_sex3"))),
-                                                                               column(width = 6,plotOutput(ns("plot_sex4")))
-                                                                               
-                                                                      )
-                                     ),
-                                     conditionalPanel(condition = "input.performance_metrics_sex==2", ns=ns,
-                                                      fluidRow(column(width = 5,plotly::plotlyOutput(ns("plot_sex21"))),
-                                                               #                           column(width = 5,plotlyOutput("plot22")),
-                                                               #                           column(width = 5,plotlyOutput("plot23")),
-                                                               #                            column(width = 5,plotlyOutput("plot24")),
-                                                               #                            column(width = 5,plotlyOutput("plot25"))
-                                                              )
-                                                     )
-                                     
-                                              ),
-                                     tabPanel("VENN", conditionalPanel(condition = "input.performance_metrics_sex==1", ns=ns,
-                                                                       plotOutput(ns("plot_venn_sex")), DT::DTOutput(ns("info_venn_sex")))
-                                     )
-                                     
-                                    )
-                             )
-                       
-    )
+        conditionalPanel(
+          condition = "input.performance_metrics_sex==2",
+          ns=ns,
+          
+          ######enfermedad2
+          fileInput(
+            ns("fileBcsv_sex2"),
+            accept = c('text/csv',
+                       'text/comma-separated-values,text/plain',
+                       '.csv'),
+            label = h5("Gene Expression Data")),
+          fileInput(ns("filesex2"),
+                    accept = c('text/csv',
+                               'text/comma-separated-values,text/plain',
+                               '.csv'),
+                    label = h5("Sex information")),
+          
+          actionButton(
+            ns("button_sex_2"),
+            "Ok",
+            style="color: #fff; background-color: #337ab7; 
+            border-color: #2e6da4"),
+          
+          downloadButton(
+            ns("downloadData.sex2"), 
+            "Save My Results")
+                         )
+        ),
       
-      
-    )
-    
-    
-    
+      conditionalPanel(
+        condition = "input.performance_metrics_sex==1 || 
+        input.performance_metrics_sex==2",
+        ns=ns,
+        mainPanel(
+          tabsetPanel(
+            type = "tabs",
+            tabPanel("SummaryData",
+                     conditionalPanel(
+                       condition = "input.performance_metrics_sex==1",
+                       ns=ns,
+                       DT::DTOutput(ns("infotable_sex1"))
+                                      ),
+                     conditionalPanel(
+                       condition = "input.performance_metrics_sex==2",
+                       ns=ns,
+                       DT::DTOutput(ns("infotable_sex2"))
+                       )
+                     ),
+            
+            tabPanel(
+              "Frontiers",
+              conditionalPanel(
+                condition = "input.performance_metrics_sex==1",
+                ns=ns,
+                DT::DTOutput(ns("table_sex1")), 
+                DT::DTOutput(ns("table_sex2")),
+                DT::DTOutput(ns("table_sex3")),
+                DT::DTOutput(ns("table_sex4"))
+                ),
+              
+              conditionalPanel(
+                condition = "input.performance_metrics_sex==2",
+                ns=ns,
+                #                  DT::dataTableOutput(ns("table_sex2")),
+                #                  DT::dataTableOutput("table22"),
+                #                  DT::dataTableOutput("table23"),
+                #                  DT::dataTableOutput("table24"),
+                #                  DT::dataTableOutput("table25")
+                )
+              ),
+            tabPanel(
+              "Plot",
+              conditionalPanel(
+                condition = "input.performance_metrics_sex==1",
+                ns=ns,
+                fluidRow(
+                  column(
+                    width = 6,
+                    plotOutput(
+                      ns("plot_sex1")
+                               )
+                        ),
+                  
+                  column(width = 6,plotOutput(ns("plot_sex2"))),
+                  column(width = 6,plotOutput(ns("plot_sex3"))),
+                  column(width = 6,plotOutput(ns("plot_sex4")))
+                  )
+                ),
+              conditionalPanel(
+                condition = "input.performance_metrics_sex==2", 
+                ns=ns,
+                fluidRow(
+                  column(
+                    width = 5,
+                    plotly::plotlyOutput(ns("plot_sex21"))),
+                  #  column(width = 5,plotlyOutput("plot22")),
+                  # column(width = 5,plotlyOutput("plot23")),
+                  # column(width = 5,plotlyOutput("plot24")),
+                  #  column(width = 5,plotlyOutput("plot25"))
+                  )
+                )
+              ),
+            tabPanel(
+              "VENN",
+              conditionalPanel(
+                condition = "input.performance_metrics_sex==1",
+                ns=ns,
+                plotOutput(ns("plot_venn_sex")), 
+                DT::DTOutput(ns("info_venn_sex")))
+              )
+            )
+          )
+        )
+      )
     )
 }
     
@@ -192,13 +387,15 @@ mod_Individual_by_Sex_ui <- function(id){
 #'
 #' @noRd 
 mod_Individual_by_Sex_server <- function(id){
-  moduleServer( id, function(input, output, session){
+  moduleServer(
+    id, function(input, output, session){
     ns <- session$ns
     
     #### Data 1 to 2 PMs   
     filedata_sex1 <- reactive({
       req(input$fileBcsv_sex1)
-      fileInput <- load_file(input$fileBcsv_sex1$name, input$fileBcsv_sex1$datapath)
+      fileInput <- load_file(input$fileBcsv_sex1$name, 
+                             input$fileBcsv_sex1$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
@@ -207,7 +404,8 @@ mod_Individual_by_Sex_server <- function(id){
     #### Data1 SEX to 2 PMs   
     data_sex1 <- reactive({
       req(input$filesex1)
-      fileInput <- load_file(input$filesex1$name, input$filesex1$datapath)
+      fileInput <- load_file(input$filesex1$name, 
+                             input$filesex1$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
@@ -232,19 +430,41 @@ mod_Individual_by_Sex_server <- function(id){
       male <- table(data_sex1()$fileInput[,2])[2]
       
       
-      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, performance_metrics1, performance_metrics2, frontiers, female, male)))
-      rownames(SummaryData) <- c("Samples", "Genes","Controls", "Diseases", "Performance metrics 1", "Performance metrics 2", "Frontiers", "Female", "Male" )
+      SummaryData <- data.frame(
+        list(
+          N = c(
+            Nrows, 
+            Ncols, 
+            Controls, 
+            disease,
+            performance_metrics1, 
+            performance_metrics2,
+            frontiers,
+            female, 
+            male
+            )
+          )
+        )
+      rownames(SummaryData) <- c("Samples", 
+                                 "Genes",
+                                 "Controls",
+                                 "Diseases", 
+                                 "Performance metrics 1", 
+                                 "Performance metrics 2", 
+                                 "Frontiers", 
+                                 "Female", 
+                                 "Male" )
       list(SummaryData = SummaryData)
-    })
+      }
+    )
     
-    
-    particion_data <- reactive({
-      Data_Exp <- as.data.frame(filedata_sex1()$fileInput)
-      Data_SEX <- as.data.frame(data_sex1()$fileInput)
-      data_partition(Data_Exp=Data_Exp,Data_SEX=Data_SEX)
-       
-      
-      })
+      particion_data <- reactive(
+        {
+          Data_Exp <- as.data.frame(filedata_sex1()$fileInput)
+          Data_SEX <- as.data.frame(data_sex1()$fileInput)
+          data_partition(Data_Exp=Data_Exp,Data_SEX=Data_SEX)
+          }
+        )
     
     ###
     df_female <- eventReactive("button_sex1",{
@@ -257,7 +477,9 @@ mod_Individual_by_Sex_server <- function(id){
         q1=input$alueqPM_sex1
         q2=input$ValueqPM_sex2
         
-        outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+        outEval <- mco_one_diseases(data = wnv,
+                                    NF = NF,
+                                    measurePM1 = measurePM1, 
                                     measurePM2 = measurePM2,
                                     q1 = q1, 
                                     q2 = q2)
@@ -298,7 +520,9 @@ mod_Individual_by_Sex_server <- function(id){
         q1=input$alueqPM_sex1
         q2=input$ValueqPM_sex2
         
-        outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+        outEval <- mco_one_diseases(data = wnv,
+                                    NF = NF, 
+                                    measurePM1 = measurePM1, 
                                     measurePM2 = measurePM2,
                                     q1 = q1, 
                                     q2 = q2)
@@ -339,7 +563,9 @@ mod_Individual_by_Sex_server <- function(id){
         q1=input$alueqPM_sex1
         q2=input$ValueqPM_sex2
         
-        outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+        outEval <- mco_one_diseases(data = wnv,
+                                    NF = NF,
+                                    measurePM1 = measurePM1, 
                                     measurePM2 = measurePM2,
                                     q1 = q1, 
                                     q2 = q2)
@@ -380,7 +606,9 @@ mod_Individual_by_Sex_server <- function(id){
         q1=input$alueqPM_sex1
         q2=input$ValueqPM_sex2
         
-        outEval <- mco_one_diseases(data = wnv, NF = NF, measurePM1 = measurePM1, 
+        outEval <- mco_one_diseases(data = wnv, 
+                                    NF = NF,
+                                    measurePM1 = measurePM1, 
                                     measurePM2 = measurePM2,
                                     q1 = q1, 
                                     q2 = q2)
@@ -453,7 +681,8 @@ mod_Individual_by_Sex_server <- function(id){
         
       },
       content = function(file) {
-        write.csv(particion_data()$geo.final99039_Female, file, row.names = FALSE)
+        write.csv(particion_data()$geo.final99039_Female, 
+                  file, row.names = FALSE)
       }
     )
 
@@ -470,7 +699,8 @@ mod_Individual_by_Sex_server <- function(id){
         
       },
       content = function(file) {
-        write.csv(particion_data()$geo.final99039_Male, file, row.names = FALSE)
+        write.csv(particion_data()$geo.final99039_Male, 
+                  file, row.names = FALSE)
       }
     )
     
@@ -482,7 +712,8 @@ mod_Individual_by_Sex_server <- function(id){
         
       },
       content = function(file) {
-        write.csv(particion_data()$geo.final99039_Control, file, row.names = FALSE)
+        write.csv(particion_data()$geo.final99039_Control, 
+                  file, row.names = FALSE)
       }
     )
     
@@ -493,7 +724,8 @@ mod_Individual_by_Sex_server <- function(id){
         
       },
       content = function(file) {
-        write.csv(particion_data()$geo.final99039_Disease, file, row.names = FALSE)
+        write.csv(particion_data()$geo.final99039_Disease, 
+                  file, row.names = FALSE)
       }
     )
     
@@ -505,11 +737,14 @@ mod_Individual_by_Sex_server <- function(id){
  plot1_sex <- reactive({
    if(input$performance_metrics_sex == 1){
      df <- df_female()$dataPlot
-     p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+     p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,
+                                           color=as.factor(etiq))) +
        ggplot2::geom_point() +
        ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-       ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-       ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+       ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),
+                          show.legend = FALSE ) +
+       ggplot2::theme(legend.position = "none") + 
+       ggplot2::guides(fill=FALSE, color=FALSE) +
        ggplot2::theme_bw()
      return(p)
    }
@@ -523,11 +758,14 @@ mod_Individual_by_Sex_server <- function(id){
  plot2_sex <- reactive({
    if(input$performance_metrics_sex == 1){
      df <- df_male()$dataPlot
-     p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+     p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,
+                                           color=as.factor(etiq))) +
        ggplot2::geom_point() +
        ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-       ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-       ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+       ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),
+                          show.legend = FALSE ) +
+       ggplot2::theme(legend.position = "none") + 
+       ggplot2::guides(fill=FALSE, color=FALSE) +
        ggplot2::theme_bw()
      return(p)
    }
@@ -540,11 +778,14 @@ mod_Individual_by_Sex_server <- function(id){
  plot3_sex <- reactive({
    if(input$performance_metrics_sex == 1){
      df <- df_control()$dataPlot
-     p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+     p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,
+                                           color=as.factor(etiq))) +
        ggplot2::geom_point() +
        ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-       ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-       ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+       ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),
+                          show.legend = FALSE ) +
+       ggplot2::theme(legend.position = "none") + 
+       ggplot2::guides(fill=FALSE, color=FALSE) +
        ggplot2::theme_bw()
      return(p)
    }
@@ -557,11 +798,14 @@ mod_Individual_by_Sex_server <- function(id){
  plot4_sex <- reactive({
    if(input$performance_metrics_sex == 1){
      df <- df_disease()$dataPlot
-     p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
+     p <- ggplot2::ggplot(df, ggplot2::aes(X, Y, group = as.factor(etiq) ,
+                                           color=as.factor(etiq))) +
        ggplot2::geom_point() +
        ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-       ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE ) +
-       ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) +
+       ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),
+                          show.legend = FALSE ) +
+       ggplot2::theme(legend.position = "none") + 
+       ggplot2::guides(fill=FALSE, color=FALSE) +
        ggplot2::theme_bw()
      return(p)
    }
