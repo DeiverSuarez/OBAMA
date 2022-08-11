@@ -74,10 +74,14 @@ MCO_three_meta_analysis <- function(data1, data2 ,data3, NF, M1, M2, M3){
     M1_x=split(X,as.numeric(gl(length(X),trunc(length(X)/m),length(X)))) 
     M2_y=split(Y,as.numeric(gl(length(Y),trunc(length(Y)/m),length(Y)))) 
     M3_z=split(Z,as.numeric(gl(length(Z),trunc(length(Z)/m),length(Z)))) 
-    names=split(genes,as.numeric(gl(length(genes),trunc(length(genes)/m),length(genes)))) 
+    names=split(genes,as.numeric(gl(length(genes),
+                                    trunc(length(genes)/m),
+                                    length(genes)))) 
     z=list(c())
     for (i in 1: length(M1_x)){
-      z[[i]]=MCO(data.frame(M1_x[i])[,1],data.frame(M2_y[i])[,1],data.frame(M3_z[i])[,1])
+      z[[i]]=MCO(data.frame(M1_x[i])[,1],
+                 data.frame(M2_y[i])[,1],
+                 data.frame(M3_z[i])[,1])
     }
     front=list(c())
     for (i in 1:length(M1_x)) {
@@ -134,6 +138,9 @@ MCO_three_meta_analysis <- function(data1, data2 ,data3, NF, M1, M2, M3){
   
   frontier=N_front
   for (i in 1:length(frontier)) {frontier[[i]]=rep(i,length(frontier[[i]]))}
-  final2=data.frame(Gene=unlist(final,use.names = FALSE),Frontier=unlist(frontier,use.names = FALSE)) ## la lista esta aqui!
+  
+  ## la lista esta aqui!
+  final2=data.frame(Gene=unlist(final,use.names = FALSE),
+                    Frontier=unlist(frontier,use.names = FALSE)) 
   return(list(final2=final2, F1 = N_front, X = M1, Y = M2, Z = M3))
 }

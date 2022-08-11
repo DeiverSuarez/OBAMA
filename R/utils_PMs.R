@@ -7,7 +7,8 @@ PMs <- function(data=NULL,measurePM1 = 1, measurePM2 = 1, q1 = 75, q2 = 75){
       names(wnv11) = wnv1[,1]
       
       
-      Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+      Data <- wnv11; n_control <- table(wnv1[,2])[1]; 
+      n_enfermedad <- table(wnv1[,2])[2]
       
       if(measurePM1==1){
         median_control <- apply(Data[,1:n_control], 1, mean)
@@ -36,15 +37,19 @@ PMs <- function(data=NULL,measurePM1 = 1, measurePM2 = 1, q1 = 75, q2 = 75){
       }
       ###
       if(measurePM1==3){
-        median_control <- apply(Data[,1:n_control], 1, quantile,probs=c(as.numeric(q1)/100))
+        median_control <- apply(Data[,1:n_control], 1, 
+                                quantile,probs=c(as.numeric(q1)/100))
         names(median_control)=NULL
-        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, quantile,probs=c(as.numeric(q1)/100))
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1,
+                                quantile,probs=c(as.numeric(q1)/100))
         names(median_disease)=NULL
       }
       if(measurePM2==3){
-        mean_control <- apply(Data[,1:n_control], 1,quantile,probs=c(as.numeric(q2)/100))
+        mean_control <- apply(Data[,1:n_control], 1,
+                              quantile,probs=c(as.numeric(q2)/100))
         names( mean_control)=NULL
-        mean_disease <- apply(Data[,n_control+1:n_enfermedad], 1, quantile,probs=c(as.numeric(q2)/100))
+        mean_disease <- apply(Data[,n_control+1:n_enfermedad], 1, 
+                              quantile,probs=c(as.numeric(q2)/100))
         names(mean_disease)=NULL
       }
       
