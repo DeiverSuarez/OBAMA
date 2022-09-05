@@ -15,7 +15,9 @@
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-#usethis::use_package( "thinkr" )
+#usethis::use_package( "thinkr" ) 
+usethis::use_package( "reticulate" )
+usethis::use_package( "shiny" )
 usethis::use_package( "venn" )
 usethis::use_package( "plotly" )
 usethis::use_package( "ggplot2" )
@@ -35,6 +37,9 @@ usethis::use_package("readr")
 usethis::use_package("optrees")
 usethis::use_package("DataCombine") #
 usethis::use_package("networkD3")
+############### OFP ####################
+usethis::use_package("RColorBrewer")
+
 
 usethis::use_pipe()
 ## Add modules ----

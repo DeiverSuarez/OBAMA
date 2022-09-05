@@ -94,7 +94,7 @@ MST_tow_disease <- function(data_expresion1 = NULL,
   }
   dfFem <- data.frame(t(matrix(unlist(w), nrow=length(w), byrow=T)))
   colnames(dfFem)<-colnames(DiseFem)
-  dfFem[1:10,1:10] 
+  
   
   W=list(c())
   for (k in 1:dim(ContFem_SCZ)[2]) {
@@ -115,7 +115,7 @@ MST_tow_disease <- function(data_expresion1 = NULL,
                             )
                           )
   colnames(dfFem_SCZ)<-colnames(DiseFem_SCZ)
-  dfFem_SCZ[1:10,1:10]
+ 
   
   corrFem = cor(dfFem) + cor(dfFem_SCZ)
   absCorFem= abs(corrFem)

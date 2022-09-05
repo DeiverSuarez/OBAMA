@@ -131,7 +131,7 @@ MST_three_disease <- function(data_expresion1 = NULL,
                         )
                       )
   colnames(dfFem)<-colnames(DiseFem)
-  dfFem[1:10,1:10]
+  
   
   W=list(c())
   for (k in 1:dim(ContFem_SCZ)[2]) {
@@ -152,7 +152,7 @@ MST_three_disease <- function(data_expresion1 = NULL,
                             )
                           )
   colnames(dfFem_SCZ)<-colnames(DiseFem_SCZ)
-  dfFem_SCZ[1:10,1:10]
+ 
   
   P=list(c())
   for (k in 1:dim(ContFem_Asymp)[2]) {
@@ -173,7 +173,7 @@ MST_three_disease <- function(data_expresion1 = NULL,
                               )
                             )
   colnames(dfFem_Asymp)<-colnames(DiseFem_Asymp)
-  dfFem_Asymp[1:10,1:10]
+  
   
   corrFem = cor(dfFem) + cor(dfFem_SCZ) + cor(dfFem_Asymp)
   absCorFem= abs(corrFem)
