@@ -57,7 +57,10 @@ MCO_two_meta_analysis <- function(data1, data2 , NF, M1, M2){
     if (length(h)!=0){Y[h]=max(Y)}
     M1_x=split(X,as.numeric(gl(length(X),trunc(length(X)/m),length(X)))) 
     M2_y=split(Y,as.numeric(gl(length(Y),trunc(length(Y)/m),length(Y)))) 
-    names=split(genes,as.numeric(gl(length(genes),trunc(length(genes)/m),length(genes)))) 
+    names=split(genes,
+                as.numeric(gl(length(genes),
+                              trunc(length(genes)/m),
+                              length(genes)))) 
     z=list(c())
     
     for (i in 1: length(M1_x)){
@@ -119,7 +122,9 @@ MCO_two_meta_analysis <- function(data1, data2 , NF, M1, M2){
   frontier=N_front
   for (i in 1:length(frontier)) {frontier[[i]]=rep(i,length(frontier[[i]]))}
   
-  final2=data.frame(Gene=unlist(final,use.names = FALSE),Frontier=unlist(frontier,use.names = FALSE)) ## la lista esta aqui!
+  ## la lista esta aqui!
+  final2=data.frame(Gene=unlist(final,use.names = FALSE),
+                    Frontier=unlist(frontier,use.names = FALSE)) 
   
   return(list(final2=final2, F1 = N_front, X = M1, Y = M2))
   

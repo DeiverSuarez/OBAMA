@@ -1,4 +1,14 @@
-MCO_five_meta_analysis <- function(data1, data2 ,data3, data4, data5, NF, M1, M2, M3, M4, M5){
+MCO_five_meta_analysis <- function(data1,
+                                   data2,
+                                   data3, 
+                                   data4, 
+                                   data5, 
+                                   NF, 
+                                   M1, 
+                                   M2, 
+                                   M3,
+                                   M4, 
+                                   M5){
   if(NF==1){NF=2}
   else NF=NF
   wnv_e1=data.frame(data1)
@@ -98,7 +108,8 @@ MCO_five_meta_analysis <- function(data1, data2 ,data3, data4, data5, NF, M1, M2
     
     alpha <- delta_1+delta_2+delta_3+delta_4+delta_5
     
-    Gamma_m1 <- replace(alpha,alpha==0 | alpha==W |  alpha==2*W | alpha==3*W | alpha==4*W, 5/2*W)
+    Gamma_m1 <- replace(
+      alpha,alpha==0 | alpha==W |  alpha==2*W | alpha==3*W | alpha==4*W, 5/2*W)
     Gamma_m2 <- replace(Gamma_m1,Gamma_m1==5*W ,5*W)
     Gamma_m <- replace(Gamma_m2,Gamma_m2 != 5*W & Gamma_m2 != 5/2*W,0)
     
@@ -124,12 +135,20 @@ MCO_five_meta_analysis <- function(data1, data2 ,data3, data4, data5, NF, M1, M2
     M2_y=split(Y,as.numeric(gl(length(Y),trunc(length(Y)/m),length(Y)))) 
     M3_z=split(Z,as.numeric(gl(length(Z),trunc(length(Z)/m),length(Z)))) 
     M4_zz=split(ZZ,as.numeric(gl(length(ZZ),trunc(length(ZZ)/m),length(ZZ)))) 
-    M5_zzz=split(ZZZ,as.numeric(gl(length(ZZZ),trunc(length(ZZZ)/m),length(ZZZ)))) 
-    names=split(genes,as.numeric(gl(length(genes),trunc(length(genes)/m),length(genes)))) 
+    M5_zzz=split(ZZZ,as.numeric(gl(length(ZZZ),
+                                   trunc(length(ZZZ)/m),
+                                   length(ZZZ)))) 
+    names=split(genes,as.numeric(gl(length(genes),
+                                    trunc(length(genes)/m),
+                                    length(genes)))) 
     z=list(c())
     
     for (i in 1: length(M1_x)){
-      z[[i]]=MCO(data.frame(M1_x[i])[,1],data.frame(M2_y[i])[,1],data.frame(M3_z[i])[,1],data.frame(M4_zz[i])[,1],data.frame(M5_zzz[i])[,1])
+      z[[i]]=MCO(data.frame(M1_x[i])[,1],
+                 data.frame(M2_y[i])[,1],
+                 data.frame(M3_z[i])[,1],
+                 data.frame(M4_zz[i])[,1],
+                 data.frame(M5_zzz[i])[,1])
     }
     front=list(c())
     for (i in 1:length(M1_x)) {
@@ -187,9 +206,11 @@ MCO_five_meta_analysis <- function(data1, data2 ,data3, data4, data5, NF, M1, M2
   frontier=N_front
   for (i in 1:length(frontier)) {frontier[[i]]=rep(i,length(frontier[[i]]))}
   
-  final2=data.frame(Gene=unlist(final,use.names = FALSE),Frontier=unlist(frontier,use.names = FALSE)) ## la lista esta aqui!
+  final2=data.frame(Gene=unlist(final,use.names = FALSE),## la lista esta aqui!
+                    Frontier=unlist(frontier,use.names = FALSE)) 
   
-  #write.csv(final2, file="2Genes_terminal_ileum_autismo_Vs_control.csv")  #guardar en csv
+  #write.csv(final2, file="2Genes_terminal_ileum_autismo_Vs_control.csv")  
+  #guardar en csv
   
   return(list(final2=final2))
   
