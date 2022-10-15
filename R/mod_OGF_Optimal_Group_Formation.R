@@ -66,10 +66,10 @@ mod_OGF_Optimal_Group_Formation_server <- function(id){
     
     
     # Load Python code
-    reticulate::source_python('/Users/deiversuarezgomez/Documents/Git_repositories/OBAMA/prue.py')
-    output$default <- renderText({
-      return(OFP())
-    })
+    # reticulate::source_python('/Users/deiversuarezgomez/Documents/Git_repositories/OBAMA/prue.py')
+    # output$default <- renderText({
+    # return(OFP())
+    # })
  
   })
 }
