@@ -32,3 +32,4 @@ Suggests:
 Depends: 
     R (>= 3.6.0)
 VignetteBuilder: knitr
+URL: https://deiversuarez.github.io/OBAMA/
