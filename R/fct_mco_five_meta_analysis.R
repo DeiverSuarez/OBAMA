@@ -8,7 +8,7 @@
 #' @param data3 Gene expression data set.Gene expression data set.
 #' @param data4 Gene expression data set.Gene expression data set.
 #' @param data5 Gene expression data set.Gene expression data set.
-#' @param NF Number of frontiers Pareto-efficient.
+#' @param NF Number of frontiers Pareto-efficient to calculate.
 #' @param measurePM_m Three performance measures (1 = mean, 2 = median, 3 = quantail).
 #' @param q if measurePM_m = 3, q take the value of the quantile, for examnple q1 = 75.
 #'
