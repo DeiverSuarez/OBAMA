@@ -26,7 +26,7 @@ mco_five_meta_analysis(
 
 \item{data5}{Gene expression data set.Gene expression data set.}
 
-\item{NF}{Number of frontiers Pareto-efficient.}
+\item{NF}{Number of frontiers Pareto-efficient to calculate.}
 
 \item{measurePM_m}{Three performance measures (1 = mean, 2 = median, 3 = quantail).}
 
