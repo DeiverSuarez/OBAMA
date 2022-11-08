@@ -1,6 +1,6 @@
 Package: OBAMA
 Title: Optimization Based Analysis of Micro Arrays
-Version: 0.1.0
+Version: 0.0.0.9000
 Authors@R: 
     person(given = "Deiver",
            family = "Suarez Gomez",
@@ -24,7 +24,7 @@ Imports:
     magrittr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.0
 Suggests: 
     testthat,
     knitr,
@@ -32,4 +32,3 @@ Suggests:
 Depends: 
     R (>= 3.6.0)
 VignetteBuilder: knitr
-URL: https://deiversuarez.github.io/OBAMA/

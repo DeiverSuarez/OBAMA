@@ -11,168 +11,84 @@ mod_MST_Meta_analysis_ui <- function(id){
   ns <- NS(id)
   tagList(
     sidebarLayout(
-      sidebarPanel(
-        width = 4,
-        fluidRow(
-          column(
-            6,
-            style=list("padding-right: 28px;"),
-            radioButtons(
-              ns("Cases_MST"), 
-              "Number of datasets:",
-              choices = list("Two"=2,"Three"=3,"Four"=4,"Five"=5))
-            )
-          ),
-        conditionalPanel(
-          condition = "input.Cases_MST==2", 
-          ns=ns,
-          fileInput(
-            ns("MST_expresion21"),
-            accept = c('text/csv',
-                       'text/comma-separated-values,text/plain',
-                       '.csv'),
-            label = h5("Gene Expression Data 1")),
-          
-          fileInput(
-            ns("MST_expresion22"),
-            accept = c('text/csv',
-                       'text/comma-separated-values,text/plain',
-                       '.csv'),
-            label = h5("Gene Expression Data 2")),
-          
-          fileInput(
-            ns("MST_Genes2"),
-            accept = c('text/csv',
-                       'text/comma-separated-values,text/plain',
-                       '.csv'),
-            label = h5("Genes of Interest ")),
-          
-          actionButton(
-            ns("button_MST2"),
-            "Run",
-            style="color: #fff; background-color: #337ab7; 
-            border-color: #2e6da4"),
-          hr(),
-          
-          downloadButton(
-            ns("downloadData.MST2"), 
-            "Save My MST Results")
-          ),
-        
-        conditionalPanel(
-          condition = "input.Cases_MST==3", 
-          ns=ns,
-          fileInput(
-            ns("MST_expresion31"),
-            accept = c('text/csv',
-                       'text/comma-separated-values,text/plain',
-                       '.csv'),
-            label = h5("Gene Expression Data 1")),
-          fileInput(ns("MST_expresion32"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Gene Expression Data 2")),
-          fileInput(ns("MST_expresion33"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Gene Expression Data 3")),
-          fileInput(ns("MST_Genes3"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Genes of Interest")),
-          
-          actionButton(ns("button_MST3"),
-                       "Run",
-                       style="color: #fff; background-color: #337ab7;
-                       border-color: #2e6da4"),
-          hr(),
-          downloadButton(ns("downloadData.MST3"),
-                         "Save My MST Data")
-          ),
-        conditionalPanel(
-          condition = "input.Cases_MST==4", 
-          ns=ns,
-          fileInput(
-            ns("MST_expresion41"),
-            accept = c('text/csv',
-                       'text/comma-separated-values,text/plain',
-                       '.csv'),
-            label = h5("Gene Expression Data 1")),
-          fileInput(ns("MST_expresion42"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Gene Expression Data 2")),
-          fileInput(ns("MST_expresion43"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Gene Expression Data 3")),
-          fileInput(ns("MST_expresion44"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Gene Expression Data 4")),
-          fileInput(ns("MST_Genes4"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Genes of Interest")),
-          
-          actionButton(ns("button_MST4"),
-                       "Run",
-                       style="color: #fff; background-color: #337ab7;
-                       border-color: #2e6da4"),
-          hr(),
-          downloadButton(ns("downloadData.MST4"), 
-                         "Save My MST Data")
-          ),
-        conditionalPanel(
-          condition = "input.Cases_MST==5",
-          ns=ns,
-          fileInput(ns("MST_expresion51"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Gene Expression Data 1")),
-          fileInput(ns("MST_expresion52"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Gene Expression Data 2")),
-          fileInput(
-            ns("MST_expresion53"),
-            accept = c('text/csv',
-                       'text/comma-separated-values,text/plain',
-                       '.csv'),
-            label = h5("Gene Expression Data 3")),
-          fileInput(ns("MST_expresion54"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Gene Expression Data 4")),
-          fileInput(ns("MST_expresion55"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Gene Expression Data 5")),
-          fileInput(ns("MST_Genes5"),
-                    accept = c('text/csv',
-                               'text/comma-separated-values,text/plain',
-                               '.csv'),
-                    label = h5("Genes of Interest")),
-          actionButton(ns("button_MST5"),
-                       "Run",
-                       style="color: #fff; background-color: #337ab7;
-                       border-color: #2e6da4"),
-          hr(),
-          downloadButton(ns("downloadData.MST5"),
-                         "Save My MST Data")
-          ),
-        ),
+      sidebarPanel(width = 4,
+                   fluidRow(
+                     column(
+                       6,
+                       style=list("padding-right: 28px;"),
+                       radioButtons(
+                         ns("Cases_MST"), 
+                         "Number of datasets:",
+                         choices = list("Two"=2,"Three"=3,"Four"=4,"Five"=5))
+                       )
+                     ),
+                   
+                   conditionalPanel(condition = "input.Cases_MST==2", ns=ns,
+                   fileInput(ns("MST_expresion21"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                             label = h5("Gene Expression Data 1")),
+                   fileInput(ns("MST_expresion22"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                             label = h5("Gene Expression Data 2")),
+                   fileInput(ns("MST_Genes2"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                             label = h5("Genes of Interest ")),
+                   actionButton(ns("button_MST2"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+                   hr(),
+                   downloadButton(ns("downloadData.MST2"), "Save My MST Results")
+                   ),
+                   
+                   conditionalPanel(condition = "input.Cases_MST==3", ns=ns,
+                                    fileInput(ns("MST_expresion31"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 1")),
+                                    fileInput(ns("MST_expresion32"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 2")),
+                                    fileInput(ns("MST_expresion33"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 3")),
+                                    fileInput(ns("MST_Genes3"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Genes of Interest")),
+                                    actionButton(ns("button_MST3"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+                                    hr(),
+                                    downloadButton(ns("downloadData.MST3"), "Save My MST Data")
+                                    
+                                    ),
+                   conditionalPanel(condition = "input.Cases_MST==4", ns=ns,
+                                    fileInput(ns("MST_expresion41"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 1")),
+                                    fileInput(ns("MST_expresion42"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 2")),
+                                    fileInput(ns("MST_expresion43"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 3")),
+                                    fileInput(ns("MST_expresion44"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 4")),
+                                    fileInput(ns("MST_Genes4"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Genes of Interest")),
+                                    actionButton(ns("button_MST4"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+                                    hr(),
+                                    downloadButton(ns("downloadData.MST4"), "Save My MST Data")
+                                    
+                   ),
+                   
+                   conditionalPanel(condition = "input.Cases_MST==5", ns=ns,
+                                    fileInput(ns("MST_expresion51"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 1")),
+                                    fileInput(ns("MST_expresion52"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 2")),
+                                    fileInput(ns("MST_expresion53"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 3")),
+                                    fileInput(ns("MST_expresion54"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 4")),
+                                    fileInput(ns("MST_expresion55"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Gene Expression Data 5")),
+                                    fileInput(ns("MST_Genes5"),accept = c('text/csv','text/comma-separated-values,text/plain','.csv'),
+                                              label = h5("Genes of Interest")),
+                                    actionButton(ns("button_MST5"),"Run",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+                                    hr(),
+                                    downloadButton(ns("downloadData.MST5"), "Save My MST Data")
+                                    
+                   ),
+                   
+                   
+                   
+                   
+      ),
       
       mainPanel(
         conditionalPanel(condition = "input.Cases_MST==2", ns=ns,
@@ -185,76 +101,58 @@ mod_MST_Meta_analysis_ui <- function(id){
                              DT::DTOutput(ns("MST_Meta_analysis2"))  
                     ),
                     tabPanel("MST diagram",
-                             networkD3::forceNetworkOutput(
-                               ns("MST_diagram_Meta_analysis2"),
-                               width = "100%", 
-                               height = "600px")
+                             networkD3::forceNetworkOutput(ns("MST_diagram_Meta_analysis2"),width = "100%", height = "600px")
                              )
                     )
         ),
-        conditionalPanel(
-          condition = "input.Cases_MST==3",
-          ns=ns,
-          tabsetPanel(type = "tabs",
-                      tabPanel("SummaryData",
-                               DT::DTOutput(ns("SummaryMST_meta3")),
-                               DT::DTOutput(ns("SummaryMST_meta31")),
-                               DT::DTOutput(ns("SummaryMST_meta32")) 
-                               ),
-                      tabPanel("MST table",
-                               DT::DTOutput(ns("MST_Meta_analysis3"))  
-                               ),
-                      tabPanel("MST diagram",
-                               networkD3::forceNetworkOutput(
-                                 ns("MST_diagram_Meta_analysis3"),
-                                 width = "100%", height = "600px")
-                               )
+        conditionalPanel(condition = "input.Cases_MST==3", ns=ns,
+                         tabsetPanel(type = "tabs",
+                                     tabPanel("SummaryData",
+                                              DT::DTOutput(ns("SummaryMST_meta3")),
+                                              DT::DTOutput(ns("SummaryMST_meta31")),
+                                              DT::DTOutput(ns("SummaryMST_meta32")) 
+                                     ),
+                                     tabPanel("MST table",
+                                              DT::DTOutput(ns("MST_Meta_analysis3"))  
+                                     ),
+                                     tabPanel("MST diagram",
+                                              networkD3::forceNetworkOutput(ns("MST_diagram_Meta_analysis3"),width = "100%", height = "600px")
+                                     )
                          )
         ),
-        
-        conditionalPanel(
-          condition = "input.Cases_MST==4",
-          ns=ns,
-          tabsetPanel(type = "tabs",
-                      tabPanel("SummaryData",
-                               DT::DTOutput(ns("SummaryMST_meta4")),
-                               DT::DTOutput(ns("SummaryMST_meta41")),
-                               DT::DTOutput(ns("SummaryMST_meta42")),
-                               DT::DTOutput(ns("SummaryMST_meta43"))
-                               ),
-                      tabPanel("MST table",
-                               DT::DTOutput(ns("MST_Meta_analysis4")) 
-                               ),
-                      tabPanel("MST diagram",
-                               networkD3::forceNetworkOutput(
-                                 ns("MST_diagram_Meta_analysis4"),
-                                 width = "100%", 
-                                 height = "600px")
-                               )
-                      )
-          ),
-        conditionalPanel(
-          condition = "input.Cases_MST==5",
-          ns=ns,
-          tabsetPanel(type = "tabs",
-                      tabPanel("SummaryData",
-                               DT::DTOutput(ns("SummaryMST_meta5")),
-                               DT::DTOutput(ns("SummaryMST_meta51")), 
-                               DT::DTOutput(ns("SummaryMST_meta52")),  
-                               DT::DTOutput(ns("SummaryMST_meta53")),  
-                               DT::DTOutput(ns("SummaryMST_meta54")),  
-                               ),
-                      tabPanel("MST table",
-                               DT::DTOutput(ns("MST_Meta_analysis5"))
-                               ),
-                      tabPanel("MST diagram",
-                               networkD3::forceNetworkOutput(
-                                 ns("MST_diagram_Meta_analysis5"),
-                                 width = "100%", 
-                                 height = "600px")
-                               )
-                      )
-          ),
+        conditionalPanel(condition = "input.Cases_MST==4", ns=ns,
+                         tabsetPanel(type = "tabs",
+                                     tabPanel("SummaryData",
+                                              DT::DTOutput(ns("SummaryMST_meta4")),
+                                              DT::DTOutput(ns("SummaryMST_meta41")),
+                                              DT::DTOutput(ns("SummaryMST_meta42")),
+                                              DT::DTOutput(ns("SummaryMST_meta43")) 
+                                     ),
+                                     tabPanel("MST table",
+                                              DT::DTOutput(ns("MST_Meta_analysis4"))  
+                                     ),
+                                     tabPanel("MST diagram",
+                                              networkD3::forceNetworkOutput(ns("MST_diagram_Meta_analysis4"),width = "100%", height = "600px")
+                                     )
+                         )
+        ),
+        conditionalPanel(condition = "input.Cases_MST==5", ns=ns,
+                         tabsetPanel(type = "tabs",
+                                     tabPanel("SummaryData",
+                                              DT::DTOutput(ns("SummaryMST_meta5")),
+                                              DT::DTOutput(ns("SummaryMST_meta51")),  
+                                              DT::DTOutput(ns("SummaryMST_meta52")),  
+                                              DT::DTOutput(ns("SummaryMST_meta53")),  
+                                              DT::DTOutput(ns("SummaryMST_meta54")),  
+                                     ),
+                                     tabPanel("MST table",
+                                              DT::DTOutput(ns("MST_Meta_analysis5"))  
+                                     ),
+                                     tabPanel("MST diagram",
+                                              networkD3::forceNetworkOutput(ns("MST_diagram_Meta_analysis5"),width = "100%", height = "600px")
+                                     )
+                         )
+        ),
         
         )
       )
@@ -271,24 +169,21 @@ mod_MST_Meta_analysis_server <- function(id){
 # 2 data 
     filedata_MST_expression21 <- reactive({
       req(input$MST_expresion21)
-      fileInput <- load_file(input$MST_expresion21$name, 
-                             input$MST_expresion21$datapath)
+      fileInput <- load_file(input$MST_expresion21$name, input$MST_expresion21$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression22 <- reactive({
       req(input$MST_expresion22)
-      fileInput <- load_file(input$MST_expresion22$name, 
-                             input$MST_expresion22$datapath)
+      fileInput <- load_file(input$MST_expresion22$name, input$MST_expresion22$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_genes2 <- reactive({
       req(input$MST_Genes2)
-      fileInput <- load_file(input$MST_Genes2$name, 
-                             input$MST_Genes2$datapath)
+      fileInput <- load_file(input$MST_Genes2$name, input$MST_Genes2$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
@@ -301,16 +196,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression21()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression21()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes2()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols,
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases",
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -322,18 +209,13 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression22()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression22()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes2()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows, 
-                                           Ncols, 
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases",
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
+    
+    
+    
     
     
 ####### 2 data ###  
@@ -341,32 +223,28 @@ mod_MST_Meta_analysis_server <- function(id){
 ####### 3 data ###   
     filedata_MST_expression31 <- reactive({
       req(input$MST_expresion31)
-      fileInput <- load_file(input$MST_expresion31$name, 
-                             input$MST_expresion31$datapath)
+      fileInput <- load_file(input$MST_expresion31$name, input$MST_expresion31$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression32 <- reactive({
       req(input$MST_expresion32)
-      fileInput <- load_file(input$MST_expresion32$name, 
-                             input$MST_expresion32$datapath)
+      fileInput <- load_file(input$MST_expresion32$name, input$MST_expresion32$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression33 <- reactive({
       req(input$MST_expresion33)
-      fileInput <- load_file(input$MST_expresion33$name, 
-                             input$MST_expresion33$datapath)
+      fileInput <- load_file(input$MST_expresion33$name, input$MST_expresion33$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_genes3 <- reactive({
       req(input$MST_Genes3)
-      fileInput <- load_file(input$MST_Genes3$name, 
-                             input$MST_Genes3$datapath)
+      fileInput <- load_file(input$MST_Genes3$name, input$MST_Genes3$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
@@ -379,16 +257,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression31()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression31()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes3()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows, 
-                                           Ncols, 
-                                           Controls, 
-                                           disease,
-                                           genes)))
-      rownames(SummaryData) <- c("Samples", 
-                                 "Genes", 
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -400,16 +270,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression32()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression32()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes3()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows, 
-                                           Ncols, 
-                                           Controls,
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples", 
-                                 "Genes", 
-                                 "Controls",
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -421,56 +283,43 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression33()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression33()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes3()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls,
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes", 
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
 ######  
     ####### 4 data ###   
     filedata_MST_expression41 <- reactive({
       req(input$MST_expresion41)
-      fileInput <- load_file(input$MST_expresion41$name, 
-                             input$MST_expresion41$datapath)
+      fileInput <- load_file(input$MST_expresion41$name, input$MST_expresion41$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression42 <- reactive({
       req(input$MST_expresion42)
-      fileInput <- load_file(input$MST_expresion42$name, 
-                             input$MST_expresion42$datapath)
+      fileInput <- load_file(input$MST_expresion42$name, input$MST_expresion42$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression43 <- reactive({
       req(input$MST_expresion43)
-      fileInput <- load_file(input$MST_expresion43$name, 
-                             input$MST_expresion43$datapath)
+      fileInput <- load_file(input$MST_expresion43$name, input$MST_expresion43$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression44 <- reactive({
       req(input$MST_expresion44)
-      fileInput <- load_file(input$MST_expresion44$name, 
-                             input$MST_expresion44$datapath)
+      fileInput <- load_file(input$MST_expresion44$name, input$MST_expresion44$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_genes4 <- reactive({
       req(input$MST_Genes4)
-      fileInput <- load_file(input$MST_Genes4$name,
-                             input$MST_Genes4$datapath)
+      fileInput <- load_file(input$MST_Genes4$name, input$MST_Genes4$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
@@ -483,16 +332,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression41()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression41()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes4()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls, 
-                                           disease,
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -504,16 +345,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression42()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression42()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes4()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -525,16 +358,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression43()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression43()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes4()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -546,16 +371,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression44()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression44()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes4()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -564,48 +381,42 @@ mod_MST_Meta_analysis_server <- function(id){
     ####### 5 data ###   
     filedata_MST_expression51 <- reactive({
       req(input$MST_expresion51)
-      fileInput <- load_file(input$MST_expresion51$name, 
-                             input$MST_expresion51$datapath)
+      fileInput <- load_file(input$MST_expresion51$name, input$MST_expresion51$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression52 <- reactive({
       req(input$MST_expresion52)
-      fileInput <- load_file(input$MST_expresion52$name, 
-                             input$MST_expresion52$datapath)
+      fileInput <- load_file(input$MST_expresion52$name, input$MST_expresion52$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression53 <- reactive({
       req(input$MST_expresion53)
-      fileInput <- load_file(input$MST_expresion53$name, 
-                             input$MST_expresion53$datapath)
+      fileInput <- load_file(input$MST_expresion53$name, input$MST_expresion53$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression54 <- reactive({
       req(input$MST_expresion54)
-      fileInput <- load_file(input$MST_expresion54$name, 
-                             input$MST_expresion54$datapath)
+      fileInput <- load_file(input$MST_expresion54$name, input$MST_expresion54$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_expression55 <- reactive({
       req(input$MST_expresion55)
-      fileInput <- load_file(input$MST_expresion55$name, 
-                             input$MST_expresion55$datapath)
+      fileInput <- load_file(input$MST_expresion55$name, input$MST_expresion55$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
     
     filedata_MST_genes5 <- reactive({
       req(input$MST_Genes5)
-      fileInput <- load_file(input$MST_Genes5$name,
-                             input$MST_Genes5$datapath)
+      fileInput <- load_file(input$MST_Genes5$name, input$MST_Genes5$datapath)
       fileInput <- as.data.frame(fileInput)
       return(list(fileInput = fileInput))
     })
@@ -618,16 +429,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression51()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression51()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes5()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -639,16 +442,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression52()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression52()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes5()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -660,16 +455,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression53()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression53()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes5()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -681,16 +468,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression54()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression54()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes5()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     
@@ -702,16 +481,8 @@ mod_MST_Meta_analysis_server <- function(id){
       Controls <- table(filedata_MST_expression55()$fileInput[,2])[1]
       disease <- table(filedata_MST_expression55()$fileInput[,2])[2]
       genes <- length(filedata_MST_genes5()$fileInput[,1])
-      SummaryData <- data.frame(list(N = c(Nrows,
-                                           Ncols, 
-                                           Controls, 
-                                           disease, 
-                                           genes)))
-      rownames(SummaryData) <- c("Samples",
-                                 "Genes",
-                                 "Controls", 
-                                 "Diseases", 
-                                 "Genes of Interest")
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols, Controls, disease, genes)))
+      rownames(SummaryData) <- c("Samples", "Genes", "Controls", "Diseases", "Genes of Interest")
       list(SummaryData = SummaryData)
     })
     ###### 
@@ -720,9 +491,7 @@ mod_MST_Meta_analysis_server <- function(id){
       wnv21 <- as.data.frame(filedata_MST_expression21()$fileInput)
       wnv22 <- as.data.frame(filedata_MST_expression22()$fileInput)
       wnv23 <- as.data.frame(filedata_MST_genes2()$fileInput)
-      outEval <- MST_tow_disease(data_expresion1 = wnv21, 
-                                 data_expresion2 = wnv22, 
-                                 data_gene = wnv23)
+      outEval <- MST_tow_disease(data_expresion1 = wnv21, data_expresion2 = wnv22, data_gene = wnv23)
       return(list(outEval=outEval))
     })
     
@@ -756,12 +525,7 @@ mod_MST_Meta_analysis_server <- function(id){
     
     MST_digram2 <- eventReactive(input$button_MST2,{
       Data=as.data.frame(MST2())
-      diagram <- networkD3::simpleNetwork(Data=Data, 
-                                          linkDistance = 30, 
-                                          charge = -30, 
-                                          fontSize = 11,
-                                          linkColour = "red",
-                                          nodeColour ="blue"  )
+      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
       return(diagram)
     })
     
@@ -776,10 +540,8 @@ mod_MST_Meta_analysis_server <- function(id){
       wnv33 <- as.data.frame(filedata_MST_expression33()$fileInput)
       wnv34 <- as.data.frame(filedata_MST_genes3()$fileInput)
        
-      outEval <- MST_three_disease(data_expresion1 = wnv31, 
-                                   data_expresion2 = wnv32, 
-                                   data_expresion3 = wnv33, 
-                                   data_gene = wnv34)
+      outEval <- MST_three_disease(data_expresion1 = wnv31, data_expresion2 = wnv32, 
+                                   data_expresion3 = wnv33, data_gene = wnv34)
       return(list(outEval=outEval))
     })
     
@@ -803,12 +565,7 @@ mod_MST_Meta_analysis_server <- function(id){
     
     MST_digram3 <- eventReactive(input$button_MST3,{
       Data=as.data.frame(MST3())
-      diagram <- networkD3::simpleNetwork(Data=Data, 
-                                          linkDistance = 30,
-                                          charge = -30,
-                                          fontSize = 11,
-                                          linkColour = "red",
-                                          nodeColour ="blue"  )
+      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
       return(diagram)
     })
     
@@ -839,10 +596,8 @@ mod_MST_Meta_analysis_server <- function(id){
       wnv44 <- as.data.frame(filedata_MST_expression44()$fileInput)
       wnv45 <- as.data.frame(filedata_MST_genes4()$fileInput)
       
-      outEval <- MST_four_disease(data_expresion1 = wnv41, 
-                                  data_expresion2 = wnv42, 
-                                   data_expresion3 = wnv43,
-                                  data_expresion4 = wnv44,
+      outEval <- MST_four_disease(data_expresion1 = wnv41, data_expresion2 = wnv42, 
+                                   data_expresion3 = wnv43,data_expresion4 = wnv44,
                                    data_gene = wnv45)
       return(list(outEval=outEval))
     })
@@ -867,12 +622,7 @@ mod_MST_Meta_analysis_server <- function(id){
     
     MST_digram4 <- eventReactive(input$button_MST4,{
       Data=as.data.frame(MST4())
-      diagram <- networkD3::simpleNetwork(Data=Data,
-                                          linkDistance = 30, 
-                                          charge = -30, 
-                                          fontSize = 11,
-                                          linkColour = "red",
-                                          nodeColour ="blue"  )
+      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
       return(diagram)
     })
     
@@ -910,11 +660,8 @@ mod_MST_Meta_analysis_server <- function(id){
       wnv55 <- as.data.frame(filedata_MST_expression55()$fileInput)
       wnv56 <- as.data.frame(filedata_MST_genes5()$fileInput)
       
-      outEval <- MST_five_disease(data_expresion1 = wnv51, 
-                                  data_expresion2 = wnv52, 
-                                  data_expresion3 = wnv53,
-                                  data_expresion4 = wnv54,
-                                  data_expresion5 = wnv55,
+      outEval <- MST_five_disease(data_expresion1 = wnv51, data_expresion2 = wnv52, 
+                                  data_expresion3 = wnv53,data_expresion4 = wnv54,data_expresion5 = wnv55,
                                   data_gene = wnv56)
       return(list(outEval=outEval))
     })
@@ -939,13 +686,7 @@ mod_MST_Meta_analysis_server <- function(id){
     
     MST_digram5 <- eventReactive(input$button_MST5,{
       Data=as.data.frame(MST5())
-      diagram <- networkD3::simpleNetwork(Data=Data, 
-                                          linkDistance = 30,
-                                          charge = -30,
-                                          fontSize = 11,
-                                          linkColour = "red",
-                                          nodeColour ="blue"
-                                          )
+      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
       return(diagram)
     })
     

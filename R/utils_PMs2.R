@@ -2,14 +2,7 @@
 #' 
 #MPStady21 <- eventReactive(input$button21,{
   
-PMs2 <- function(data=NULL, 
-                 measurePMs31 = 1, 
-                 measurePMs32 = 1, 
-                 measurePMs33 = 1,
-                 q1 = 75, 
-                 q2 = 75, 
-                 q3 = 75)
-  {
+PMs2 <- function(data=NULL, measurePMs31 = 1, measurePMs32 = 1, measurePMs33 = 1, q1 = 75, q2 = 75, q3 = 75){
   
     filedata <- data  
   
@@ -18,8 +11,7 @@ PMs2 <- function(data=NULL,
     wnv11=data.frame(t(wnv1[,-c(1,2)]))
     names(wnv11)=wnv1[,1]
     
-    Data <- wnv11; n_control <- table(wnv1$disease.state)[1]; 
-    n_enfermedad <- table(wnv1$disease.state)[2]
+    Data <- wnv11; n_control <- table(wnv1$disease.state)[1]; n_enfermedad <- table(wnv1$disease.state)[2]
     
     if(measurePMs31==1){
       median_control <- apply(Data[,1:n_control], 1, mean)
@@ -60,27 +52,21 @@ PMs2 <- function(data=NULL,
     }
     ###
     if(measurePMs31==3){
-      median_control <- apply(Data[,1:n_control], 1, 
-                              quantile,probs=c(as.numeric(q1)/100))
+      median_control <- apply(Data[,1:n_control], 1, quantile,probs=c(as.numeric(q1)/100))
       names(median_control)=NULL
-      median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, 
-                              quantile,probs=c(as.numeric(q1)/100))
+      median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, quantile,probs=c(as.numeric(q1)/100))
       names(median_disease)=NULL
     }
     if(measurePMs32==3){
-      mean_control <- apply(Data[,1:n_control], 1,
-                            quantile,probs=c(as.numeric(q2)/100))
+      mean_control <- apply(Data[,1:n_control], 1,quantile,probs=c(as.numeric(q2)/100))
       names( mean_control)=NULL
-      mean_disease <- apply(Data[,n_control+1:n_enfermedad], 1,
-                            quantile,probs=c(as.numeric(q2)/100))
+      mean_disease <- apply(Data[,n_control+1:n_enfermedad], 1, quantile,probs=c(as.numeric(q2)/100))
       names(mean_disease)=NULL
     }
     if(measurePMs33==3){
-      mean3_control <- apply(Data[,1:n_control], 1,
-                             quantile,probs=c(as.numeric(q3)/100))
+      mean3_control <- apply(Data[,1:n_control], 1,quantile,probs=c(as.numeric(q3)/100))
       names( mean3_control)=NULL
-      mean3_disease <- apply(Data[,n_control+1:n_enfermedad], 1, 
-                             quantile,probs=c(as.numeric(q3)/100))
+      mean3_disease <- apply(Data[,n_control+1:n_enfermedad], 1, quantile,probs=c(as.numeric(q3)/100))
       names(mean3_disease)=NULL
     }
     
@@ -103,9 +89,7 @@ PMs2 <- function(data=NULL,
     Trans_df_abs_mean
     Trans_df_abs_mean3 <- (Max_df_abs_mean3+Min_df_abs_mean3)-df_abs_mean3
     Trans_df_abs_mean3
-    measures_perfo <- data.frame( Trans_df_abs_median,
-                                  Trans_df_abs_mean,
-                                  Trans_df_abs_mean3)
+    measures_perfo <- data.frame( Trans_df_abs_median,Trans_df_abs_mean,Trans_df_abs_mean3)
     names(measures_perfo) <- c("M1","M2","M3")
     return(measures_perfo)
 }

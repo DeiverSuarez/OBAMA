@@ -48,10 +48,7 @@ MCO_one_disease <- function(Data,NF,M1,M2){
     
     M1_x=split(X,as.numeric(gl(length(X),trunc(length(X)/m),length(X)))) 
     M2_y=split(Y,as.numeric(gl(length(Y),trunc(length(Y)/m),length(Y)))) 
-    names=split(genes,
-                as.numeric(gl(length(genes),
-                              trunc(length(genes)/m),
-                              length(genes)))) 
+    names=split(genes,as.numeric(gl(length(genes),trunc(length(genes)/m),length(genes)))) 
     LZ <- length(M1_x)
     z <- vector(mode = "list",length = LZ)
     LM1_x <- 1:LZ
@@ -115,12 +112,9 @@ MCO_one_disease <- function(Data,NF,M1,M2){
   LN_front <- 1:length(frontier)
   for (i in LN_front) {frontier[[i]]=rep(i,length(frontier[[i]]))}
   
-  # la lista esta aqui!
-  final2 <- data.frame(Gene=unlist(final,use.names = FALSE),
-                       Frontier=unlist(frontier,use.names = FALSE)) #
+  final2 <- data.frame(Gene=unlist(final,use.names = FALSE),Frontier=unlist(frontier,use.names = FALSE)) ## la lista esta aqui!
   
-  #write.csv(final2, file="2Genes_terminal_ileum_autismo_Vs_control.csv")  
-  #guardar en csv
+  #write.csv(final2, file="2Genes_terminal_ileum_autismo_Vs_control.csv")  #guardar en csv
   ########################################
   
   # f1=N_front
@@ -131,16 +125,10 @@ MCO_one_disease <- function(Data,NF,M1,M2){
   # for (i in 1:length(f1)) {
   #   data[f1[[i]],3]=i
   # }
-  grafica <- ggplot2::ggplot(data , 
-                             ggplot2::aes(X, Y, group = as.factor(etiq) ,
-                                          color=as.factor(etiq))) +
+  # grafica <- ggplot2::ggplot(data , ggplot2::aes(X, Y, group = as.factor(etiq) ,color=as.factor(etiq))) +
   #   ggplot2::geom_point()+ggplot2::labs(x = "PM1:Median", y = "PM2:Mean")+
-  # ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),
-  #                    show.legend = FALSE )+
-  # 
-  # ggplot2::theme(legend.position = "none") + 
-  #   ggplot2::guides(fill=FALSE, color=FALSE) +
-  #   ggplot2::theme_bw()
+  #   ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),show.legend = FALSE )+
+  #   ggplot2::theme(legend.position = "none") + ggplot2::guides(fill=FALSE, color=FALSE) + ggplot2::theme_bw()
   
   #if(alternative=="front"){return(final)}
   return(list(final2=final2, f1 = N_front, X = M1, Y = M2))

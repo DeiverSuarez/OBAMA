@@ -16,7 +16,7 @@
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
 #usethis::use_package( "thinkr" ) 
-usethis::use_package( "reticulate" )
+#usethis::use_package( "reticulate" )
 usethis::use_package( "shiny" )
 usethis::use_package( "venn" )
 usethis::use_package( "plotly" )
@@ -51,7 +51,7 @@ golem::add_module( name = "Meta_analysis" ) # Name of the module
 golem::add_module(name = "MST_one_condition")
 golem::add_module(name = "MST_Meta_analysis")
 ############# OGF ####################
-golem::add_module(name = "OGF_Optimal_Group_Formation")
+#golem::add_module(name = "OGF_Optimal_Group_Formation")
 
 
 
