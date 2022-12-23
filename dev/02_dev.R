@@ -37,6 +37,7 @@ usethis::use_package("readr")
 usethis::use_package("optrees")
 usethis::use_package("DataCombine") #
 usethis::use_package("networkD3")
+usethis::use_package("httr")
 ############### OFP ####################
 usethis::use_package("RColorBrewer")
 
@@ -51,7 +52,7 @@ golem::add_module( name = "Meta_analysis" ) # Name of the module
 golem::add_module(name = "MST_one_condition")
 golem::add_module(name = "MST_Meta_analysis")
 ############# OGF ####################
-#golem::add_module(name = "OGF_Optimal_Group_Formation")
+golem::add_module(name = "OGF_Optimal_Group_Formation")
 
 
 
