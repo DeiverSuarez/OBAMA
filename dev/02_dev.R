@@ -86,6 +86,8 @@ golem::add_fct("MST_Three_disease")
 golem::add_fct("MST_four_disease")
 golem::add_fct("MST_five_disease")
 golem::add_utils("MST_diagram")
+############# OGF ####################
+golem::add_fct("OGF_groups")
 
 ## External resources
 ## Creates .js and .css files at inst/app/www

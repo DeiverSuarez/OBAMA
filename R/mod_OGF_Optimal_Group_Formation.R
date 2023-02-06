@@ -21,6 +21,13 @@ mod_OGF_Optimal_Group_Formation_ui <- function(id){
                      ns("NM"),
                      label = h5("Maximum number of processes allowed in each group"),
                      value = "4"),
+                   fileInput(
+                     ns("fileOGF"),
+                     accept = c('text/csv',
+                                'text/comma-separated-values,text/plain',
+                                '.csv'),
+                     label = h5("Incidence matrix")
+                   ),
                    actionButton(ns("button_OGF"),
                                 "Run",
                                 style="color: #fff; 
@@ -28,13 +35,14 @@ mod_OGF_Optimal_Group_Formation_ui <- function(id){
                                 border-color: #2e6da4"),
                    hr(),
                    downloadButton(ns("downloadData.MST"),
-                                  "Save My MST Results")
+                                  "Save My OGF Results")
       ),
       
       mainPanel(
         tabsetPanel(type = "tabs",
                     tabPanel("Decision variables",
-                             DT::DTOutput(ns("OGF_ouput"))
+                             DT::DTOutput(ns("OGF_ouput")),
+                             DT::DTOutput(ns("OGF_data"))
                              #verbatimTextOutput(ns("OGF_ouput"))
                              ),
                     )
@@ -52,24 +60,36 @@ mod_OGF_Optimal_Group_Formation_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
+    filedataOGF <- reactive({
+      req(input$fileOGF)
+      fileInput <- load_file(input$fileOGF$name, input$fileOGF$datapath)
+      fileInput <- as.data.frame(fileInput)
+      return(list(fileInput = fileInput))
+    })
+    
+    data_infoOGF <- reactive({
+      req(filedataOGF()$fileInput)
+      Nrows <- dim(filedataOGF()$fileInput)[1]
+      Ncols <- dim(filedataOGF()$fileInput)[2]
+      SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
+      rownames(SummaryData) <- c("Nrows", "Ncols")
+      list(SummaryData = SummaryData)
+    })
+    
+    output$OGF_data <- DT::renderDataTable({
+      df <- data_infoOGF()$SummaryData
+      DT::datatable(df)
+    })
+    
+    
     OGF <- reactive({
       set.seed(10)
-      url <- "http://127.0.0.1:5000/OGF"
-      body_list <- list("a" = matrix(rbinom(32, 1, 0.5), 8, 4), "C" = 3, "NM" = 5)
-      response <- httr::content(httr::POST(url = url, body = body_list, encode = "json"))
-      decisions <- unlist(response$decisons)
-      decisions_w <- decisions[grepl("w_", decisions)]
-      OGF_matrix_decisions <- matrix(data = NA, nrow = length(decisions_w), ncol = 4, byrow = TRUE)
-      for(i in 1:length(decisions_w)){
-        OGF_matrix_decisions[i,] <- as.vector(unlist(strsplit(decisions_w[i], split = "_")))
-      }
-      OGF_matrix_decisions <- as.data.frame(OGF_matrix_decisions)
-      names(OGF_matrix_decisions) <- c("Variable_decision","Gen","Process", "Group")
-      OGF_matrix_decisions$Gen <- as.numeric(OGF_matrix_decisions$Gen)+1
-      OGF_matrix_decisions$Process <- as.numeric(OGF_matrix_decisions$Process)+1
-      OGF_matrix_decisions$Group <- as.numeric(OGF_matrix_decisions$Group)+1
-      objective_value <- response$objective_value
-      return(list(OGF_matrix_decisions = OGF_matrix_decisions,objective_value = objective_value))
+      gorups = as.numeric(input$Celd)
+      mpg= as.numeric(input$NM)
+      #incidence_matrix <- matrix(rbinom(32, 1, 0.5), 8, 4)
+      incidence_matrix=as.matrix(filedataOGF()$fileInput) 
+      OGF_groups(incidence_matrix ,gorups, mpg)
+      
     }) %>% 
       bindEvent(input$button_OGF)
     
