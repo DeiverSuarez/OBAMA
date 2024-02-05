@@ -6,9 +6,19 @@
 \usage{
 OGF_groups(incidence_matrix, gorups, mpg)
 }
+\arguments{
+\item{incidence_matrix}{A binary incidence matrix that relates genes
+and biological processes}
+
+\item{gorups}{The maximum number of groups to be formed.}
+
+\item{mpg}{The maximum number of biological processes per group.}
+}
 \value{
-The return value, if any, from executing the function.
+A list of indices defining genes, biological processes, 
+and the groups to which they belong.
 }
 \description{
-A fct function
+This function generates groups of genes and biological processes
+based on an incidence matrix.
 }

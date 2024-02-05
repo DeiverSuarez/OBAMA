@@ -41,8 +41,8 @@ mod_OGF_Optimal_Group_Formation_ui <- function(id){
       mainPanel(
         tabsetPanel(type = "tabs",
                     tabPanel("Decision variables",
-                             DT::DTOutput(ns("OGF_ouput")),
-                             DT::DTOutput(ns("OGF_data"))
+                             DT::DTOutput(ns("OGF_data")),
+                             DT::DTOutput(ns("OGF_ouput"))
                              #verbatimTextOutput(ns("OGF_ouput"))
                              ),
                     )
@@ -63,7 +63,7 @@ mod_OGF_Optimal_Group_Formation_server <- function(id){
     filedataOGF <- reactive({
       req(input$fileOGF)
       fileInput <- load_file(input$fileOGF$name, input$fileOGF$datapath)
-      fileInput <- as.data.frame(fileInput)
+      fileInput <- as.data.frame(na.omit(fileInput))
       return(list(fileInput = fileInput))
     })
     
@@ -72,7 +72,7 @@ mod_OGF_Optimal_Group_Formation_server <- function(id){
       Nrows <- dim(filedataOGF()$fileInput)[1]
       Ncols <- dim(filedataOGF()$fileInput)[2]
       SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      rownames(SummaryData) <- c("Genes", "Biological processes")
       list(SummaryData = SummaryData)
     })
     
@@ -83,7 +83,7 @@ mod_OGF_Optimal_Group_Formation_server <- function(id){
     
     
     OGF <- reactive({
-      set.seed(10)
+      #set.seed(10)
       gorups = as.numeric(input$Celd)
       mpg= as.numeric(input$NM)
       #incidence_matrix <- matrix(rbinom(32, 1, 0.5), 8, 4)
