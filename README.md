@@ -13,9 +13,13 @@ up to five databases.
 You can install the released version of OBAMA from with:
 
 ``` r
-
 # Install OBAMA
 devtools::install_github("DeiverSuarez/OBAMA")      
+```
+You need install the package optrees: https://cran.r-project.org/src/contrib/Archive/optrees/
+
+``` r
+    
 ```
 
 ## Example
