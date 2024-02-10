@@ -40,6 +40,8 @@ usethis::use_package("networkD3")
 usethis::use_package("httr")
 ############### OFP ####################
 usethis::use_package("RColorBrewer")
+usethis::use_package("igraph")
+
 
 
 usethis::use_pipe()

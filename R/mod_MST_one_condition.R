@@ -31,7 +31,8 @@ mod_MST_one_condition_ui <- function(id){
                              DT::DTOutput(ns("MST_one_desease"))  
                             ),
                     tabPanel("MST diagrama",
-                             networkD3::forceNetworkOutput(ns("MST_diagram"),width = "100%", height = "600px")
+                             networkD3::forceNetworkOutput(ns("MST_diagram"),width = "100%", height = "600px"),
+                             
                              
                     )
                   )
@@ -108,15 +109,17 @@ mod_MST_one_condition_server <- function(id){
     
     MST_digram <- eventReactive(input$button_MST,{
       Data=as.data.frame(MST())
+      g <- igraph::graph.data.frame(Data, directed = FALSE)
+      zz = igraph::tkplot(g)
       diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
-      return(diagram)
+      return(list(diagram = diagram) )
     })
-      
     
+
     
     
     output$MST_diagram <- networkD3::renderForceNetwork({
-    MST_digram()
+    MST_digram()$diagram
     })
     
     #plotly::plotlyOutput

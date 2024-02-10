@@ -525,6 +525,8 @@ mod_MST_Meta_analysis_server <- function(id){
     
     MST_digram2 <- eventReactive(input$button_MST2,{
       Data=as.data.frame(MST2())
+      g <- igraph::graph.data.frame(Data, directed = FALSE)
+      igraph::tkplot(g )
       diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
       return(diagram)
     })
@@ -565,6 +567,8 @@ mod_MST_Meta_analysis_server <- function(id){
     
     MST_digram3 <- eventReactive(input$button_MST3,{
       Data=as.data.frame(MST3())
+      g <- igraph::graph.data.frame(Data, directed = FALSE)
+      igraph::tkplot(g )
       diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
       return(diagram)
     })
@@ -622,6 +626,8 @@ mod_MST_Meta_analysis_server <- function(id){
     
     MST_digram4 <- eventReactive(input$button_MST4,{
       Data=as.data.frame(MST4())
+      g <- igraph::graph.data.frame(Data, directed = FALSE)
+      igraph::tkplot(g )
       diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
       return(diagram)
     })
@@ -686,6 +692,8 @@ mod_MST_Meta_analysis_server <- function(id){
     
     MST_digram5 <- eventReactive(input$button_MST5,{
       Data=as.data.frame(MST5())
+      g <- igraph::graph.data.frame(Data, directed = FALSE)
+      igraph::tkplot(g )
       diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
       return(diagram)
     })
