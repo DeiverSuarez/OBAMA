@@ -24,7 +24,7 @@ install.packages("/ruta/al/paquete.tar.gz", repos = NULL, type = "source")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+To open the OBAMA app, please execute the following in the RStudio console:
 
 ``` r
 library(OBAMA)
