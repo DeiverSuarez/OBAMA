@@ -700,7 +700,7 @@ mod_Individuals_ui <- function(id){
               )
             ),
           tabPanel(
-            "Plot", 
+            "Frontiers-plot", 
             conditionalPanel(
               condition = "input.performance_metrics==1", 
               ns=ns,
@@ -762,41 +762,73 @@ mod_Individuals_ui <- function(id){
             conditionalPanel(
               condition = "input.Nudata1== 1 ", 
               ns=ns,
-              # textInput(
-              #   ns("fontsize_row"),
-              #   label = h5("fontsize_row"),
-              #   value = 10),
-              # textInput(
-              #   ns("fontsize_col"),
-              #   label = h5("fontsize_col"),
-              #   value = 6),
               plotly::plotlyOutput(ns("heapmap1"))
             ), 
             conditionalPanel(
-              condition = "input.Nudata1== 2 ", 
-              ns=ns,
-              plotly::plotlyOutput(ns("heapmap21")),
-              plotly::plotlyOutput(ns("heapmap22")),
-              plotOutput(ns("plot_venn2")), 
-              DT::DTOutput(ns("info_venn2"))
+              condition = "input.Nudata1== 2 ", ns=ns,
+              tabsetPanel(
+                type = "tabs",
+                tabPanel("Venn",
+                         plotOutput(ns("plot_venn2")), 
+                         DT::DTOutput(ns("info_venn2"))
+                         ),
+                tabPanel("Heapmap",
+                         plotly::plotlyOutput(ns("heapmap21")),
+                         plotly::plotlyOutput(ns("heapmap22")),
+                         
+                         )
+                ),
+              
+              
+              
               ),
             conditionalPanel(
-              condition = "input.Nudata1== 3 ",
-              ns=ns,
-              plotOutput(ns("plot_venn3")), 
-              DT::DTOutput(ns("info_venn3"))
+              condition = "input.Nudata1== 3 ", ns=ns,
+              tabsetPanel(
+                type = "tabs",
+                tabPanel("Venn",
+                         plotOutput(ns("plot_venn3")), 
+                         DT::DTOutput(ns("info_venn3")) 
+                ),
+                tabPanel("Heapmap",
+                         plotly::plotlyOutput(ns("heapmap31")),
+                         plotly::plotlyOutput(ns("heapmap32")),
+                         plotly::plotlyOutput(ns("heapmap33"))
+                    )
+              )
               ),
             conditionalPanel(
-              condition = "input.Nudata1== 4 ",
-              ns=ns,
-              plotOutput(ns("plot_venn4")),
-              DT::DTOutput(ns("info_venn4"))
+              condition = "input.Nudata1== 4 ", ns=ns,
+              tabsetPanel(
+                type = "tabs",
+                tabPanel("Venn",
+                         plotOutput(ns("plot_venn4")), 
+                         DT::DTOutput(ns("info_venn4")) 
+                ),
+                tabPanel("Heapmap",
+                         plotly::plotlyOutput(ns("heapmap41")),
+                         plotly::plotlyOutput(ns("heapmap42")),
+                         plotly::plotlyOutput(ns("heapmap43")),
+                         plotly::plotlyOutput(ns("heapmap44"))
+                )
+              )
               ),
             conditionalPanel(
-              condition = "input.Nudata1== 5 ",
-              ns=ns,
-              plotOutput(ns("plot_venn5")), 
-              DT::DTOutput(ns("info_venn5"))
+              condition = "input.Nudata1== 5 ", ns=ns,
+              tabsetPanel(
+                type = "tabs",
+                tabPanel("Venn",
+                         plotOutput(ns("plot_venn5")), 
+                         DT::DTOutput(ns("info_venn5")) 
+                ),
+                tabPanel("Heapmap",
+                         plotly::plotlyOutput(ns("heapmap51")),
+                         plotly::plotlyOutput(ns("heapmap52")),
+                         plotly::plotlyOutput(ns("heapmap53")),
+                         plotly::plotlyOutput(ns("heapmap54")),
+                         plotly::plotlyOutput(ns("heapmap55"))
+                )
+              )
               )
             )
           )
@@ -1438,6 +1470,111 @@ mod_Individuals_server <- function(id){
       }
     })
     
+    ########## Heapmap 3
+    
+    Heapmap31 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 3) {
+          
+          data <- as.data.frame(filedata31()$fileInput)
+          genes <- Stady31df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap31 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap31()$heatmap)
+    })
+    
+    Heapmap32 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 3) {
+          
+          data <- as.data.frame(filedata32()$fileInput)
+          genes <- Stady32df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap32 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap32()$heatmap)
+    })
+    
+    Heapmap33 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 3) {
+          
+          data <- as.data.frame(filedata33()$fileInput)
+          genes <- Stady33df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap33 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap33()$heatmap)
+    })
+    
+    
     #######
     ###
     Stady41df <- eventReactive(input$button4,{
@@ -1534,6 +1671,146 @@ mod_Individuals_server <- function(id){
           return(list(final = finalEval, dataPlot = dataPlot))
         }
       }
+    })
+    
+    
+    ########## Heapmap 4
+    
+    Heapmap41 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 4) {
+          
+          data <- as.data.frame(filedata41()$fileInput)
+          genes <- Stady41df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap41 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap41()$heatmap)
+    })
+    
+    
+    Heapmap42 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 4) {
+          
+          data <- as.data.frame(filedata42()$fileInput)
+          genes <- Stady42df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap42 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap42()$heatmap)
+    })
+    
+    Heapmap43 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 4) {
+          
+          data <- as.data.frame(filedata43()$fileInput)
+          genes <- Stady43df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap43 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap43()$heatmap)
+    })
+    
+    Heapmap44 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 4) {
+          
+          data <- as.data.frame(filedata44()$fileInput)
+          genes <- Stady44df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap44 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap44()$heatmap)
     })
     
     #######
@@ -1658,7 +1935,179 @@ mod_Individuals_server <- function(id){
       }
     })
     
+    ########## Heapmap5
+    
+    Heapmap51 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 5) {
+          
+          data <- as.data.frame(filedata51()$fileInput)
+          genes <- Stady51df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap51 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap51()$heatmap)
+    })
    
+    Heapmap52 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 5) {
+          
+          data <- as.data.frame(filedata52()$fileInput)
+          genes <- Stady52df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap52 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap52()$heatmap)
+    })
+    
+    
+    Heapmap53 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 5) {
+          
+          data <- as.data.frame(filedata53()$fileInput)
+          genes <- Stady53df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap53 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap53()$heatmap)
+    })
+    
+    Heapmap54 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 5) {
+          
+          data <- as.data.frame(filedata54()$fileInput)
+          genes <- Stady54df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap54 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap54()$heatmap)
+    })
+    
+    
+    Heapmap55 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 5) {
+          
+          data <- as.data.frame(filedata55()$fileInput)
+          genes <- Stady55df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap55 <- plotly::renderPlotly({
+      plotly::ggplotly(Heapmap55()$heatmap)
+    })
     
     
     ######### Venn 2 datas
