@@ -758,10 +758,25 @@ mod_Individuals_ui <- function(id){
               )
             ),
           tabPanel(
-            "VENN",
+            "Visualization",
+            conditionalPanel(
+              condition = "input.Nudata1== 1 ", 
+              ns=ns,
+              # textInput(
+              #   ns("fontsize_row"),
+              #   label = h5("fontsize_row"),
+              #   value = 10),
+              # textInput(
+              #   ns("fontsize_col"),
+              #   label = h5("fontsize_col"),
+              #   value = 6),
+              plotly::plotlyOutput(ns("heapmap1"))
+            ), 
             conditionalPanel(
               condition = "input.Nudata1== 2 ", 
               ns=ns,
+              plotly::plotlyOutput(ns("heapmap21")),
+              plotly::plotlyOutput(ns("heapmap22")),
               plotOutput(ns("plot_venn2")), 
               DT::DTOutput(ns("info_venn2"))
               ),
@@ -1182,6 +1197,45 @@ mod_Individuals_server <- function(id){
         }
       }
   })
+  
+  ########## Heapmap1
+  Heapmap1 <- reactive({
+    if(input$performance_metrics == 1) {
+      if(input$Nudata1 == 1) {
+        
+        data <- as.data.frame(filedata()$fileInput)
+        genes <- Stady1df()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, mean)
+      
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+        
+        df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+      }
+    }
+  })
+  
+  output$heapmap1 <- plotly::renderPlotly({
+  
+    plotly::ggplotly(Heapmap1()$heatmap)
+  })
+ 
+  
+  
     
 ######    
     
@@ -1230,6 +1284,82 @@ mod_Individuals_server <- function(id){
         }
       }
     })
+    
+    ########## Heapmap 2
+    
+    Heapmap21 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 2) {
+          
+          data <- as.data.frame(filedata2_1()$fileInput)
+          genes <- Stady2_1df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap21 <- plotly::renderPlotly({
+      
+      plotly::ggplotly(Heapmap21()$heatmap)
+    })
+    
+    Heapmap22 <- reactive({
+      if(input$performance_metrics == 1) {
+        if(input$Nudata1 == 2) {
+          
+          data <- as.data.frame(filedata22()$fileInput)
+          genes <- Stady2_2df()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        }
+      }
+    })
+    
+    output$heapmap22 <- plotly::renderPlotly({
+      
+      plotly::ggplotly(Heapmap22()$heatmap)
+    })
+    
+    
+    
+    
   ########  
     Stady31df <- eventReactive(input$button3,{
       if(input$performance_metrics == 1) {
@@ -1528,6 +1658,7 @@ mod_Individuals_server <- function(id){
       }
     })
     
+   
     
     
     ######### Venn 2 datas

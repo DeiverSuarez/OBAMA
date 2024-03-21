@@ -41,6 +41,8 @@ usethis::use_package("httr")
 ############### OFP ####################
 usethis::use_package("RColorBrewer")
 usethis::use_package("igraph")
+usethis::use_package("heatmaply")
+
 
 
 
