@@ -107,7 +107,17 @@ mod_Meta_analysis_ui <- function(id){
                                     
                                     conditionalPanel(condition = "input.Cases== 3", ns=ns,
                                                      plotly::plotlyOutput(ns("mplot13")))
-                            )
+                            ),
+                           tabPanel("Visualization",
+                                    conditionalPanel(condition = "input.Cases== 2", ns=ns,
+                                                     plotly::plotlyOutput(ns("heapmap_case2_1")),
+                                                     plotly::plotlyOutput(ns("heapmap_case2_2"))),
+                                    
+                                    conditionalPanel(condition = "input.Cases== 3", ns=ns,
+                                                     plotly::plotlyOutput(ns("heapmap_case3_1")),
+                                                     plotly::plotlyOutput(ns("heapmap_case3_2")),
+                                                     plotly::plotlyOutput(ns("heapmap_case3_3")))
+                           )
                            )
                          ),
                          conditionalPanel(condition = "input.Cases== 4 || input.Cases== 5", ns=ns,
@@ -131,16 +141,27 @@ mod_Meta_analysis_ui <- function(id){
                                                        conditionalPanel(condition = "input.Cases== 4", ns=ns,
                                                                         DT::dataTableOutput(ns("mtable14"))),
                                                        conditionalPanel(condition = "input.Cases== 5", ns=ns,
-                                                                        DT::dataTableOutput(ns("mtable15"))))
-                                             )
-                                            
+                                                                        DT::dataTableOutput(ns("mtable15")))),
+                                              tabPanel("Visualization",
+                                                       conditionalPanel(condition = "input.Cases== 4", ns=ns,
+                                                                        plotly::plotlyOutput(ns("heapmap_case41")),
+                                                                        plotly::plotlyOutput(ns("heapmap_case42")),
+                                                                        plotly::plotlyOutput(ns("heapmap_case43")),
+                                                                        plotly::plotlyOutput(ns("heapmap_case44"))),
+                                                       
+                                                       conditionalPanel(condition = "input.Cases== 5", ns=ns,
+                                                                        plotly::plotlyOutput(ns("heapmap_case51")),
+                                                                        plotly::plotlyOutput(ns("heapmap_case52")),
+                                                                        plotly::plotlyOutput(ns("heapmap_case53")),
+                                                                        plotly::plotlyOutput(ns("heapmap_case54")),
+                                                                        plotly::plotlyOutput(ns("heapmap_case55")),
+                                                                        ))
+                                              )
                                           )
                          )
       )
-    
   )
- 
-}
+  }
     
 #' Meta_analysis Server Functions
 #'
@@ -206,6 +227,8 @@ mod_Meta_analysis_server <- function(id){
       df <- data_info_m11()$SummaryData
       DT::datatable(df)
     })
+    
+
     #####
     ####metanalisis 3 datas
     filedata_m3 <- reactive({
@@ -562,6 +585,78 @@ mod_Meta_analysis_server <- function(id){
           return(list(final = finalEval, dataPlot=dataPlot))
       }
     })
+    
+    #####Heatmap
+    Heatmap_case2_1 <- reactive({
+      if(input$Cases == 2){
+        
+        data <- as.data.frame(filedata_m1()$fileInput)
+        genes <- Stady2_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case2_1 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case2_1()$heatmap)
+    })
+    
+    
+    Heatmap_case2_2 <- reactive({
+      if(input$Cases == 2){
+        
+        data <- as.data.frame(filedata_m11()$fileInput)
+        genes <- Stady2_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case2_2 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case2_2()$heatmap)
+    })
+    
+    
+    
+    
     #####
     
     Stady3_mdf <- eventReactive(input$button113,{
@@ -578,6 +673,107 @@ mod_Meta_analysis_server <- function(id){
         dataPlot <- data_build2(f1 = outEval$F1, X = outEval$X, Y = outEval$Y, Z = outEval$Z)
         return(list(final = finalEval, dataPlot=dataPlot))
       }
+    })
+    
+    Heatmap_case3_1 <- reactive({
+      if(input$Cases == 3){
+        
+        data <- as.data.frame(filedata_m3()$fileInput)
+        genes <- Stady3_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case3_1 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case3_1()$heatmap)
+    })
+    
+    
+    Heatmap_case3_2 <- reactive({
+      if(input$Cases == 3){
+        
+        data <- as.data.frame(filedata_m32()$fileInput)
+        genes <- Stady3_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case3_2 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case3_2()$heatmap)
+    })
+    
+    
+    Heatmap_case3_3 <- reactive({
+      if(input$Cases == 3){
+        
+        data <- as.data.frame(filedata_m33()$fileInput)
+        genes <- Stady3_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case3_3 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case3_3()$heatmap)
     })
     
     #######
@@ -597,6 +793,142 @@ mod_Meta_analysis_server <- function(id){
         return(list(final = finalEval))
       }
     })
+    
+    Heatmap_case4_1 <- reactive({
+      if(input$Cases == 4){
+        
+        data <- as.data.frame(filedata_m41()$fileInput)
+        genes <- Stady4_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case41 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case4_1()$heatmap)
+    })
+    
+    
+    Heatmap_case4_2 <- reactive({
+      if(input$Cases == 4){
+        
+        data <- as.data.frame(filedata_m42()$fileInput)
+        genes <- Stady4_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case42 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case4_2()$heatmap)
+    })
+    
+    Heatmap_case4_3 <- reactive({
+      if(input$Cases == 4){
+        
+        data <- as.data.frame(filedata_m43()$fileInput)
+        genes <- Stady4_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case43 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case4_3()$heatmap)
+    })
+    
+    
+    Heatmap_case4_4 <- reactive({
+      if(input$Cases == 4){
+        
+        data <- as.data.frame(filedata_m44()$fileInput)
+        genes <- Stady4_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case44 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case4_4()$heatmap)
+    })
+    
+    
     #######
     Stady5_mdf <- eventReactive(input$button115,{
       if(input$Cases == 5) {
@@ -616,6 +948,173 @@ mod_Meta_analysis_server <- function(id){
       }
     })
     
+    Heatmap_case5_1 <- reactive({
+      if(input$Cases == 5){
+        
+        data <- as.data.frame(filedata_m51()$fileInput)
+        genes <- Stady5_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case51 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case5_1()$heatmap)
+    })
+    
+    Heatmap_case5_2 <- reactive({
+      if(input$Cases == 5){
+        
+        data <- as.data.frame(filedata_m52()$fileInput)
+        genes <- Stady5_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case52 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case5_2()$heatmap)
+    })
+    
+    
+    Heatmap_case5_3 <- reactive({
+      if(input$Cases == 5){
+        
+        data <- as.data.frame(filedata_m53()$fileInput)
+        genes <- Stady5_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case53 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case5_3()$heatmap)
+    })
+    
+    Heatmap_case5_4 <- reactive({
+      if(input$Cases == 5){
+        
+        data <- as.data.frame(filedata_m54()$fileInput)
+        genes <- Stady5_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case54 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case5_4()$heatmap)
+    })
+    
+    
+    
+    Heatmap_case5_5 <- reactive({
+      if(input$Cases == 5){
+        
+        data <- as.data.frame(filedata_m55()$fileInput)
+        genes <- Stady5_mdf()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, median)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, median)
+        
+        df_control_disease_mean <- data.frame(median.disease = median_disease, median.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_case55 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_case5_5()$heatmap)
+    })
     #######
     
     

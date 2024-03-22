@@ -772,7 +772,7 @@ mod_Individuals_ui <- function(id){
                          plotOutput(ns("plot_venn2")), 
                          DT::DTOutput(ns("info_venn2"))
                          ),
-                tabPanel("Heapmap",
+                tabPanel("Heatmap",
                          plotly::plotlyOutput(ns("heapmap21")),
                          plotly::plotlyOutput(ns("heapmap22")),
                          
@@ -790,7 +790,7 @@ mod_Individuals_ui <- function(id){
                          plotOutput(ns("plot_venn3")), 
                          DT::DTOutput(ns("info_venn3")) 
                 ),
-                tabPanel("Heapmap",
+                tabPanel("Heatmap",
                          plotly::plotlyOutput(ns("heapmap31")),
                          plotly::plotlyOutput(ns("heapmap32")),
                          plotly::plotlyOutput(ns("heapmap33"))
@@ -805,7 +805,7 @@ mod_Individuals_ui <- function(id){
                          plotOutput(ns("plot_venn4")), 
                          DT::DTOutput(ns("info_venn4")) 
                 ),
-                tabPanel("Heapmap",
+                tabPanel("Heatmap",
                          plotly::plotlyOutput(ns("heapmap41")),
                          plotly::plotlyOutput(ns("heapmap42")),
                          plotly::plotlyOutput(ns("heapmap43")),
@@ -821,7 +821,7 @@ mod_Individuals_ui <- function(id){
                          plotOutput(ns("plot_venn5")), 
                          DT::DTOutput(ns("info_venn5")) 
                 ),
-                tabPanel("Heapmap",
+                tabPanel("Heatmap",
                          plotly::plotlyOutput(ns("heapmap51")),
                          plotly::plotlyOutput(ns("heapmap52")),
                          plotly::plotlyOutput(ns("heapmap53")),

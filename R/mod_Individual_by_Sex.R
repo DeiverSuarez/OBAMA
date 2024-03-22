@@ -342,13 +342,7 @@ mod_Individual_by_Sex_ui <- function(id){
                 condition = "input.performance_metrics_sex==1",
                 ns=ns,
                 fluidRow(
-                  column(
-                    width = 6,
-                    plotOutput(
-                      ns("plot_sex1")
-                               )
-                        ),
-                  
+                  column(width = 6,plotOutput(ns("plot_sex1"))),
                   column(width = 6,plotOutput(ns("plot_sex2"))),
                   column(width = 6,plotOutput(ns("plot_sex3"))),
                   column(width = 6,plotOutput(ns("plot_sex4")))
@@ -369,12 +363,25 @@ mod_Individual_by_Sex_ui <- function(id){
                 )
               ),
             tabPanel(
-              "VENN",
+              "Visualization",
               conditionalPanel(
-                condition = "input.performance_metrics_sex==1",
-                ns=ns,
-                plotOutput(ns("plot_venn_sex")), 
-                DT::DTOutput(ns("info_venn_sex")))
+                condition = "input.performance_metrics_sex==1", ns=ns,
+                tabsetPanel(
+                  type = "tabs",
+                  tabPanel("Venn",
+                           plotOutput(ns("plot_venn_sex")), 
+                           DT::DTOutput(ns("info_venn_sex"))),
+                  tabPanel("Heatmap",
+                           plotly::plotlyOutput(ns("heapmap_sex1")),
+                           plotly::plotlyOutput(ns("heapmap_sex2")),
+                           plotly::plotlyOutput(ns("heapmap_sex3")),
+                           plotly::plotlyOutput(ns("heapmap_sex4"))
+                           
+                  )
+                  ),
+                  
+                )
+                
               )
             )
           )
@@ -498,6 +505,43 @@ mod_Individual_by_Sex_server <- function(id){
       }
     })
     
+    #####Heatmap
+    Heatmap_sex1 <- reactive({
+      if(input$performance_metrics_sex == 1) {
+          
+          data <- as.data.frame(particion_data()$geo.final99039_Female)
+          genes <- df_female()$final[,1]
+          
+          data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+          filedata <- data2
+          wnv = as.data.frame(filedata)
+          wnv1 = wnv[order(wnv[,2]),]
+          wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+          names(wnv11) = wnv1[,1]
+          
+          Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+          median_control <- apply(Data[,1:n_control], 1, mean)
+          
+          median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+          
+          df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+          Data_male <- t(df_control_disease_mean)
+          Data_female <- as.matrix(Data_male)
+          heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                          k_col = 3, fontsize_row = 10,
+                                          fontsize_col = 6)
+          return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_sex1 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_sex1()$heatmap)
+    })
+    
+    
+    
+    
     #download_Result.female
     output$downloadData.sex_female <- downloadHandler(
       filename = function() {
@@ -551,6 +595,41 @@ mod_Individual_by_Sex_server <- function(id){
         write.csv(df_male()$final, file, row.names = FALSE)
       }
     )
+    
+    #####Heatmap
+    
+    Heatmap_sex2 <- reactive({
+      if(input$performance_metrics_sex == 1) {
+        
+        data <- as.data.frame(particion_data()$geo.final99039_Male)
+        genes <- df_male()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, mean)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+        
+        df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_sex2 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_sex2()$heatmap)
+    })
 
     ################################################# 
     df_control <- eventReactive("button_sex1",{
@@ -594,6 +673,41 @@ mod_Individual_by_Sex_server <- function(id){
         write.csv(df_control()$final, file, row.names = FALSE)
       }
     )
+    
+    #####Heatmap
+    
+    Heatmap_sex3 <- reactive({
+      if(input$performance_metrics_sex == 1) {
+        
+        data <- as.data.frame(particion_data()$geo.final99039_Control)
+        genes <- df_control()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, mean)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+        
+        df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_sex3 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_sex3()$heatmap)
+    })
     ################################################# 
     
     df_disease <- eventReactive("button_sex1",{
@@ -620,12 +734,48 @@ mod_Individual_by_Sex_server <- function(id){
       
     })
     
-    output$table_sex4<- DT::renderDataTable({
+    output$table_sex4 <- DT::renderDataTable({
       if(input$performance_metrics_sex == 1){
         df <- as.data.frame(df_disease()$final)
         DT::datatable(df, caption = 'Disease Results')
       }
     })
+    
+    #####Heatmap
+    
+    Heatmap_sex4 <- reactive({
+      if(input$performance_metrics_sex == 1) {
+        
+        data <- as.data.frame(particion_data()$geo.final99039_Disease)
+        genes <- df_disease()$final[,1]
+        
+        data2 <- data[,c(colnames(data)[1], colnames(data)[2], genes)]
+        filedata <- data2
+        wnv = as.data.frame(filedata)
+        wnv1 = wnv[order(wnv[,2]),]
+        wnv11 = as.data.frame(t(wnv1[,-c(1,2)]))
+        names(wnv11) = wnv1[,1]
+        
+        Data <- wnv11; n_control <- table(wnv1[,2])[1]; n_enfermedad <- table(wnv1[,2])[2]
+        median_control <- apply(Data[,1:n_control], 1, mean)
+        
+        median_disease <- apply(Data[,n_control+1:n_enfermedad], 1, mean)
+        
+        df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
+        Data_male <- t(df_control_disease_mean)
+        Data_female <- as.matrix(Data_male)
+        heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
+                                        k_col = 3, fontsize_row = 10,
+                                        fontsize_col = 6)
+        return(list(heatmap = heatmap))
+        
+      }
+    })
+    
+    output$heapmap_sex4 <- plotly::renderPlotly({
+      plotly::ggplotly(Heatmap_sex4()$heatmap)
+    })
+    
     ######### VENN
     grap_venn_sex <- reactive({
      
@@ -657,6 +807,8 @@ mod_Individual_by_Sex_server <- function(id){
       df <- as.data.frame(grap_venn_sex()$genes3)
       DT::datatable(df)
     })
+    
+    
     
     
     #download_Result.disease
