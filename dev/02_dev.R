@@ -42,8 +42,8 @@ usethis::use_package("httr")
 usethis::use_package("RColorBrewer")
 usethis::use_package("igraph")
 usethis::use_package("heatmaply")
-
-
+############### Enrichment ##############
+usethis::use_package("enrichR")
 
 
 usethis::use_pipe()
@@ -56,7 +56,11 @@ golem::add_module( name = "Meta_analysis" ) # Name of the module
 golem::add_module(name = "MST_one_condition")
 golem::add_module(name = "MST_Meta_analysis")
 ############# OGF ####################
-golem::add_module(name = "OGF_Optimal_Group_Formation")
+golem::add_module(name = "OGF_Optimal_Group_Formation") 
+############# Enrichment #############
+golem::add_module(name = "Gene_Ontology") 
+
+
 
 
 
@@ -92,6 +96,9 @@ golem::add_fct("MST_five_disease")
 golem::add_utils("MST_diagram")
 ############# OGF ####################
 golem::add_fct("OGF_groups")
+############# Enrichment #############
+golem::add_fct("genes_enrichr")
+
 
 ## External resources
 ## Creates .js and .css files at inst/app/www

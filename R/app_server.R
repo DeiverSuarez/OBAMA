@@ -14,4 +14,6 @@ app_server <- function( input, output, session ) {
   mod_MST_Meta_analysis_server("MST_Meta_analysis_ui_1")
   ################## OGF ###########################################
   mod_OGF_Optimal_Group_Formation_server("OGF_Optimal_Group_Formation_1")
+  ################## Enrichment ####################################
+  mod_Gene_Ontology_server("Gene_Ontology_1")
 }

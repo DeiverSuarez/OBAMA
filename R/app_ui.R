@@ -43,7 +43,12 @@ app_ui <- function(request) {
                    tabPanel("OGF Optimal Group Formation",
                             mod_OGF_Optimal_Group_Formation_ui("OGF_Optimal_Group_Formation_1")
                    )
+                   ),
+        navbarMenu("Enrichment",
+                   tabPanel("Gene Ontology",
+                            mod_Gene_Ontology_ui("Gene_Ontology_1")
                    )
+        )
         
         
         
