@@ -1,72 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/404.html</loc>
+    <loc>/404.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/CODE_OF_CONDUCT.html</loc>
+    <loc>/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/LICENSE-text.html</loc>
+    <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/LICENSE.html</loc>
+    <loc>/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/articles/OBAMA.html</loc>
+    <loc>/articles/OBAMA.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/articles/index.html</loc>
+    <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/authors.html</loc>
+    <loc>/authors.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/index.html</loc>
+    <loc>/index.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/news/index.html</loc>
+    <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/MST_five_disease.html</loc>
+    <loc>/reference/MST_five_disease.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/MST_four_disease.html</loc>
+    <loc>/reference/MST_four_disease.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/MST_one_disease.html</loc>
+    <loc>/reference/MST_one_disease.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/MST_three_disease.html</loc>
+    <loc>/reference/MST_three_disease.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/MST_tow_disease.html</loc>
+    <loc>/reference/MST_tow_disease.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/index.html</loc>
+    <loc>/reference/OGF_groups.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/mco_five_meta_analysis.html</loc>
+    <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/mco_four_meta_analysis.html</loc>
+    <loc>/reference/mco_five_meta_analysis.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/mco_one_diseases.html</loc>
+    <loc>/reference/mco_four_meta_analysis.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/mco_one_diseases_3PM.html</loc>
+    <loc>/reference/mco_one_diseases.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/mco_three_meta_analysis.html</loc>
+    <loc>/reference/mco_one_diseases_3PM.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/mco_two_meta_analysis.html</loc>
+    <loc>/reference/mco_three_meta_analysis.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/pipe.html</loc>
+    <loc>/reference/mco_two_meta_analysis.html</loc>
   </url>
   <url>
-    <loc>https://deiversuarez.github.io/OBAMA/reference/run_app.html</loc>
+    <loc>/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/run_app.html</loc>
   </url>
 </urlset>
