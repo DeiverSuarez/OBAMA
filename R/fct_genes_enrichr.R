@@ -5,7 +5,6 @@
 #' @return The return value, if any, from executing the function.
 #'
 #' @noRd
-library(enrichR)
 genes_enrichr <- function (feature_name, database) {
   websiteLive <- getOption("enrichR.live")
   if (websiteLive) {
