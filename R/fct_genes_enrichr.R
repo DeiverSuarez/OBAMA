@@ -5,7 +5,7 @@
 #' @return The return value, if any, from executing the function.
 #'
 #' @noRd
-library(enrichR)
+
 genes_enrichr <- function (feature_name, database) {
   websiteLive <- getOption("enrichR.live")
   if (websiteLive) {
@@ -19,7 +19,7 @@ genes_enrichr <- function (feature_name, database) {
   }
   if (websiteLive) enriched1 <- enriched[[dbs[database]]]
   if (websiteLive) {
-    plot <- plotEnrich(enriched[[database]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
+    plot <- enrichR::plotEnrich(enriched[[database]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
   }
   return(list(plot = plot, enriched = enriched1))
 }
