@@ -16,4 +16,5 @@ app_server <- function( input, output, session ) {
   mod_OGF_Optimal_Group_Formation_server("OGF_Optimal_Group_Formation_1")
   ################## Enrichment ####################################
   mod_Gene_Ontology_server("Gene_Ontology_1")
+  mod_String_server("String_1")
 }

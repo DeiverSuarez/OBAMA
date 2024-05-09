@@ -44,7 +44,8 @@ usethis::use_package("RColorBrewer")
 usethis::use_package("igraph")
 usethis::use_package("heatmaply")
 ############### Enrichment ##############
-usethis::use_package("enrichR")
+usethis::use_package("enrichR") 
+usethis::use_package("rbioapi")
 
 
 usethis::use_pipe()
@@ -60,6 +61,7 @@ golem::add_module(name = "MST_Meta_analysis")
 golem::add_module(name = "OGF_Optimal_Group_Formation") 
 ############# Enrichment #############
 golem::add_module(name = "Gene_Ontology") 
+golem::add_module(name = "String") 
 
 
 

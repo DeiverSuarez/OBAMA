@@ -46,7 +46,10 @@ app_ui <- function(request) {
                    ),
         navbarMenu("Enrichment",
                    tabPanel("Gene Ontology",
-                            mod_Gene_Ontology_ui("Gene_Ontology_1")
+                            mod_Gene_Ontology_ui("Gene_Ontology_1"),
+                   ),
+                   tabPanel("String",
+                            mod_String_ui("String_1")
                    )
         )
         
