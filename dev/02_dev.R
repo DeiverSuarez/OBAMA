@@ -16,14 +16,15 @@
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
 #usethis::use_package( "thinkr" ) 
-#usethis::use_package( "reticulate" )
+#usethis::use_package( "reticulate" ).  
 usethis::use_package( "shiny" )
 usethis::use_package( "venn" )
 usethis::use_package( "plotly" )
 usethis::use_package( "ggplot2" )
 usethis::use_package( "DT" )
 usethis::use_package( "vroom" )
-usethis::use_package("shinycssloaders")   
+usethis::use_package("shinycssloaders")  
+usethis::use_package("htmltools") 
 ############### MST ####################
 usethis::use_package("Biobase") 
 usethis::use_package("GEOquery") 
