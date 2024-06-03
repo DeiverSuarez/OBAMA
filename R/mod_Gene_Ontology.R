@@ -28,6 +28,7 @@ mod_Gene_Ontology_ui <- function(id){
                                     "GO_Biological_Process"=3
                                     )
                    ),
+                   downloadButton(ns("downloadData_GO"), "Save My GO Results")
                    
                    ),
       
@@ -102,6 +103,17 @@ mod_Gene_Ontology_server <- function(id){
     output$GO_plot <- renderPlot({
       GO_genes_enrichr()$plot
     })
+    
+    
+    #download_Result.MST
+    output$downloadData_GO <- downloadHandler(
+      filename = function() {
+          paste("Result_GO", ".csv", sep = "")
+      },
+      content = function(file) {
+        write.csv(GO_genes_enrichr()$enriched, file, row.names = FALSE)
+      }
+    )
  
   })
 }

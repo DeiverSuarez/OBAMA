@@ -111,11 +111,11 @@ mod_MST_one_condition_server <- function(id){
       Data=as.data.frame(MST())
       g <- igraph::graph.data.frame(Data, directed = FALSE)
       zz = igraph::tkplot(g)
-      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
-      return(list(diagram = diagram) )
+      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, 
+                                          charge = -30, fontSize = 11,
+                                          linkColour = "red",nodeColour ="blue"  )
+      return(list(diagram = diagram))
     })
-    
-
     
     
     output$MST_diagram <- networkD3::renderForceNetwork({

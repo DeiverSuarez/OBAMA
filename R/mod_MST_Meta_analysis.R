@@ -527,7 +527,9 @@ mod_MST_Meta_analysis_server <- function(id){
       Data=as.data.frame(MST2())
       g <- igraph::graph.data.frame(Data, directed = FALSE)
       igraph::tkplot(g )
-      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
+      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30,
+                                          charge = -30, fontSize = 11,
+                                          linkColour = "red",nodeColour ="blue" )
       return(diagram)
     })
     
@@ -628,7 +630,9 @@ mod_MST_Meta_analysis_server <- function(id){
       Data=as.data.frame(MST4())
       g <- igraph::graph.data.frame(Data, directed = FALSE)
       igraph::tkplot(g )
-      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30, charge = -30, fontSize = 11,linkColour = "red",nodeColour ="blue"  )
+      diagram <- networkD3::simpleNetwork(Data=Data, linkDistance = 30,
+                                          charge = -30, fontSize = 11,
+                                          linkColour = "red",nodeColour ="blue"  )
       return(diagram)
     })
     
