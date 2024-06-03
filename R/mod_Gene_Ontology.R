@@ -38,7 +38,7 @@ mod_Gene_Ontology_ui <- function(id){
           tabPanel("Genes",
                    DT::DTOutput(ns("Genesinfo"))
                    ),
-          tabPanel("Enrichmnt", 
+          tabPanel("Enrichment", 
                    DT::DTOutput(ns("GO_enrichr"))
                    ),
           tabPanel("Plot", 
