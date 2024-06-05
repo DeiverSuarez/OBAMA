@@ -28,7 +28,10 @@ mod_Gene_Ontology_ui <- function(id){
                                     "GO_Biological_Process"=3
                                     )
                    ),
-                   downloadButton(ns("downloadData_GO"), "Save My GO Results")
+                   downloadButton(ns("downloadData_GO"), "Save My GO Results"),
+                   downloadButton(ns("downloadGroup1_GO"), "Save group1"),
+                   downloadButton(ns("downloadGroup2_GO"), "Save group2")
+                   
                    
                    ),
       
@@ -38,8 +41,20 @@ mod_Gene_Ontology_ui <- function(id){
           tabPanel("Genes",
                    DT::DTOutput(ns("Genesinfo"))
                    ),
-          tabPanel("Enrichment", 
-                   DT::DTOutput(ns("GO_enrichr"))
+          tabPanel("Enrichment",
+                   tabsetPanel(
+            type = "tabs",
+            tabPanel("Table",
+                     DT::DTOutput(ns("GO_enrichr"))
+                     ),
+            tabPanel("Group1",
+                     DT::DTOutput(ns("GO_group1"))
+            ), 
+            tabPanel("Group2",
+                        DT::DTOutput(ns("GO_group2"))
+            )
+            ),
+                   
                    ),
           tabPanel("Plot", 
                    plotOutput(ns("GO_plot"))
@@ -95,8 +110,59 @@ mod_Gene_Ontology_server <- function(id){
       return(list(plot = plot, enriched = enriched))
     })
     
+    GO_Group1 <- reactive({
+      req(GO_genes_enrichr()$enriched)
+      
+      df <- GO_genes_enrichr()$enriched
+      data <- df[,c(1,9)]
+      
+      # Separar los genes en filas individuales
+      data_long <- data %>%
+        tidyr::separate_rows(Genes, sep = ";")
+      
+      # Agrupar los términos que comparten genes
+      grouped_data <- data_long %>%
+        dplyr::group_by(Genes) %>%
+        dplyr::summarise(Terms = paste(Term, collapse = ","))
+      
+      return(list(grouped_data = grouped_data))
+    })
+    
+    
+    GO_Group2 <- reactive({
+      req(GO_genes_enrichr()$enriched)
+      
+      df <- GO_genes_enrichr()$enriched
+      data <- df[,c(1,9)]
+      
+      data <- data %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(Genes = paste(sort(unlist(strsplit(Genes, ";"))), collapse = ";")) %>%
+        dplyr::ungroup()
+      
+      # Agrupar términos con los mismos genes
+      grouped_data <- data %>%
+        dplyr::group_by(Genes) %>%
+        dplyr::summarise(Terms = paste(Term, collapse = "; "), num_genes = dplyr::n_distinct(Genes)) %>%
+        dplyr::arrange(desc(num_genes))
+      
+      return(list(grouped_data = grouped_data[,c(1,2)]))
+    })
+    
+    
+    
     output$GO_enrichr <- DT::renderDataTable({
       df <- GO_genes_enrichr()$enriched
+      DT::datatable(df)
+    })
+    
+    output$GO_group1 <- DT::renderDataTable({
+      df <- GO_Group1()$grouped_data
+      DT::datatable(df)
+    })
+    
+    output$GO_group2 <- DT::renderDataTable({
+      df <- GO_Group2()$grouped_data
       DT::datatable(df)
     })
     
@@ -105,13 +171,33 @@ mod_Gene_Ontology_server <- function(id){
     })
     
     
-    #download_Result.MST
+    #download_Result.GO. 
     output$downloadData_GO <- downloadHandler(
       filename = function() {
           paste("Result_GO", ".csv", sep = "")
       },
       content = function(file) {
         write.csv(GO_genes_enrichr()$enriched, file, row.names = FALSE)
+      }
+    )
+    
+    #download_Result.group1
+    output$downloadGroup1_GO <- downloadHandler(
+      filename = function() {
+        paste("Result_group1", ".csv", sep = "")
+      },
+      content = function(file) {
+        write.csv(GO_Group1()$grouped_data, file, row.names = FALSE)
+      }
+    )
+    
+    #download_Result.group1
+    output$downloadGroup2_GO <- downloadHandler(
+      filename = function() {
+        paste("Result_group2", ".csv", sep = "")
+      },
+      content = function(file) {
+        write.csv(GO_Group2()$grouped_data, file, row.names = FALSE)
       }
     )
  
