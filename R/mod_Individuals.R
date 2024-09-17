@@ -858,9 +858,9 @@ mod_Individuals_server <- function(id){
     data_info <- reactive({
       req(filedata()$fileInput)
       Nrows <- nrow(filedata()$fileInput)
-      Ncols <- ncol(filedata()$fileInput)
+      Ncols <- ncol(filedata()$fileInput)-2
       SummaryData <- data.frame(list(N = c(Nrows, Ncols)))
-      rownames(SummaryData) <- c("Nrows", "Ncols")
+      rownames(SummaryData) <- c("Number of samples", "Number of genes")
       list(SummaryData = SummaryData)
     })
     
@@ -1253,9 +1253,10 @@ mod_Individuals_server <- function(id){
         df_control_disease_mean <- data.frame(mean.disease = median_disease, mean.control = median_control)
         Data_male <- t(df_control_disease_mean)
         Data_female <- as.matrix(Data_male)
+        colors <- colorRampPalette(c("blue", "white", "red"))(256)
         heatmap =  heatmaply::heatmaply(Data_female, scale = "col", k_row = 2,
                                         k_col = 3, fontsize_row = 10,
-                                        fontsize_col = 6)
+                                        fontsize_col = 6, colors = colors)
         return(list(heatmap = heatmap))
       }
     }

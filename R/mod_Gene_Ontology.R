@@ -28,11 +28,14 @@ mod_Gene_Ontology_ui <- function(id){
                                     "GO_Biological_Process"=3
                                     )
                    ),
+                   
+                   textInput(ns("p_value"),label = h5("p-value"),
+                             value = "0.001"),
+                   
                    downloadButton(ns("downloadData_GO"), "Save My GO Results"),
                    downloadButton(ns("downloadGroup1_GO"), "Save group1"),
-                   downloadButton(ns("downloadGroup2_GO"), "Save group2")
-                   
-                   
+                   downloadButton(ns("downloadGroup2_GO"), "Save group2"),
+                   downloadButton(ns("BinaryMatrix_GO"), "Binary Matirx")
                    ),
       
       mainPanel(
@@ -45,13 +48,16 @@ mod_Gene_Ontology_ui <- function(id){
                    tabsetPanel(
             type = "tabs",
             tabPanel("Table",
-                     DT::DTOutput(ns("GO_enrichr"))
+                     DT::DTOutput(ns("GO_enrichr")),
                      ),
             tabPanel("Group1",
                      DT::DTOutput(ns("GO_group1"))
             ), 
             tabPanel("Group2",
                         DT::DTOutput(ns("GO_group2"))
+            ),
+            tabPanel("Binary Matrix",
+                     DT::DTOutput(ns("matrixTable"))
             )
             ),
                    
@@ -106,7 +112,10 @@ mod_Gene_Ontology_server <- function(id){
         genes_enrichr <- genes_enrichr(feature_name = feature_name, database = 3)
       }
       plot <- genes_enrichr$plot
-      enriched <- genes_enrichr$enriched
+      enriched1 <- genes_enrichr$enriched
+      enriched  <- enriched1[enriched1$P.value < as.numeric(input$p_value), ]
+      
+      
       return(list(plot = plot, enriched = enriched))
     })
     
@@ -149,8 +158,30 @@ mod_Gene_Ontology_server <- function(id){
       return(list(grouped_data = grouped_data[,c(1,2)]))
     })
     
-    
-    
+    Matrix <- reactive({
+      df <- GO_genes_enrichr()$enriched
+      data <- df[,c("Term", "Genes")]
+      genes <- unique(unlist(strsplit(data$Genes, ";")))
+      terms <- data$Term
+      
+      # Inicializar la matriz binaria
+      matrix <- matrix(0, nrow = length(genes), ncol = length(terms))
+      rownames(matrix) <- genes
+      colnames(matrix) <- terms
+      
+      # Llenar la matriz binaria
+      for (i in seq_len(nrow(data))) {
+        term <- data$Term[i]
+        gene_list <- unlist(strsplit(data$Genes[i], ";"))
+        matrix[gene_list, term] <- 1
+      }
+      
+      # Convertir la matriz a un data frame para mejor visualización
+      matrix_df <- as.data.frame(matrix)
+      return(list(matrix_df = matrix_df))
+      
+    })
+
     output$GO_enrichr <- DT::renderDataTable({
       df <- GO_genes_enrichr()$enriched
       DT::datatable(df)
@@ -168,6 +199,10 @@ mod_Gene_Ontology_server <- function(id){
     
     output$GO_plot <- renderPlot({
       GO_genes_enrichr()$plot
+    })
+    
+    output$matrixTable <- DT::renderDT({
+      DT::datatable(Matrix()$matrix_df)
     })
     
     
@@ -191,13 +226,22 @@ mod_Gene_Ontology_server <- function(id){
       }
     )
     
-    #download_Result.group1
+    #download_Result.group1.  BinaryMatrix_GO
     output$downloadGroup2_GO <- downloadHandler(
       filename = function() {
         paste("Result_group2", ".csv", sep = "")
       },
       content = function(file) {
         write.csv(GO_Group2()$grouped_data, file, row.names = FALSE)
+      }
+    )
+    
+    output$BinaryMatrix_GO <- downloadHandler(
+      filename = function() {
+        paste("Result_BinaryMatrix", ".csv", sep = "")
+      },
+      content = function(file) {
+        write.csv(Matrix()$matrix_df, file, row.names = FALSE)
       }
     )
  

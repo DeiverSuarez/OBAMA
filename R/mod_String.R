@@ -27,7 +27,11 @@ mod_String_ui <- function(id){
                                            "NetworkNeighborAL"=8, "PMID"=9,
                                            "Process"=10, "RCTM"=11, "SMART"=12, 
                                            "TISSUES"=13, "WikiPathways"=14),
-                               selected = 6)
+                               selected = 6),
+                   textInput(ns("p_valueStr"),label = h5("p-value"),
+                             value = "0.001"),
+                   
+                   downloadButton(ns("downloadData_String"), "Save My String Results"),
                    ),
       
       mainPanel(
@@ -39,9 +43,12 @@ mod_String_ui <- function(id){
           tabPanel("Enrichmnt", 
                    DT::DTOutput(ns("result_string_enrichr"))
           ),
-          tabPanel("Plot", 
-                   #plotOutput(ns("GO_plot"))
+          tabPanel("Binary Matrix", 
+                   DT::DTOutput(ns("matrixTableStr"))
           )
+          # tabPanel("Plot", 
+          #          plotOutput(ns("GO_plot"))
+          # )
         )
       )
       
@@ -123,12 +130,23 @@ mod_String_server <- function(id){
         genes_enrichr_strig <- enriched$WikiPathways
       }
       
+      mi_dataframe_modificado <- genes_enrichr_strig
+      mi_dataframe_modificado[] <- lapply(mi_dataframe_modificado, function(x) {
+        if (is.list(x)) {
+          sapply(x, function(y) paste(y, collapse = ","))
+        } else {
+          x
+        }
+      })
       
-      return(list(genes_enrichr_strig = genes_enrichr_strig))
+      genes_enrichr_strig2 <- mi_dataframe_modificado
+      genes_enrichr_strig1  <- genes_enrichr_strig2[genes_enrichr_strig2$p_value <as.numeric(input$p_valueStr)  , ]
+      
+      return(list(genes_enrichr_strig1 = genes_enrichr_strig1))
     })
     
     output$result_string_enrichr <- DT::renderDataTable({
-      df <- string_enrichr()$genes_enrichr_strig
+      df <- string_enrichr()$genes_enrichr_strig1
       
       if (is.null(df) || nrow(df) == 0) {
         df <- data.frame(Messege = "Data Unavailable")
@@ -138,9 +156,69 @@ mod_String_server <- function(id){
         }
       }
       
-      return(DT::datatable(df))
+      DT::datatable(df)
     })
     
+    #download_Result.String. 
+    output$downloadData_String <- downloadHandler(
+      filename = function() {
+        paste("Result_String", ".csv", sep = "")
+      },
+      content = function(file) {
+        write.csv(data.frame(string_enrichr()$genes_enrichr_strig1), file, row.names = FALSE)
+      }
+    )
+    
+    MatrixStr <- reactive({
+      df <- as.data.frame(string_enrichr()$genes_enrichr_strig1)
+      data <- df[,c(10, 6)]
+      colnames(data) <- c("Terms", "Genes")
+      genes <- unique(unlist(strsplit(data$Genes, ",")))
+      terms <- data$Term
+      
+      # Inicializar la matriz binaria
+      matrix <- matrix(0, nrow = length(genes), ncol = length(terms))
+      rownames(matrix) <- genes
+      colnames(matrix) <- terms
+      
+      # Llenar la matriz binaria
+      for (i in seq_len(nrow(data))) {
+        term <- data$Term[i]
+        gene_list <- unlist(strsplit(data$Genes[i], ","))
+        matrix[gene_list, term] <- 1
+      }
+      
+      # Convertir la matriz a un data frame para mejor visualización
+      matrix_df <- as.data.frame(matrix)
+      return(list(matrix_df = matrix_df))
+      
+    })
+    
+    
+    output$matrixTableStr <- DT::renderDT({
+      DT::datatable(MatrixStr()$matrix_df)
+    })
+    
+    
+    # output$GO_plot <- renderPlot({
+    #   req(filedata()$fileInput)
+    #   feature_name <- filedata()$fileInput[,1]
+    #   
+    #   proteins_mapped <- unlist(strsplit(feature_name, ","))
+    #   
+    #   graph <- rbioapi::rba_string_network_image(
+    #     ids = proteins_mapped,
+    #     image_format = "image",
+    #     species = 9606,
+    #     save_image = TRUE,
+    #     required_score = 500,
+    #     add_color_nodes = 5,
+    #     add_white_nodes = 5,
+    #     network_flavor = "actions"
+    #   )
+    #   
+    #   plot(graph)
+    # })
     
     
     
