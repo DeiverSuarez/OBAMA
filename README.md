@@ -83,7 +83,7 @@ run_app(data_path = system.file("extdata", "test_data.csv", package = "OBAMA"))
 ```
 
 Expected output includes:
-- Ranked gene list by optimization score
+- List of genes with the greatest expression changes.
 - Correlation-based gene network
 - Enrichment links (e.g., STRING)
 
