@@ -51,7 +51,24 @@ Once the app is running, upload your input files in `.csv` format containing gen
 
 ## 📁 Input Data Format
 
-Input files should be `.csv` or `.tsv` with genes as rows and samples as columns. A condition label column is required for differential expression comparisons.
+Input files must be in `.csv` or `.tsv` format, with the following structure:
+
+- Each **row represents a sample**.
+- Each **column represents a gene**, with gene expression values.
+- The **first two columns** must be:
+
+  1. `geo_accession`: unique sample identifier (e.g., GSM650656).  
+  2. `disease.stat`: associated biological condition, such as `control` or `disease`.
+
+The `disease.stat` column is **required** to perform differential expression comparisons between groups.
+
+### Example of file structure:
+
+| geo_accession | disease.stat | A1BG     | A1CF     | A2M      | ... |
+|---------------|--------------|----------|----------|----------|-----|
+| GSM650656     | disease      | 192.72   | 94.82    | 123.33   | ... |
+| GSM650657     | control      | 241.33   | 120.10   | 142.54   | ... |
+| GSM650658     | disease      | 213.99   | 130.45   | 159.91   | ... |
 
 Example dataset: [See `/data/` folder]
 
