@@ -5,15 +5,15 @@
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-## What is OBAMA?
+##🧬 What is OBAMA?
 
 **OBAMA** (*Optimization-Based Analysis of Micro Arrays*) is an R package that includes an interactive **Shiny application** designed to assist researchers in the analysis of **gene expression data**.
 
 This tool integrates **three complementary optimization-based methods** to support different stages of transcriptomic analysis:
 
-1. **MCO (Multi-Criteria Optimization):** Selects genes that show the most significant changes in expression across conditions, optimizing multiple biological and statistical criteria simultaneously.
+1. **MCO (Multi-Criteria Optimization):** Selects genes that show the most significant changes in expression across conditions, optimizing multiple criteria.
 2. **MST (Minimum Spanning Tree):** Constructs a network that highlights relationships between gene products based on maximum correlation, enabling the identification of interaction structures among deregulated genes.
-3. **OGF (Ontology-Guided Filtering):** Groups genes and biological terms (such as Gene Ontology: Biological Processes) into highly probable functional clusters, helping interpret the biological relevance of deregulated genes.
+3. **OGF (Ontology-Guided Filtering):** Groups genes and biological terms (such as Gene Ontology: Biological Processes) into highly probable functional groups, helping interpret the biological relevance of deregulated genes.
 
 Together, these methods allow for robust gene selection, structural analysis of gene-gene associations, and biological interpretation based on functional annotation.
 
@@ -23,7 +23,7 @@ OBAMA is particularly suitable for analyzing microarray or RNA-seq datasets from
 
 ## 📦 Installation
 
-Before installing OBAMA, you must manually install the archived version of the `optrees` package:
+Before installing OBAMA, please ensure that the archived version of the optrees package is installed manually, as it is required to properly run the MST (Minimum Spanning Tree) analysis:
 
 ```r
 # Step 1: Download and install 'optrees'
