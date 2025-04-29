@@ -5,7 +5,7 @@
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-##🧬 What is OBAMA?
+## 🧬 What is OBAMA?
 
 **OBAMA** (*Optimization-Based Analysis of Micro Arrays*) is an R package that includes an interactive **Shiny application** designed to assist researchers in the analysis of **gene expression data**.
 
