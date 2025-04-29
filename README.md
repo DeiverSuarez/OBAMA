@@ -58,9 +58,9 @@ Input files must be in `.csv` or `.tsv` format, with the following structure:
 - The **first two columns** must be:
 
   1. `geo_accession`: unique sample identifier (e.g., GSM650656).  
-  2. `disease.stat`: associated biological condition, such as `control` or `disease`.
+  2. `disease.state`: associated biological condition, such as `control` or `disease`.
 
-The `disease.stat` column is **required** to perform differential expression comparisons between groups.
+The `disease.state` column is **required** to perform differential expression comparisons between groups.
 
 ### Example of file structure:
 
