@@ -92,6 +92,7 @@ mod_MST_one_condition_server <- function(id){
       df <- as.data.frame(MST())
       df[,3] = 1 - as.numeric(as.character(df[,3]))
       names(df) <- c("Gene1", "Gene2", "Weight")
+      
       DT::datatable(df)
     })
     
@@ -103,7 +104,9 @@ mod_MST_one_condition_server <- function(id){
         
       },
       content = function(file) {
-        write.csv(MST(), file, row.names = FALSE)
+        df <- as.data.frame(MST())
+        df[,3] = 1 - as.numeric(as.character(df[,3]))
+        write.csv(df, file, row.names = FALSE)
       }
     )
     

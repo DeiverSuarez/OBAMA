@@ -2409,15 +2409,20 @@ mod_Individuals_server <- function(id){
                              ggplot2::aes(X,
                                           Y, 
                                           group = as.factor(etiq),
-                                          color=as.factor(etiq))) +
-          ggplot2::geom_point() +
+                                          color = as.factor(etiq))) +
+          ggplot2::geom_point(size = 3) +  # Tamaño de los puntos ajustado
           ggplot2::labs(x = "PM1:Median", y = "PM2:Mean") +
-          ggplot2::geom_line(ggplot2::aes(linetype=as.factor(etiq)),
-                             show.legend = FALSE ) +
+          ggplot2::geom_line(ggplot2::aes(linetype = as.factor(etiq)),
+                             show.legend = FALSE) +
           ggplot2::theme(legend.position = "none") + 
-          ggplot2::guides(fill=FALSE, color=FALSE) +
-          ggplot2::theme_bw()
+          ggplot2::guides(fill = FALSE, color = FALSE) +
+          ggplot2::theme_bw() +
+          ggplot2::theme(
+            axis.text.x = ggplot2::element_text(size = 14, face = "bold"),
+            axis.text.y = ggplot2::element_text(size = 14, face = "bold")
+          )
         return(p)
+        
       }
       
     })

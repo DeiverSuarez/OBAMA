@@ -31,10 +31,6 @@ PMs_M <- function(data=NULL, measurePM_m = 3, q = 75, n_control, n_enfermedad){
   ###
   measures <- Trans_df_abs_median
   return(as.vector(measures))
-  
-  
-  
-
 }
 
 
