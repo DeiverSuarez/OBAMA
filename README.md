@@ -70,24 +70,106 @@ The `disease.state` column is **required** to perform differential expression co
 | GSM650657     | control      | 241.33   | 120.10   | 142.54   | ... |
 | GSM650658     | disease      | 213.99   | 130.45   | 159.91   | ... |
 
-Example dataset: [See `/data/` folder]
+ **Examples datasets: [See `OBAMA/data-raw/` folder]**
 
 ---
 
-## 📊 Example Use Case
+## 📊 Example Use Case: How to Run MCO (Multi-Criteria Optimization)
 
+The MCO module helps identify genes with significant expression changes across conditions by optimizing multiple performance criteria. You can access this feature directly from the OBAMA Shiny interface.
+
+
+## 📖 Steps to Run MCO:
+  1. **Launch the Application:**
+  
 ```r
-# Example: Load test dataset and launch app
 library(OBAMA)
-run_app(data_path = system.file("extdata", "test_data.csv", package = "OBAMA"))
+run_app()
 ```
 
-Expected output includes:
-- List of genes with the greatest expression changes.
-- Correlation-based gene network
-- Enrichment links (e.g., STRING)
+### 2️⃣ Navigate to the MCO Section
+
+Use the top navigation menu to access the **MCO** functionality.
 
 ---
+
+### 3️⃣ Configure Analysis Parameters
+
+- **Number of Performance Metrics:**
+  - Select **Two** or **Three** metrics depending on your analysis.
+  - Choose the desired performance metrics for each (e.g., *Median*, *Mean*).
+
+- **Number of Datasets:**
+  - Indicate whether you are analyzing **one** or **multiple datasets**.
+
+- **Number of Frontiers:**
+  - Define the number of **Pareto frontiers** to explore (default: **10**).
+
+---
+
+### 📂 Upload Your Data
+
+- Click **Browse** under **Gene Expression Dataset Example: GSE35974_SCZ.csv**.
+- Upload a `.csv` file following the required input format.
+
+---
+
+### ▶️ Run the Analysis
+
+- Click the **Run** button to start the MCO analysis.
+
+---
+
+### 📊 Explore Results
+
+Navigate through the following tabs:
+
+- **SummaryData**: Review summary statistics.
+- **Frontiers**: Examine gene sets identified at different optimization frontiers.
+- **Frontiers-plot**: Visualize the Pareto frontiers interactively.
+- **Visualization**: Explore graphical representations of selected genes.
+
+---
+
+### 💾 Export Results
+
+- Click **Save My Results** To download the gene set with the highest expression changes for further analysis.
+
+---
+
+## 🌐 Example Use Case: MST (Minimum Spanning Tree)
+
+The MST module identifies key correlation structures among a set of deregulated genes, constructing a **minimum spanning tree** that reveals highly connected nodes (genes) within the expression network.
+
+This is especially useful to detect possible regulatory hubs or functionally linked genes based on similarity in expression profiles.
+
+### 📖 Steps to Run MST:
+
+1. **Launch the OBAMA App:**
+```r
+library(OBAMA)
+run_app()
+```
+
+1. **Navigate to the MST Section:**  
+   - Use the top menu bar and click on **MST**.
+
+2. **Upload Required Data:**  
+   - **Gene Expression Data:** Upload a `.csv` file containing gene expression values (Example: GSE35974_SCZ.csv).  
+   - **Genes of Interest:** Upload a list of genes to be included in the network. This file must contain a single column with gene names (e.g., Gene_of_interest_GSE35974_SCZ.csv).
+
+3. **Run the Analysis:**  
+   - Click the **Run** button to compute the correlation matrix and generate the MST.
+
+4. **Explore Results:**  
+   Navigate through the available tabs:
+   - **SummaryData:** Overview of input data and correlation statistics.
+   - **MST table:** Displays the edges (connections) in the MST with corresponding correlation values.
+   - **MST diagram:** An interactive network visualization showing the structure of gene-gene relationships.
+
+5. **Export Results:**  
+   - Click **Save My MST Results** to download the MST output for further exploration or visualization in external tools.
+
 
 ## 📚 License
 
